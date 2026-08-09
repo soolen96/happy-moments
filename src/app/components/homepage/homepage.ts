@@ -74,7 +74,7 @@ export class Homepage implements OnInit, OnDestroy {
       price: 8500,
       description: 'Gomitas 100% artesanales con pulpa natural de mora, fresa y arándanos, sin conservantes artificiales.',
       badge: 'Receta Secreta 🫐',
-      image: 'https://images.unsplash.com/photo-1582058091505-f87aede55a60?auto=format&fit=crop&w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1665757516805-ead01c014ceb?auto=format&fit=crop&w=800&q=80',
       isPopular: true,
       rating: 4.8,
       weight: '150g'
