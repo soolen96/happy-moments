@@ -4,26 +4,37 @@
   --font-heading: 'Fredoka', cursive, sans-serif;
   --font-body: 'Plus Jakarta Sans', sans-serif;
 
-  /* Artisanal Food Palette */
-  --bg-dark: #140d0a;
-  --bg-card: rgba(43, 27, 23, 0.45);
-  --bg-card-hover: rgba(65, 42, 36, 0.65);
-  --bg-glass: rgba(255, 251, 235, 0.04);
+  /* Colors extracted from Logo */
+  --bg-dark: #fcf1ed; /* Soft warm blush cream from logo background */
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --bg-card-hover: #ffffff;
+  --bg-glass: rgba(255, 255, 255, 0.7);
   
-  --border-glass: rgba(255, 251, 235, 0.12);
-  --border-glass-hover: rgba(245, 158, 11, 0.35);
+  --border-glass: rgba(90, 24, 70, 0.12);
+  --border-glass-hover: rgba(82, 183, 55, 0.4);
 
-  --primary-gradient: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #fbbf24 100%);
-  --accent-chocolate: linear-gradient(135deg, #451a03 0%, #78350f 100%);
-  --accent-berry: linear-gradient(135deg, #be123c 0%, #fb7185 100%);
+  /* Logo Palette Gradients */
+  --color-green: #52b737;
+  --color-green-dark: #3e9427;
+  --color-magenta: #e83b87;
+  --color-plum: #5a1846;
+  --color-plum-dark: #370a2a;
+  --color-yellow: #f5b729;
 
-  --text-primary: #fffbeb;
-  --text-secondary: #d1c7bd;
-  --text-muted: #a39587;
-  --accent-gold: #fbbf24;
+  --primary-gradient: linear-gradient(135deg, #52b737 0%, #3e9427 100%);
+  --magenta-gradient: linear-gradient(135deg, #e83b87 0%, #c4206b 100%);
+  --plum-gradient: linear-gradient(135deg, #5a1846 0%, #370a2a 100%);
+  --yellow-gradient: linear-gradient(135deg, #f5b729 0%, #d99b14 100%);
 
-  --shadow-glow: 0 10px 35px -8px rgba(245, 158, 11, 0.35);
-  --shadow-card: 0 20px 40px rgba(0, 0, 0, 0.5);
+  --text-primary: #370a2a;
+  --text-secondary: #6e465f;
+  --text-muted: #967389;
+  --text-light: #ffffff;
+  --accent-gold: #e83b87;
+
+  --shadow-glow: 0 10px 30px -8px rgba(82, 183, 55, 0.4);
+  --shadow-magenta: 0 10px 30px -8px rgba(232, 59, 135, 0.4);
+  --shadow-card: 0 15px 35px rgba(90, 24, 70, 0.08);
 
   --radius-sm: 10px;
   --radius-md: 18px;
@@ -48,19 +59,20 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
+  color: var(--color-plum);
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 9px;
 }
 ::-webkit-scrollbar-track {
   background: var(--bg-dark);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(245, 158, 11, 0.25);
+  background: rgba(82, 183, 55, 0.4);
   border-radius: var(--radius-full);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(245, 158, 11, 0.5);
+  background: var(--color-green);
 }

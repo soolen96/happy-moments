@@ -1,8 +1,8 @@
 <div class="page-wrapper">
-  <!-- Glowing Background Orbs -->
-  <div class="bg-orb orb-1"></div>
-  <div class="bg-orb orb-2"></div>
-  <div class="bg-orb orb-3"></div>
+  <!-- Glowing Background Orbs in Logo Colors -->
+  <div class="bg-orb orb-green"></div>
+  <div class="bg-orb orb-magenta"></div>
+  <div class="bg-orb orb-plum"></div>
 
   <!-- Header Navigation -->
   <header class="main-header">
@@ -13,10 +13,10 @@
       </button>
       
       <a href="#" class="logo-brand">
-        <span class="logo-emoji">✨🍫</span>
+        <span class="logo-emoji">🍬✨</span>
         <div class="logo-titles">
           <span class="brand-name">Happy<span class="highlight">Moments</span></span>
-          <span class="brand-sub">Comida Artesanal</span>
+          <span class="brand-sub">EDIBLES ANCESTRALES</span>
         </div>
       </a>
     </div>
@@ -36,7 +36,7 @@
     </div>
   </header>
 
-  <!-- Mobile / Slide-Out Navigation Drawer -->
+  <!-- Mobile Navigation Drawer -->
   <div class="menu-overlay" *ngIf="isMenuOpen()" (click)="closeMenu()">
     <aside class="menu-drawer" (click)="$event.stopPropagation()">
       <div class="drawer-header">
@@ -46,14 +46,15 @@
 
       <nav class="drawer-nav">
         <a href="#populares" (click)="closeMenu()" class="drawer-link">🔥 Lo Más Popular</a>
-        <a href="#catalogo" (click)="closeMenu()" class="drawer-link">🍫 Brownies & Gomitas</a>
+        <a href="#catalogo" (click)="closeMenu()" class="drawer-link">🍬 Gomitas Ancestrales</a>
+        <a href="#catalogo" (click)="closeMenu()" class="drawer-link">🍫 Brownies & Repostería</a>
         <a href="#catalogo" (click)="closeMenu()" class="drawer-link">🍪 Galletas Artesanales</a>
-        <a href="#nosotros" (click)="closeMenu()" class="drawer-link">❤️ Sobre Nosotros</a>
+        <a href="#nosotros" (click)="closeMenu()" class="drawer-link">🌿 Sobre Nosotros</a>
         <a href="#contacto" (click)="closeMenu()" class="drawer-link">📞 Contacto & Pedidos</a>
       </nav>
 
       <div class="drawer-footer">
-        <p class="drawer-info">🍰 Preparado con ingredientes 100% naturales y amor artesanal.</p>
+        <p class="drawer-info">🌿 Edibles de receta ancestral elaborados con amor e ingredientes naturales.</p>
         <div class="drawer-socials">
           <span>📲 WhatsApp: +57 300 123 4567</span>
         </div>
@@ -64,11 +65,11 @@
   <!-- Hero & Popular Products Carousel -->
   <section class="hero-carousel-section" id="populares">
     <div class="section-badge">
-      <span>🔥 REPOSTERÍA & DULCES ARTESANALES</span>
+      <span>🌿 EDIBLES ANCESTRALES & COMIDA ARTESANAL</span>
     </div>
     <h1 class="hero-heading">
-      Momentos Dulces e Inolvidables <br />
-      <span class="gradient-title">Hechos a Mano para Ti</span>
+      Descubre la magia de nuestros <br />
+      <span class="gradient-title">Edibles Ancestrales</span>
     </h1>
 
     <!-- Carousel Container -->
@@ -123,8 +124,8 @@
   <!-- Product Catalog & Search Section -->
   <section class="catalog-section" id="catalogo">
     <div class="catalog-header">
-      <h2 class="section-title">Nuestro Catálogo Artesanal</h2>
-      <p class="section-subtitle">Elige entre nuestras categorías favoritas de brownies, gomitas y galletas recién horneadas.</p>
+      <h2 class="section-title">Nuestro Catálogo Ancestral</h2>
+      <p class="section-subtitle">Gomitas artesanales, brownies e infusiones horneadas con técnicas tradicionales.</p>
     </div>
 
     <!-- Controls Bar -->
@@ -133,7 +134,7 @@
         <span class="search-icon">🔍</span>
         <input
           type="text"
-          placeholder="Buscar brownies, gomitas, galletas..."
+          placeholder="Buscar gomitas, brownies, galletas..."
           [value]="searchQuery()"
           (input)="searchQuery.set($any($event.target).value)"
           id="product-search-input"
@@ -182,7 +183,7 @@
 
     <ng-template #noProducts>
       <div class="empty-catalog">
-        <span class="empty-emoji">🍩</span>
+        <span class="empty-emoji">🍬</span>
         <h3>No se encontraron productos</h3>
         <p>Intenta con otra búsqueda o selecciona una categoría diferente.</p>
       </div>
@@ -193,24 +194,24 @@
   <section class="about-section" id="nosotros">
     <div class="about-card">
       <div class="about-text">
-        <span class="about-badge">❤️ HECHO CON AMOR</span>
+        <span class="about-badge">🌿 EDIBLES ANCESTRALES</span>
         <h2>¿Por qué elegir Happy Moments?</h2>
         <p>
-          En <strong>Happy Moments</strong> creemos que cada mordisco debe ser una experiencia mágica. Seleccionamos mantecas, cacaos finos de aroma y jugos de fruta natural para elaborar postres y golosinas sin procesos industriales.
+          En <strong>Happy Moments</strong> rescatamos el arte de los <em>edibles ancestrales</em>. Elaboramos nuestras gomitas y reposteria con extractos puros y pulpas naturales de fruta, sin aditivos sintéticos.
         </p>
         <ul class="about-features">
-          <li>✨ Recetas 100% artesanales y horneado diario</li>
-          <li>🌱 Ingredientes frescos y seleccionados</li>
-          <li>📦 Envíos seguros directamente a tu puerta</li>
+          <li>💚 Ingredientes botánicos 100% naturales</li>
+          <li>✨ Recetas ancestrales artesanales y horneado diario</li>
+          <li>📦 Envíos discretos y seguros a todo el país</li>
         </ul>
       </div>
       <div class="about-image-box">
-        <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=80" alt="Cocina artesanal" />
+        <img src="https://images.unsplash.com/photo-1582058091505-f87aede55a60?auto=format&fit=crop&w=800&q=80" alt="Edibles artesanales" />
       </div>
     </div>
   </section>
 
-  <!-- Slide-over Shopping Cart Modal -->
+  <!-- Shopping Cart Modal -->
   <div class="cart-overlay" *ngIf="isCartOpen()" (click)="toggleCart()">
     <aside class="cart-drawer" (click)="$event.stopPropagation()">
       <div class="cart-drawer-header">
@@ -260,11 +261,11 @@
       <!-- Brand Info -->
       <div class="footer-col brand-col">
         <div class="footer-logo">
-          <span class="logo-emoji">✨🍫</span>
+          <span class="logo-emoji">🍬✨</span>
           <span class="brand-name">Happy<span class="highlight">Moments</span></span>
         </div>
         <p class="footer-desc">
-          Comida artesanal horneada con pasión. Brownies, gomitas y galletas creados para endulzar tus días y acompañar tus mejores momentos.
+          Edibles Ancestrales & Comida Artesanal. Gomitas, brownies y galletas creados para elevar tus mejores momentos con sabor y bienestar natural.
         </p>
         <div class="social-links">
           <a href="#" class="social-icon" title="Instagram">📷 Instagram</a>
@@ -273,18 +274,18 @@
         </div>
       </div>
 
-      <!-- Quick Navigation Links -->
+      <!-- Quick Links -->
       <div class="footer-col">
         <h3 class="footer-title">Nuestros Productos</h3>
         <ul class="footer-links">
+          <li><a href="#populares">Gomitas Ancestrales de Fruta</a></li>
           <li><a href="#populares">Brownies Fudge & Blondies</a></li>
-          <li><a href="#populares">Gomitas de Fruta Natural</a></li>
-          <li><a href="#populares">Galletas Horneadas</a></li>
-          <li><a href="#populares">Combos y Cajas Regalo</a></li>
+          <li><a href="#populares">Galletas de Chispas de Chocolate</a></li>
+          <li><a href="#populares">Combos "Momento Dulce"</a></li>
         </ul>
       </div>
 
-      <!-- Contact Info Column -->
+      <!-- Contact Info -->
       <div class="footer-col contact-col">
         <h3 class="footer-title">Información de Contacto</h3>
         <ul class="contact-info-list">
@@ -309,7 +310,7 @@
     </div>
 
     <div class="footer-bottom">
-      <p>© 2026 Happy Moments - Comida Artesanal. Todos los derechos reservados.</p>
+      <p>© 2026 Happy Moments - Edibles Ancestrales. Todos los derechos reservados.</p>
     </div>
   </footer>
 </div>
