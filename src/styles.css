@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --font-heading: 'Fredoka', cursive, sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+
+  /* Colors extracted from Logo */
+  --bg-dark: #fcf1ed; /* Soft warm blush cream from logo background */
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --bg-card-hover: #ffffff;
+  --bg-glass: rgba(255, 255, 255, 0.7);
+  
+  --border-glass: rgba(90, 24, 70, 0.12);
+  --border-glass-hover: rgba(82, 183, 55, 0.4);
+
+  /* Logo Palette Gradients */
+  --color-green: #52b737;
+  --color-green-dark: #3e9427;
+  --color-magenta: #e83b87;
+  --color-plum: #5a1846;
+  --color-plum-dark: #370a2a;
+  --color-yellow: #f5b729;
+
+  --primary-gradient: linear-gradient(135deg, #52b737 0%, #3e9427 100%);
+  --magenta-gradient: linear-gradient(135deg, #e83b87 0%, #c4206b 100%);
+  --plum-gradient: linear-gradient(135deg, #5a1846 0%, #370a2a 100%);
+  --yellow-gradient: linear-gradient(135deg, #f5b729 0%, #d99b14 100%);
+
+  --text-primary: #370a2a;
+  --text-secondary: #6e465f;
+  --text-muted: #967389;
+  --text-light: #ffffff;
+  --accent-gold: #e83b87;
+
+  --shadow-glow: 0 10px 30px -8px rgba(82, 183, 55, 0.4);
+  --shadow-magenta: 0 10px 30px -8px rgba(232, 59, 135, 0.4);
+  --shadow-card: 0 15px 35px rgba(90, 24, 70, 0.08);
+
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --radius-full: 9999px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--color-plum);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(82, 183, 55, 0.4);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-green);
+}

@@ -1,0 +1,316 @@
+<div class="page-wrapper">
+  <!-- Glowing Background Orbs in Logo Colors -->
+  <div class="bg-orb orb-green"></div>
+  <div class="bg-orb orb-magenta"></div>
+  <div class="bg-orb orb-plum"></div>
+
+  <!-- Header Navigation -->
+  <header class="main-header">
+    <div class="header-left">
+      <button class="menu-toggle-btn" (click)="toggleMenu()" id="btn-menu" aria-label="Abrir menú de navegación">
+        <span class="hamburger-icon">☰</span>
+        <span class="menu-text">Menú</span>
+      </button>
+      
+      <a href="#" class="logo-brand">
+        <span class="logo-emoji">🍬✨</span>
+        <div class="logo-titles">
+          <span class="brand-name">Happy<span class="highlight">Moments</span></span>
+          <span class="brand-sub">EDIBLES ANCESTRALES</span>
+        </div>
+      </a>
+    </div>
+
+    <nav class="header-nav-desktop">
+      <a href="#populares" class="nav-link">Lo Más Popular</a>
+      <a href="#catalogo" class="nav-link">Catálogo</a>
+      <a href="#contacto" class="nav-link">Contacto</a>
+    </nav>
+
+    <div class="header-right">
+      <button class="cart-btn" (click)="toggleCart()" id="btn-cart" aria-label="Ver Carrito de Compras">
+        <span class="cart-icon">🛒</span>
+        <span class="cart-text">Carrito</span>
+        <span class="cart-badge" *ngIf="cartTotalCount() > 0">{{ cartTotalCount() }}</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="menu-overlay" *ngIf="isMenuOpen()" (click)="closeMenu()">
+    <aside class="menu-drawer" (click)="$event.stopPropagation()">
+      <div class="drawer-header">
+        <h2>✨ Menú Principal</h2>
+        <button class="close-btn" (click)="closeMenu()">&times;</button>
+      </div>
+
+      <nav class="drawer-nav">
+        <a href="#populares" (click)="closeMenu()" class="drawer-link">🔥 Lo Más Popular</a>
+        <a href="#catalogo" (click)="closeMenu()" class="drawer-link">🍬 Gomitas Ancestrales</a>
+        <a href="#catalogo" (click)="closeMenu()" class="drawer-link">🍫 Brownies & Repostería</a>
+        <a href="#catalogo" (click)="closeMenu()" class="drawer-link">🍪 Galletas Artesanales</a>
+        <a href="#nosotros" (click)="closeMenu()" class="drawer-link">🌿 Sobre Nosotros</a>
+        <a href="#contacto" (click)="closeMenu()" class="drawer-link">📞 Contacto & Pedidos</a>
+      </nav>
+
+      <div class="drawer-footer">
+        <p class="drawer-info">🌿 Edibles de receta ancestral elaborados con amor e ingredientes naturales.</p>
+        <div class="drawer-socials">
+          <span>📲 WhatsApp: +57 300 123 4567</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Hero & Popular Products Carousel -->
+  <section class="hero-carousel-section" id="populares">
+    <div class="section-badge">
+      <span>🌿 EDIBLES ANCESTRALES & COMIDA ARTESANAL</span>
+    </div>
+    <h1 class="hero-heading">
+      Descubre la magia de nuestros <br />
+      <span class="gradient-title">Edibles Ancestrales</span>
+    </h1>
+
+    <!-- Carousel Container -->
+    <div class="carousel-container" *ngIf="popularProducts().length > 0">
+      <button class="carousel-arrow prev" (click)="prevSlide()" aria-label="Producto anterior">❮</button>
+      
+      <div class="carousel-track-wrapper">
+        <div class="carousel-slide" *ngFor="let item of popularProducts(); let i = index" [class.active]="i === carouselIndex()">
+          <div class="slide-content" *ngIf="i === carouselIndex()">
+            <div class="slide-image-box">
+              <img [src]="item.image" [alt]="item.name" loading="eager" />
+              <span class="slide-badge">{{ item.badge }}</span>
+            </div>
+
+            <div class="slide-info-box">
+              <div class="slide-header">
+                <span class="slide-category">{{ item.category }} • {{ item.weight }}</span>
+                <div class="slide-rating">⭐ {{ item.rating }}</div>
+              </div>
+              <h2 class="slide-title">{{ item.name }}</h2>
+              <p class="slide-description">{{ item.description }}</p>
+              
+              <div class="slide-action-row">
+                <div class="slide-price-tag">
+                  <span class="price-label">Precio:</span>
+                  <span class="price-value">{{ formatCOP(item.price) }}</span>
+                </div>
+                <button class="btn-primary-add" (click)="addToCart(item)">
+                  <span>🛒 Agregar al Carrito</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="carousel-arrow next" (click)="nextSlide()" aria-label="Producto siguiente">❯</button>
+
+      <!-- Indicators -->
+      <div class="carousel-indicators">
+        <button
+          *ngFor="let item of popularProducts(); let i = index"
+          class="indicator-dot"
+          [class.active]="i === carouselIndex()"
+          (click)="setSlide(i)"
+          [attr.aria-label]="'Ir a ' + item.name"
+        ></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Catalog & Search Section -->
+  <section class="catalog-section" id="catalogo">
+    <div class="catalog-header">
+      <h2 class="section-title">Nuestro Catálogo Ancestral</h2>
+      <p class="section-subtitle">Gomitas artesanales, brownies e infusiones horneadas con técnicas tradicionales.</p>
+    </div>
+
+    <!-- Controls Bar -->
+    <div class="controls-bar">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          placeholder="Buscar gomitas, brownies, galletas..."
+          [value]="searchQuery()"
+          (input)="searchQuery.set($any($event.target).value)"
+          id="product-search-input"
+        />
+      </div>
+
+      <div class="category-pills">
+        <button
+          *ngFor="let cat of categories"
+          class="cat-pill"
+          [class.active]="selectedCategory() === cat"
+          (click)="selectCategory(cat)"
+        >
+          {{ cat }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="products-grid" *ngIf="filteredProducts().length > 0; else noProducts">
+      <div class="product-card" *ngFor="let product of filteredProducts()">
+        <div class="card-img-container">
+          <img [src]="product.image" [alt]="product.name" loading="lazy" />
+          <span class="card-tag" *ngIf="product.badge">{{ product.badge }}</span>
+          <span class="weight-tag" *ngIf="product.weight">{{ product.weight }}</span>
+        </div>
+
+        <div class="card-body">
+          <div class="card-top-meta">
+            <span class="card-category">{{ product.category }}</span>
+            <span class="card-rating">⭐ {{ product.rating }}</span>
+          </div>
+
+          <h3 class="card-title">{{ product.name }}</h3>
+          <p class="card-desc">{{ product.description }}</p>
+
+          <div class="card-price-action">
+            <span class="product-price">{{ formatCOP(product.price) }}</span>
+            <button class="add-cart-btn" (click)="addToCart(product)">
+              <span>+ Añadir</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noProducts>
+      <div class="empty-catalog">
+        <span class="empty-emoji">🍬</span>
+        <h3>No se encontraron productos</h3>
+        <p>Intenta con otra búsqueda o selecciona una categoría diferente.</p>
+      </div>
+    </ng-template>
+  </section>
+
+  <!-- About Section -->
+  <section class="about-section" id="nosotros">
+    <div class="about-card">
+      <div class="about-text">
+        <span class="about-badge">🌿 EDIBLES ANCESTRALES</span>
+        <h2>¿Por qué elegir Happy Moments?</h2>
+        <p>
+          En <strong>Happy Moments</strong> rescatamos el arte de los <em>edibles ancestrales</em>. Elaboramos nuestras gomitas y reposteria con extractos puros y pulpas naturales de fruta, sin aditivos sintéticos.
+        </p>
+        <ul class="about-features">
+          <li>💚 Ingredientes botánicos 100% naturales</li>
+          <li>✨ Recetas ancestrales artesanales y horneado diario</li>
+          <li>📦 Envíos discretos y seguros a todo el país</li>
+        </ul>
+      </div>
+      <div class="about-image-box">
+        <img src="https://images.unsplash.com/photo-1582058091505-f87aede55a60?auto=format&fit=crop&w=800&q=80" alt="Edibles artesanales" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Shopping Cart Modal -->
+  <div class="cart-overlay" *ngIf="isCartOpen()" (click)="toggleCart()">
+    <aside class="cart-drawer" (click)="$event.stopPropagation()">
+      <div class="cart-drawer-header">
+        <h2>🛍️ Tu Carrito ({{ cartTotalCount() }})</h2>
+        <button class="close-btn" (click)="toggleCart()">&times;</button>
+      </div>
+
+      <div class="cart-drawer-body" *ngIf="cart().length > 0; else emptyCart">
+        <div class="cart-item" *ngFor="let item of cart()">
+          <img [src]="item.product.image" [alt]="item.product.name" class="cart-item-img" />
+          <div class="cart-item-info">
+            <h4 class="cart-item-title">{{ item.product.name }}</h4>
+            <span class="cart-item-price">{{ formatCOP(item.product.price) }}</span>
+            <div class="qty-controls">
+              <button class="qty-btn" (click)="updateQuantity(item.product.id, -1)">-</button>
+              <span class="qty-val">{{ item.quantity }}</span>
+              <button class="qty-btn" (click)="updateQuantity(item.product.id, 1)">+</button>
+            </div>
+          </div>
+          <button class="remove-item-btn" (click)="removeFromCart(item.product.id)" title="Eliminar">🗑️</button>
+        </div>
+      </div>
+
+      <ng-template #emptyCart>
+        <div class="empty-cart-state">
+          <span class="empty-cart-icon">🛒</span>
+          <p>Tu carrito está vacío.</p>
+          <button class="btn-secondary-action" (click)="toggleCart()">Explorar Productos</button>
+        </div>
+      </ng-template>
+
+      <div class="cart-drawer-footer" *ngIf="cart().length > 0">
+        <div class="cart-summary-row">
+          <span>Total a pagar:</span>
+          <span class="total-amount">{{ formatCOP(cartTotalPrice()) }}</span>
+        </div>
+        <button class="checkout-btn">
+          <span>📲 Realizar Pedido por WhatsApp</span>
+        </button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Footer with Contact Info -->
+  <footer class="main-footer" id="contacto">
+    <div class="footer-top">
+      <!-- Brand Info -->
+      <div class="footer-col brand-col">
+        <div class="footer-logo">
+          <span class="logo-emoji">🍬✨</span>
+          <span class="brand-name">Happy<span class="highlight">Moments</span></span>
+        </div>
+        <p class="footer-desc">
+          Edibles Ancestrales & Comida Artesanal. Gomitas, brownies y galletas creados para elevar tus mejores momentos con sabor y bienestar natural.
+        </p>
+        <div class="social-links">
+          <a href="#" class="social-icon" title="Instagram">📷 Instagram</a>
+          <a href="#" class="social-icon" title="Facebook">📘 Facebook</a>
+          <a href="#" class="social-icon" title="WhatsApp">💬 WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="footer-col">
+        <h3 class="footer-title">Nuestros Productos</h3>
+        <ul class="footer-links">
+          <li><a href="#populares">Gomitas Ancestrales de Fruta</a></li>
+          <li><a href="#populares">Brownies Fudge & Blondies</a></li>
+          <li><a href="#populares">Galletas de Chispas de Chocolate</a></li>
+          <li><a href="#populares">Combos "Momento Dulce"</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="footer-col contact-col">
+        <h3 class="footer-title">Información de Contacto</h3>
+        <ul class="contact-info-list">
+          <li>
+            <span class="contact-icon">📍</span>
+            <span>Calle de los Sabores #12-34, Medellín - Colombia</span>
+          </li>
+          <li>
+            <span class="contact-icon">📞</span>
+            <span>+57 300 123 4567 / +57 (604) 444 8899</span>
+          </li>
+          <li>
+            <span class="contact-icon">✉️</span>
+            <span>contacto&#64;happymoments.com</span>
+          </li>
+          <li>
+            <span class="contact-icon">⏰</span>
+            <span>Lunes a Sábado: 8:00 AM - 7:00 PM</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Happy Moments - Edibles Ancestrales. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</div>
