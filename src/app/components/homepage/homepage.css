@@ -977,22 +977,28 @@
   background: var(--color-plum-dark);
   color: #ffffff;
   border-top: 3px solid var(--color-green);
-  padding: 4rem 0 2rem 0;
-  margin-top: 4rem;
+  padding: 2rem 0 1rem 0;
+  margin-top: 2rem;
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 
 .footer-top {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr 1.4fr;
+  display: flex;
+  justify-content: center;
   gap: 3rem;
-  padding: 0 3rem 3rem 3rem;
+  padding: 0 2rem 2rem 2rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.footer-col {
+  flex: 1;
 }
 
 .brand-col .footer-logo {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   font-size: 1.5rem;
   font-weight: 700;
@@ -1009,6 +1015,7 @@
 
 .social-links {
   display: flex;
+  justify-content: center;
   gap: 1rem;
 }
 
@@ -1054,7 +1061,8 @@
 
 .contact-info-list li {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
   gap: 0.6rem;
 }
 
@@ -1082,8 +1090,8 @@
     grid-template-columns: 1fr;
   }
   .footer-top {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+    flex-direction: column;
+    gap: 3rem;
     padding: 0 1.5rem 2rem 1.5rem;
   }
   .header-nav-desktop {

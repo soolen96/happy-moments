@@ -11,7 +11,7 @@
         <span class="hamburger-icon">☰</span>
         <span class="menu-text">Menú</span>
       </button>
-      
+
       <a href="#" class="logo-brand">
         <span class="logo-emoji">🍬✨</span>
         <div class="logo-titles">
@@ -75,9 +75,10 @@
     <!-- Carousel Container -->
     <div class="carousel-container" *ngIf="popularProducts().length > 0">
       <button class="carousel-arrow prev" (click)="prevSlide()" aria-label="Producto anterior">❮</button>
-      
+
       <div class="carousel-track-wrapper">
-        <div class="carousel-slide" *ngFor="let item of popularProducts(); let i = index" [class.active]="i === carouselIndex()">
+        <div class="carousel-slide" *ngFor="let item of popularProducts(); let i = index"
+          [class.active]="i === carouselIndex()">
           <div class="slide-content" *ngIf="i === carouselIndex()">
             <div class="slide-image-box">
               <img [src]="item.image" [alt]="item.name" loading="eager" />
@@ -91,7 +92,7 @@
               </div>
               <h2 class="slide-title">{{ item.name }}</h2>
               <p class="slide-description">{{ item.description }}</p>
-              
+
               <div class="slide-action-row">
                 <div class="slide-price-tag">
                   <span class="price-label">Precio:</span>
@@ -110,13 +111,8 @@
 
       <!-- Indicators -->
       <div class="carousel-indicators">
-        <button
-          *ngFor="let item of popularProducts(); let i = index"
-          class="indicator-dot"
-          [class.active]="i === carouselIndex()"
-          (click)="setSlide(i)"
-          [attr.aria-label]="'Ir a ' + item.name"
-        ></button>
+        <button *ngFor="let item of popularProducts(); let i = index" class="indicator-dot"
+          [class.active]="i === carouselIndex()" (click)="setSlide(i)" [attr.aria-label]="'Ir a ' + item.name"></button>
       </div>
     </div>
   </section>
@@ -132,22 +128,13 @@
     <div class="controls-bar">
       <div class="search-box">
         <span class="search-icon">🔍</span>
-        <input
-          type="text"
-          placeholder="Buscar gomitas, brownies, galletas..."
-          [value]="searchQuery()"
-          (input)="searchQuery.set($any($event.target).value)"
-          id="product-search-input"
-        />
+        <input type="text" placeholder="Buscar gomitas, brownies, galletas..." [value]="searchQuery()"
+          (input)="searchQuery.set($any($event.target).value)" id="product-search-input" />
       </div>
 
       <div class="category-pills">
-        <button
-          *ngFor="let cat of categories"
-          class="cat-pill"
-          [class.active]="selectedCategory() === cat"
-          (click)="selectCategory(cat)"
-        >
+        <button *ngFor="let cat of categories" class="cat-pill" [class.active]="selectedCategory() === cat"
+          (click)="selectCategory(cat)">
           {{ cat }}
         </button>
       </div>
@@ -197,7 +184,8 @@
         <span class="about-badge">🌿 EDIBLES ANCESTRALES</span>
         <h2>¿Por qué elegir Happy Moments?</h2>
         <p>
-          En <strong>Happy Moments</strong> rescatamos el arte de los <em>edibles ancestrales</em>. Elaboramos nuestras gomitas y reposteria con extractos puros y pulpas naturales de fruta, sin aditivos sintéticos.
+          En <strong>Happy Moments</strong> rescatamos el arte de los <em>edibles ancestrales</em>. Elaboramos nuestras
+          gomitas y reposteria con extractos puros y pulpas naturales de fruta, sin aditivos sintéticos.
         </p>
         <ul class="about-features">
           <li>💚 Ingredientes botánicos 100% naturales</li>
@@ -206,7 +194,8 @@
         </ul>
       </div>
       <div class="about-image-box">
-        <img src="https://images.unsplash.com/photo-1582058091505-f87aede55a60?auto=format&fit=crop&w=800&q=80" alt="Edibles artesanales" />
+        <img src="https://images.unsplash.com/photo-1582058091505-f87aede55a60?auto=format&fit=crop&w=800&q=80"
+          alt="Edibles artesanales" />
       </div>
     </div>
   </section>
@@ -265,16 +254,20 @@
           <span class="brand-name">Happy<span class="highlight">Moments</span></span>
         </div>
         <p class="footer-desc">
-          Edibles Ancestrales & Comida Artesanal. Gomitas, brownies y galletas creados para elevar tus mejores momentos con sabor y bienestar natural.
+          {{footerDescription()}}
         </p>
         <div class="social-links" *ngIf="contactInfo() as info; else defaultSocial">
-          <a [href]="'https://instagram.com/' + info.instagram.replace('@', '')" target="_blank" class="social-icon" title="Instagram">📷 {{ info.instagram }}</a>
-          <a [href]="'https://wa.me/' + info.whatsapp.replace('+', '').replace(/ /g, '')" target="_blank" class="social-icon" title="WhatsApp">💬 {{ info.whatsapp }}</a>
+          <a [href]="'https://instagram.com/' + info.instagram.replace('@', '')" target="_blank" class="social-icon"
+            title="Instagram">📷 {{ info.instagram }}</a>
+          <a [href]="'https://wa.me/' + info.whatsapp.replace('+', '').replace(/ /g, '')" target="_blank"
+            class="social-icon" title="WhatsApp">💬 {{ info.whatsapp }}</a>
         </div>
         <ng-template #defaultSocial>
           <div class="social-links">
-            <a href="https://instagram.com/happymomentsbyfio" target="_blank" class="social-icon" title="Instagram">📷 @happymomentsbyfio</a>
-            <a href="https://wa.me/573144882666" target="_blank" class="social-icon" title="WhatsApp">💬 +57 314 4882666</a>
+            <a href="https://instagram.com/happymomentsbyfio" target="_blank" class="social-icon" title="Instagram">📷
+              @happymomentsbyfio</a>
+            <a href="https://wa.me/573144882666" target="_blank" class="social-icon" title="WhatsApp">💬 +57 314
+              4882666</a>
           </div>
         </ng-template>
 
@@ -305,7 +298,7 @@
 
     </div>
 
-    <div class="footer-bottom"*ngIf="footerText() as text">
+    <div class="footer-bottom" *ngIf="footerText() as text">
       <p>{{text}}</p>
     </div>
   </footer>

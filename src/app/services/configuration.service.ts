@@ -9,11 +9,12 @@ export interface ContactInfo {
   email: string;
   whatsapp: string;
   schedule: string;
-  text: string;
 }
 
 export interface Configuration {
   footer: {
+    text: string;
+    description: string;
     'contact-info': ContactInfo;
   };
 }

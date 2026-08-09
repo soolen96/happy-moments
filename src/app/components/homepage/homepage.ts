@@ -140,7 +140,9 @@ export class Homepage implements OnInit, OnDestroy {
       weight: 'Caja Surtida'
     }
   ]);
+
   footerText = signal<string>('');
+  footerDescription = signal<string>('');
 
   // Popular products carousel filter
   popularProducts = computed(() => this.products().filter(p => p.isPopular));
@@ -176,7 +178,8 @@ export class Homepage implements OnInit, OnDestroy {
           this.contactInfo.set(config.footer['contact-info']);
         }
 
-        //this.footerText.set(config.footer['text']);
+        this.footerText.set(config.footer.text);
+        this.footerDescription.set(config.footer.description);
 
       },
       error: (err) => console.error('Error loading configuration JSON:', err)
