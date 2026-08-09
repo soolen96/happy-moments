@@ -175,9 +175,9 @@ export class Homepage implements OnInit, OnDestroy {
         if (config?.footer?.['contact-info']) {
           this.contactInfo.set(config.footer['contact-info']);
         }
-        if (config?.footer?.['text']) {
-          this.footerText.set(config.footer['text']);
-        }
+
+        //this.footerText.set(config.footer['text']);
+
       },
       error: (err) => console.error('Error loading configuration JSON:', err)
     });
