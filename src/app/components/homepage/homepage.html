@@ -25,6 +25,9 @@
       <a href="#populares" class="nav-link">Lo Más Popular</a>
       <a href="#catalogo" class="nav-link">Catálogo</a>
       <a href="#contacto" class="nav-link">Contacto</a>
+      <button class="theme-toggle-btn-desktop" (click)="toggleTheme()" [title]="'Cambiar a Modo ' + (isDarkMode() ? 'Claro' : 'Oscuro')">
+        <span>{{ isDarkMode() ? '🌙 Modo Oscuro' : '☀️ Modo Claro' }}</span>
+      </button>
     </nav>
 
     <div class="header-right">
@@ -51,6 +54,17 @@
         <a href="#catalogo" (click)="closeMenu()" class="drawer-link">🍪 Galletas Artesanales</a>
         <a href="#nosotros" (click)="closeMenu()" class="drawer-link">🌿 Sobre Nosotros</a>
         <a href="#contacto" (click)="closeMenu()" class="drawer-link">📞 Contacto & Pedidos</a>
+
+        <!-- Theme Toggle inside Menu -->
+        <div class="theme-switch-item" (click)="toggleTheme()">
+          <div class="theme-switch-label">
+            <span class="theme-icon-indicator">{{ isDarkMode() ? '🌙' : '☀️' }}</span>
+            <span>Modo {{ isDarkMode() ? 'Oscuro' : 'Claro' }}</span>
+          </div>
+          <div class="theme-switch-pill" [class.dark]="isDarkMode()">
+            <span class="theme-switch-thumb"></span>
+          </div>
+        </div>
       </nav>
 
       <div class="drawer-footer">

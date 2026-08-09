@@ -37,6 +37,9 @@ export class Homepage implements OnInit, OnDestroy {
   // Navigation menu state
   isMenuOpen = signal<boolean>(false);
 
+  // Theme state (Dark Mode by default)
+  isDarkMode = signal<boolean>(true);
+
 
   // Cart state
   cart = signal<CartItem[]>([]);
@@ -167,8 +170,39 @@ export class Homepage implements OnInit, OnDestroy {
   cartTotalPrice = computed(() => this.cart().reduce((sum, item) => sum + (item.product.price * item.quantity), 0));
 
   ngOnInit() {
+    this.initTheme();
     this.startCarouselAutoPlay();
     this.loadConfiguration();
+  }
+
+  initTheme() {
+    const savedTheme = localStorage.getItem('happy_moments_theme');
+    if (savedTheme === 'light') {
+      this.isDarkMode.set(false);
+    } else {
+      this.isDarkMode.set(true); // Dark Mode by default
+    }
+    this.applyTheme();
+  }
+
+  toggleTheme() {
+    this.isDarkMode.update((v) => !v);
+    this.applyTheme();
+  }
+
+  private applyTheme() {
+    const isDark = this.isDarkMode();
+    if (typeof document !== 'undefined') {
+      if (isDark) {
+        document.body.classList.remove('light-mode');
+        document.body.classList.add('dark-mode');
+        localStorage.setItem('happy_moments_theme', 'dark');
+      } else {
+        document.body.classList.remove('dark-mode');
+        document.body.classList.add('light-mode');
+        localStorage.setItem('happy_moments_theme', 'light');
+      }
+    }
   }
 
   loadConfiguration() {

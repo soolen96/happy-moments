@@ -5,15 +5,6 @@
   --font-body: 'Plus Jakarta Sans', sans-serif;
 
   /* Colors extracted from Logo */
-  --bg-dark: #fcf1ed; /* Soft warm blush cream from logo background */
-  --bg-card: rgba(255, 255, 255, 0.85);
-  --bg-card-hover: #ffffff;
-  --bg-glass: rgba(255, 255, 255, 0.7);
-  
-  --border-glass: rgba(90, 24, 70, 0.12);
-  --border-glass-hover: rgba(82, 183, 55, 0.4);
-
-  /* Logo Palette Gradients */
   --color-green: #52b737;
   --color-green-dark: #3e9427;
   --color-magenta: #e83b87;
@@ -26,20 +17,61 @@
   --plum-gradient: linear-gradient(135deg, #5a1846 0%, #370a2a 100%);
   --yellow-gradient: linear-gradient(135deg, #f5b729 0%, #d99b14 100%);
 
-  --text-primary: #370a2a;
-  --text-secondary: #6e465f;
-  --text-muted: #967389;
-  --text-light: #ffffff;
-  --accent-gold: #e83b87;
-
-  --shadow-glow: 0 10px 30px -8px rgba(82, 183, 55, 0.4);
-  --shadow-magenta: 0 10px 30px -8px rgba(232, 59, 135, 0.4);
-  --shadow-card: 0 15px 35px rgba(90, 24, 70, 0.08);
-
   --radius-sm: 10px;
   --radius-md: 18px;
   --radius-lg: 28px;
   --radius-full: 9999px;
+}
+
+/* Default Theme: Dark Mode */
+body, body.dark-mode {
+  --bg-dark: #12030f;
+  --bg-card: rgba(32, 9, 27, 0.88);
+  --bg-card-hover: #2a0c24;
+  --bg-glass: rgba(28, 7, 24, 0.82);
+  --bg-drawer: #1a0516;
+  
+  --border-glass: rgba(232, 59, 135, 0.22);
+  --border-glass-hover: rgba(82, 183, 55, 0.5);
+
+  --text-primary: #fcf1ed;
+  --text-secondary: #d8bdce;
+  --text-muted: #a6849b;
+  --text-light: #ffffff;
+  --accent-gold: #e83b87;
+
+  --color-plum-text: #f5d6eb;
+
+  --shadow-glow: 0 10px 30px -8px rgba(82, 183, 55, 0.4);
+  --shadow-magenta: 0 10px 30px -8px rgba(232, 59, 135, 0.4);
+  --shadow-card: 0 15px 35px rgba(0, 0, 0, 0.4);
+
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light Theme Override */
+body.light-mode {
+  --bg-dark: #fcf1ed;
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --bg-card-hover: #ffffff;
+  --bg-glass: rgba(255, 255, 255, 0.7);
+  --bg-drawer: #ffffff;
+  
+  --border-glass: rgba(90, 24, 70, 0.12);
+  --border-glass-hover: rgba(82, 183, 55, 0.4);
+
+  --text-primary: #370a2a;
+  --text-secondary: #6e465f;
+  --text-muted: #967389;
+
+  --color-plum-text: #5a1846;
+
+  --shadow-card: 0 15px 35px rgba(90, 24, 70, 0.08);
+
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
 }
 
 * {
@@ -50,8 +82,6 @@
 
 body {
   font-family: var(--font-body);
-  background-color: var(--bg-dark);
-  color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
   min-height: 100vh;
@@ -59,7 +89,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  color: var(--color-plum);
+  color: var(--color-plum-text);
 }
 
 /* Custom Scrollbar */
