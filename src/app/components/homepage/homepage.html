@@ -267,50 +267,46 @@
         <p class="footer-desc">
           Edibles Ancestrales & Comida Artesanal. Gomitas, brownies y galletas creados para elevar tus mejores momentos con sabor y bienestar natural.
         </p>
-        <div class="social-links">
-          <a href="#" class="social-icon" title="Instagram">📷 Instagram</a>
-          <a href="#" class="social-icon" title="Facebook">📘 Facebook</a>
-          <a href="#" class="social-icon" title="WhatsApp">💬 WhatsApp</a>
+        <div class="social-links" *ngIf="contactInfo() as info; else defaultSocial">
+          <a [href]="'https://instagram.com/' + info.instagram.replace('@', '')" target="_blank" class="social-icon" title="Instagram">📷 {{ info.instagram }}</a>
+          <a [href]="'https://wa.me/' + info.whatsapp.replace('+', '').replace(/ /g, '')" target="_blank" class="social-icon" title="WhatsApp">💬 {{ info.whatsapp }}</a>
         </div>
-      </div>
+        <ng-template #defaultSocial>
+          <div class="social-links">
+            <a href="https://instagram.com/happymomentsbyfio" target="_blank" class="social-icon" title="Instagram">📷 @happymomentsbyfio</a>
+            <a href="https://wa.me/573144882666" target="_blank" class="social-icon" title="WhatsApp">💬 +57 314 4882666</a>
+          </div>
+        </ng-template>
 
-      <!-- Quick Links -->
-      <div class="footer-col">
-        <h3 class="footer-title">Nuestros Productos</h3>
-        <ul class="footer-links">
-          <li><a href="#populares">Gomitas Ancestrales de Fruta</a></li>
-          <li><a href="#populares">Brownies Fudge & Blondies</a></li>
-          <li><a href="#populares">Galletas de Chispas de Chocolate</a></li>
-          <li><a href="#populares">Combos "Momento Dulce"</a></li>
-        </ul>
       </div>
 
       <!-- Contact Info -->
       <div class="footer-col contact-col">
         <h3 class="footer-title">Información de Contacto</h3>
-        <ul class="contact-info-list">
+        <ul class="contact-info-list" *ngIf="contactInfo() as info">
           <li>
             <span class="contact-icon">📍</span>
-            <span>Calle de los Sabores #12-34, Medellín - Colombia</span>
+            <span>{{ info.location }}</span>
           </li>
           <li>
             <span class="contact-icon">📞</span>
-            <span>+57 300 123 4567 / +57 (604) 444 8899</span>
+            <span>{{ info.phone }}</span>
           </li>
           <li>
             <span class="contact-icon">✉️</span>
-            <span>contacto&#64;happymoments.com</span>
+            <span>{{ info.email }}</span>
           </li>
           <li>
             <span class="contact-icon">⏰</span>
-            <span>Lunes a Sábado: 8:00 AM - 7:00 PM</span>
+            <span>{{ info.schedule }}</span>
           </li>
         </ul>
       </div>
+
     </div>
 
-    <div class="footer-bottom">
-      <p>© 2026 Happy Moments - Edibles Ancestrales. Todos los derechos reservados.</p>
+    <div class="footer-bottom"*ngIf="footerText() as text">
+      <p>{{text}}</p>
     </div>
   </footer>
 </div>

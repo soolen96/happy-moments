@@ -1,12 +1,13 @@
 {
     "footer": {
         "contact-info": {
-            "location": "Bogotá Colombia",
+            "location": "Bogotá, Colombia",
             "phone": "+57 314 4882666",
             "instagram": "@happymomentsbyfio",
             "email": "happymoments420@gmail.com",
-            "whatsapp": "+57 314 4882666"
+            "whatsapp": "+57 314 4882666",
+            "schedule": "Lunes a Domingo de 10:00 am a 8:00 pm"
         },
-        "slogan": ""
+        "text": "© 2026 Happy Moments - Edibles Ancestrales. Todos los derechos reservados"
     }
 }

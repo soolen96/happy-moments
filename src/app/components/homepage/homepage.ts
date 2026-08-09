@@ -1,6 +1,7 @@
-import { Component, signal, computed, OnInit, OnDestroy } from '@angular/core';
+import { Component, signal, computed, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ConfigurationService, ContactInfo } from '../../services/configuration.service';
 
 export interface Product {
   id: string;
@@ -28,8 +29,14 @@ export interface CartItem {
   styleUrl: './homepage.css',
 })
 export class Homepage implements OnInit, OnDestroy {
+  private configService = inject(ConfigurationService);
+
+  // Configuration state
+  contactInfo = signal<ContactInfo | null>(null);
+
   // Navigation menu state
   isMenuOpen = signal<boolean>(false);
+
 
   // Cart state
   cart = signal<CartItem[]>([]);
@@ -133,6 +140,7 @@ export class Homepage implements OnInit, OnDestroy {
       weight: 'Caja Surtida'
     }
   ]);
+  footerText = signal<string>('');
 
   // Popular products carousel filter
   popularProducts = computed(() => this.products().filter(p => p.isPopular));
@@ -158,6 +166,21 @@ export class Homepage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.startCarouselAutoPlay();
+    this.loadConfiguration();
+  }
+
+  loadConfiguration() {
+    this.configService.getConfig().subscribe({
+      next: (config) => {
+        if (config?.footer?.['contact-info']) {
+          this.contactInfo.set(config.footer['contact-info']);
+        }
+        if (config?.footer?.['text']) {
+          this.footerText.set(config.footer['text']);
+        }
+      },
+      error: (err) => console.error('Error loading configuration JSON:', err)
+    });
   }
 
   ngOnDestroy() {
