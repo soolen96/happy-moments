@@ -197,7 +197,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   background: rgba(55, 10, 42, 0.6);
   backdrop-filter: blur(10px);
@@ -808,7 +808,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   background: rgba(55, 10, 42, 0.6);
   backdrop-filter: blur(10px);
@@ -1079,6 +1079,29 @@
 
 /* Responsive adjust */
 @media (max-width: 900px) {
+  .page-wrapper {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+  }
+  .main-header {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    top: 0;
+    padding: 1rem 5%;
+    margin-bottom: 2rem;
+  }
+  .main-footer {
+    border-radius: 0;
+  }
+  .hero-carousel-section,
+  .catalog-section,
+  .about-section {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
   .slide-content {
     grid-template-columns: 1fr;
   }
