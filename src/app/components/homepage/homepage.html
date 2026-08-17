@@ -173,16 +173,15 @@
           {{footerDescription()}}
         </p>
         <div class="social-links" *ngIf="contactInfo() as info; else defaultSocial">
-          <a [href]="'https://instagram.com/' + info.instagram.replace('@', '')" target="_blank" class="social-icon"
-            title="Instagram">📷 {{ info.instagram }}</a>
-          <a [href]="'https://wa.me/' + info.whatsapp.replace('+', '').replace(/ /g, '')" target="_blank"
-            class="social-icon" title="WhatsApp">💬 {{ info.whatsapp }}</a>
+
         </div>
         <ng-template #defaultSocial>
           <div class="social-links">
-            <a href="https://instagram.com/happymomentsbyfio" target="_blank" class="social-icon" title="Instagram">📷
-              @happymomentsbyfio</a>
-            <a href="https://wa.me/573144882666" target="_blank" class="social-icon" title="WhatsApp">💬 +57 314
+            <a href="https://www.instagram.com/happy.moments.bog" target="_blank" rel="noopener noreferrer"
+              class="social-icon" title="Instagram">
+              <img src="assets/instagram-icon.png" alt="Instagram" class="ig-icon" /> @happy.moments.bog</a>
+            <a href="https://wa.me/573144882666" target="_blank" rel="noopener noreferrer" class="social-icon"
+              title="WhatsApp">💬 +57 314
               4882666</a>
           </div>
         </ng-template>
@@ -204,6 +203,13 @@
           <li>
             <span class="contact-icon">✉️</span>
             <span>{{ info.email }}</span>
+          </li>
+          <li>
+            <span class="contact-icon"><img src="assets/instagram-icon.png" alt="Instagram" class="ig-icon" /></span>
+            <a [href]="info.instagramUrl || 'https://www.instagram.com/happy.moments.bog'" target="_blank"
+              rel="noopener noreferrer" class="footer-contact-link">
+              {{ info.instagram || '@happy.moments.bog' }}
+            </a>
           </li>
           <li>
             <span class="contact-icon">⏰</span>
