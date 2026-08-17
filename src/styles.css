@@ -23,8 +23,34 @@
   --radius-full: 9999px;
 }
 
-/* Default Theme: Dark Mode */
-body, body.dark-mode {
+/* Default Theme: Light Mode */
+body, body.light-mode {
+  --bg-dark: #fcf1ed;
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --bg-card-hover: #ffffff;
+  --bg-glass: rgba(255, 255, 255, 0.7);
+  --bg-drawer: #ffffff;
+  
+  --border-glass: rgba(90, 24, 70, 0.12);
+  --border-glass-hover: rgba(82, 183, 55, 0.4);
+
+  --text-primary: #370a2a;
+  --text-secondary: #6e465f;
+  --text-muted: #967389;
+  --text-light: #ffffff;
+  --accent-gold: #e83b87;
+
+  --color-plum-text: #5a1846;
+
+  --shadow-card: 0 15px 35px rgba(90, 24, 70, 0.08);
+
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark Theme Override */
+body.dark-mode {
   --bg-dark: #12030f;
   --bg-card: rgba(32, 9, 27, 0.88);
   --bg-card-hover: #2a0c24;
@@ -48,30 +74,11 @@ body, body.dark-mode {
 
   background-color: var(--bg-dark);
   color: var(--text-primary);
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Light Theme Override */
-body.light-mode {
-  --bg-dark: #fcf1ed;
-  --bg-card: rgba(255, 255, 255, 0.85);
-  --bg-card-hover: #ffffff;
-  --bg-glass: rgba(255, 255, 255, 0.7);
-  --bg-drawer: #ffffff;
-  
-  --border-glass: rgba(90, 24, 70, 0.12);
-  --border-glass-hover: rgba(82, 183, 55, 0.4);
-
-  --text-primary: #370a2a;
-  --text-secondary: #6e465f;
-  --text-muted: #967389;
-
-  --color-plum-text: #5a1846;
-
-  --shadow-card: 0 15px 35px rgba(90, 24, 70, 0.08);
-
-  background-color: var(--bg-dark);
-  color: var(--text-primary);
+body.dark-mode .main-header {
+  background: #1c0718 !important;
+  border-color: rgba(232, 59, 135, 0.3) !important;
 }
 
 * {

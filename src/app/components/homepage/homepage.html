@@ -13,9 +13,10 @@
       </button>
 
       <a href="#" class="logo-brand">
-        <span class="logo-emoji">🍬✨</span>
+        <img [src]="isDarkMode() ? 'assets/logo-candy-jar-dark.png' : 'assets/logo-candy-jar.png'" alt="Happy Moments Logo" class="logo-img" />
         <div class="logo-titles">
-          <span class="brand-name">Happy<span class="highlight">Moments</span></span>
+          <span class="brand-name-happy">HAPPY</span>
+          <span class="brand-name-moments">MOMENTS</span>
           <span class="brand-sub">EDIBLES ANCESTRALES</span>
         </div>
       </a>
@@ -25,7 +26,8 @@
       <a href="#populares" class="nav-link">Lo Más Popular</a>
       <a href="#catalogo" class="nav-link">Catálogo</a>
       <a href="#contacto" class="nav-link">Contacto</a>
-      <button class="theme-toggle-btn-desktop" (click)="toggleTheme()" [title]="'Cambiar a Modo ' + (isDarkMode() ? 'Claro' : 'Oscuro')">
+      <button class="theme-toggle-btn-desktop" (click)="toggleTheme()"
+        [title]="'Cambiar a Modo ' + (isDarkMode() ? 'Claro' : 'Oscuro')">
         <span>{{ isDarkMode() ? '🌙 Modo Oscuro' : '☀️ Modo Claro' }}</span>
       </button>
     </nav>
@@ -34,7 +36,7 @@
       <button class="cart-btn" (click)="toggleCart()" id="btn-cart" aria-label="Ver Carrito de Compras">
         <span class="cart-icon">🛒</span>
         <span class="cart-text">Carrito</span>
-        <span class="cart-badge" *ngIf="cartTotalCount() > 0">{{ cartTotalCount() }}</span>
+        <span class="cart-badge" *ngIf="cartService.cartTotalCount() > 0">{{ cartService.cartTotalCount() }}</span>
       </button>
     </div>
   </header>
@@ -214,49 +216,8 @@
     </div>
   </section>
 
-  <!-- Shopping Cart Modal -->
-  <div class="cart-overlay" *ngIf="isCartOpen()" (click)="toggleCart()">
-    <aside class="cart-drawer" (click)="$event.stopPropagation()">
-      <div class="cart-drawer-header">
-        <h2>🛍️ Tu Carrito ({{ cartTotalCount() }})</h2>
-        <button class="close-btn" (click)="toggleCart()">&times;</button>
-      </div>
-
-      <div class="cart-drawer-body" *ngIf="cart().length > 0; else emptyCart">
-        <div class="cart-item" *ngFor="let item of cart()">
-          <img [src]="item.product.image" [alt]="item.product.name" class="cart-item-img" />
-          <div class="cart-item-info">
-            <h4 class="cart-item-title">{{ item.product.name }}</h4>
-            <span class="cart-item-price">{{ formatCOP(item.product.price) }}</span>
-            <div class="qty-controls">
-              <button class="qty-btn" (click)="updateQuantity(item.product.id, -1)">-</button>
-              <span class="qty-val">{{ item.quantity }}</span>
-              <button class="qty-btn" (click)="updateQuantity(item.product.id, 1)">+</button>
-            </div>
-          </div>
-          <button class="remove-item-btn" (click)="removeFromCart(item.product.id)" title="Eliminar">🗑️</button>
-        </div>
-      </div>
-
-      <ng-template #emptyCart>
-        <div class="empty-cart-state">
-          <span class="empty-cart-icon">🛒</span>
-          <p>Tu carrito está vacío.</p>
-          <button class="btn-secondary-action" (click)="toggleCart()">Explorar Productos</button>
-        </div>
-      </ng-template>
-
-      <div class="cart-drawer-footer" *ngIf="cart().length > 0">
-        <div class="cart-summary-row">
-          <span>Total a pagar:</span>
-          <span class="total-amount">{{ formatCOP(cartTotalPrice()) }}</span>
-        </div>
-        <button class="checkout-btn">
-          <span>📲 Realizar Pedido por WhatsApp</span>
-        </button>
-      </div>
-    </aside>
-  </div>
+  <!-- Shopping Cart Component -->
+  <app-cart [contactInfo]="contactInfo()"></app-cart>
 
   <!-- Footer with Contact Info -->
   <footer class="main-footer" id="contacto">
@@ -264,8 +225,11 @@
       <!-- Brand Info -->
       <div class="footer-col brand-col">
         <div class="footer-logo">
-          <span class="logo-emoji">🍬✨</span>
-          <span class="brand-name">Happy<span class="highlight">Moments</span></span>
+          <img [src]="isDarkMode() ? 'assets/logo-candy-jar-dark.png' : 'assets/logo-candy-jar.png'" alt="Happy Moments Logo" class="logo-img-footer" />
+          <div class="logo-titles">
+            <span class="brand-name-happy">HaPPy:</span>
+            <span class="brand-name-moments">MOMENTS</span>
+          </div>
         </div>
         <p class="footer-desc">
           {{footerDescription()}}

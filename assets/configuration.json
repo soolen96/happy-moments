@@ -1,14 +1,100 @@
 {
-    "footer": {
-        "contact-info": {
-            "location": "Bogotá, Colombia",
-            "phone": "+57 314 4882666",
-            "instagram": "@happymomentsbyfio",
-            "email": "happymoments420@gmail.com",
-            "whatsapp": "+57 314 4882666",
-            "schedule": "Lunes a Domingo de 10:00 am a 8:00 pm"
-        },
-        "text": "© 2026 Happy Moments - Edibles Ancestrales. Todos los derechos reservados",
-        "description": "Edibles Ancestrales & Comida Artesanal. Gomitas, brownies y galletas creados para elevar tus mejores momentos con sabor y bienestar natural."
+  "products": [
+    {
+      "id": "p1",
+      "name": "Brownie Fudge con Nuez y Caramelo",
+      "category": "Brownies",
+      "price": 12500,
+      "description": "Brownie artesanal melcochudo elaborado con cacao al 70%, nueces crocantes y un toque de caramelo salado.",
+      "badge": "Más Vendido 👑",
+      "image": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=80",
+      "isPopular": true,
+      "rating": 4.9,
+      "weight": "120g"
+    },
+    {
+      "id": "p2",
+      "name": "Gomitas Artesanales de Frutos Rojos",
+      "category": "Gomitas",
+      "price": 8500,
+      "description": "Gomitas 100% artesanales con pulpa natural de mora, fresa y arándanos, sin conservantes artificiales.",
+      "badge": "Receta Secreta 🫐",
+      "image": "https://images.unsplash.com/photo-1665757516805-ead01c014ceb?auto=format&fit=crop&w=800&q=80",
+      "isPopular": true,
+      "rating": 4.8,
+      "weight": "150g"
+    },
+    {
+      "id": "p3",
+      "name": "Galletas de Chispas de Chocolate & Vainilla",
+      "category": "Galletas",
+      "price": 9800,
+      "description": "Galletas horneadas al momento, suaves por dentro y doradas por fuera, cargadas de trozos de chocolate real.",
+      "badge": "Horneado Hoy 🍪",
+      "image": "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=800&q=80",
+      "isPopular": true,
+      "rating": 5.0,
+      "weight": "180g (6 uds)"
+    },
+    {
+      "id": "p4",
+      "name": "Brownie Rubio de Arequipe & Avellanas",
+      "category": "Brownies",
+      "price": 13000,
+      "description": "Blondie blanco artesanal relleno de arequipe tradicional colombiano y trozos de avellana tostada.",
+      "badge": "Especial ✨",
+      "image": "https://images.unsplash.com/photo-1515037893149-de7f840978e2?auto=format&fit=crop&w=800&q=80",
+      "isPopular": false,
+      "rating": 4.7,
+      "weight": "125g"
+    },
+    {
+      "id": "p5",
+      "name": "Gomitas Ácidas de Maracuyá & Mango",
+      "category": "Gomitas",
+      "price": 9000,
+      "description": "Explosión cítrica y dulce elaborada con jugos de maracuyá y mango real espolvoreadas con azúcar ácida.",
+      "badge": "Nuevo 🥭",
+      "image": "https://images.unsplash.com/photo-1575224300306-1b8da36134ec?auto=format&fit=crop&w=800&q=80",
+      "isPopular": true,
+      "rating": 4.9,
+      "weight": "150g"
+    },
+    {
+      "id": "p6",
+      "name": "Galletas Red Velvet con Centro de Queso Crema",
+      "category": "Galletas",
+      "price": 11000,
+      "description": "Galletas estilo neoyorquino con masa suave sabor red velvet y delicioso relleno artesanal.",
+      "badge": "Favorito ❤️",
+      "image": "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=800&q=80",
+      "isPopular": false,
+      "rating": 4.9,
+      "weight": "160g"
+    },
+    {
+      "id": "p7",
+      "name": "Caja Regalo \"Momento Dulce\" (Combo)",
+      "category": "Combos",
+      "price": 32000,
+      "description": "Incluye 2 Brownies Fudge, 1 Paquete de Gomitas de Frutos Rojos y 4 Galletas de Chispas. Ideal para regalar.",
+      "badge": "Mejor Opción 🎁",
+      "image": "https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?auto=format&fit=crop&w=800&q=80",
+      "isPopular": true,
+      "rating": 5.0,
+      "weight": "Caja Surtida"
     }
+  ],
+  "footer": {
+    "contact-info": {
+      "location": "Bogotá, Colombia",
+      "phone": "+57 314 4882666",
+      "instagram": "@happymomentsbyfio",
+      "email": "happymoments420@gmail.com",
+      "whatsapp": "+57 314 4882666",
+      "schedule": "Lunes a Domingo de 10:00 am a 8:00 pm"
+    },
+    "text": "© 2026 Happy Moments - Edibles Ancestrales. Todos los derechos reservados",
+    "description": "Edibles Ancestrales & Comida Artesanal. Gomitas, brownies y galletas creados para elevar tus mejores momentos con sabor y bienestar natural."
+  }
 }

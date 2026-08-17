@@ -1,23 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-export interface ContactInfo {
-  location: string;
-  phone: string;
-  instagram: string;
-  email: string;
-  whatsapp: string;
-  schedule: string;
-}
-
-export interface Configuration {
-  footer: {
-    text: string;
-    description: string;
-    'contact-info': ContactInfo;
-  };
-}
+import { Configuration } from '../models';
 
 @Injectable({
   providedIn: 'root',

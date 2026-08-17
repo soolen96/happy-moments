@@ -1,0 +1,43 @@
+<!-- Shopping Cart Drawer -->
+<div class="cart-overlay" *ngIf="cartService.isCartOpen()" (click)="cartService.toggleCart()">
+  <aside class="cart-drawer" (click)="$event.stopPropagation()">
+    <div class="cart-drawer-header">
+      <h2> Tu Carrito ({{ cartService.cartTotalCount() }})</h2>
+      <button class="close-btn" (click)="cartService.toggleCart()">&times;</button>
+    </div>
+
+    <div class="cart-drawer-body" *ngIf="cartService.cart().length > 0; else emptyCart">
+      <div class="cart-item" *ngFor="let item of cartService.cart()">
+        <img [src]="item.product.image" [alt]="item.product.name" class="cart-item-img" />
+        <div class="cart-item-info">
+          <h4 class="cart-item-title">{{ item.product.name }}</h4>
+          <span class="cart-item-price">{{ cartService.formatCOP(item.product.price) }}</span>
+          <div class="qty-controls">
+            <button class="qty-btn" (click)="cartService.updateQuantity(item.product.id, -1)">-</button>
+            <span class="qty-val">{{ item.quantity }}</span>
+            <button class="qty-btn" (click)="cartService.updateQuantity(item.product.id, 1)">+</button>
+          </div>
+        </div>
+        <button class="remove-item-btn" (click)="cartService.removeFromCart(item.product.id)" title="Eliminar">🗑️</button>
+      </div>
+    </div>
+
+    <ng-template #emptyCart>
+      <div class="empty-cart-state">
+        <span class="empty-cart-icon">🛒</span>
+        <p>Tu carrito está vacío.</p>
+        <button class="btn-secondary-action" (click)="cartService.toggleCart()">Explorar Productos</button>
+      </div>
+    </ng-template>
+
+    <div class="cart-drawer-footer" *ngIf="cartService.cart().length > 0">
+      <div class="cart-summary-row">
+        <span>Total a pagar:</span>
+        <span class="total-amount">{{ cartService.formatCOP(cartService.cartTotalPrice()) }}</span>
+      </div>
+      <a [href]="cartService.getWhatsAppUrl(contactInfo)" target="_blank" rel="noopener noreferrer" class="checkout-btn">
+        <span>📲 Realizar Pedido por WhatsApp</span>
+      </a>
+    </div>
+  </aside>
+</div>
