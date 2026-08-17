@@ -1195,6 +1195,15 @@ button.drawer-link {
   gap: 0.6rem;
 }
 
+.contact-info-list li.schedule-li {
+  align-items: flex-start;
+}
+
+.schedule-text {
+  white-space: pre-line;
+  line-height: 1.4;
+}
+
 .footer-contact-link {
   color: #d1c1cb;
   text-decoration: none;
