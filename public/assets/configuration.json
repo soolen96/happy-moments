@@ -109,6 +109,68 @@
       "weight": "4 unidades"
     }
   ],
+  "combos": [
+    {
+      "id": "c1",
+      "name": "Combo Personal",
+      "price": 14000,
+      "description": "1 Chocolate Lite - 1 Gomita Power",
+      "badge": "Personal 🎁",
+      "image": "assets/products/chocolates-lite.png",
+      "rating": 4.9,
+      "itemsCount": "2 productos"
+    },
+    {
+      "id": "c2",
+      "name": "Combo Duo",
+      "price": 24000,
+      "description": "2 Chocolates Lite - 2 Gomitas Power",
+      "badge": "Duo 🎁",
+      "image": "assets/products/chocolates-mix.png",
+      "rating": 5.0,
+      "itemsCount": "4 productos"
+    },
+    {
+      "id": "c3",
+      "name": "Combo Bowl",
+      "price": 32000,
+      "description": "2 Galletas Fusión - 3 Chocolates Lite - 3 Gomitas Lite",
+      "badge": "Bowl 🍨",
+      "image": "assets/products/combo-box.png",
+      "rating": 5.0,
+      "itemsCount": "8 productos"
+    },
+    {
+      "id": "c4",
+      "name": "Combo Pequeño",
+      "price": 34000,
+      "description": "1 Chocolate Power - 2 Galletas Fusión - 1 Brownie Fusión - 1 Gomita Lite",
+      "badge": "Favorito 👑",
+      "image": "assets/products/brownies-fusion.png",
+      "rating": 5.0,
+      "itemsCount": "5 productos"
+    },
+    {
+      "id": "c5",
+      "name": "Combo Delicius",
+      "price": 35000,
+      "description": "1 Brownie Fusión - 1 Sundae Power - 1 Chocolate Lite",
+      "badge": "Delicius ✨",
+      "image": "assets/products/sundae-power.png",
+      "rating": 4.9,
+      "itemsCount": "3 productos"
+    },
+    {
+      "id": "c6",
+      "name": "Combo Especial",
+      "price": 65000,
+      "description": "2 Chocolates Power - 2 Chocolates Lite - 2 Galletas Fusión - 2 Brownies Fusión - 2 Gomitas Power - 2 Gomitas Lite",
+      "badge": "Fiesta 👑",
+      "image": "assets/products/combo-box.png",
+      "rating": 5.0,
+      "itemsCount": "12 productos"
+    }
+  ],
   "footer": {
     "contact-info": {
       "location": "Bogotá, Colombia",

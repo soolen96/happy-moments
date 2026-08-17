@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ConfigurationService } from '../../services/configuration.service';
 import { CartService } from '../../services/cart.service';
-import { Product, ProductCategory, ContactInfo } from '../../models';
+import { Product, ProductCategory, ContactInfo, Combo } from '../../models';
 import { CartComponent } from '../cart/cart';
 import { ProductCarouselComponent } from '../product-carousel/product-carousel';
 import { SearchBoxComponent } from '../search-box/search-box';
+import { CombosComponent } from '../combos/combos';
 
 @Component({
   selector: 'app-homepage',
@@ -17,6 +18,7 @@ import { SearchBoxComponent } from '../search-box/search-box';
     CartComponent,
     ProductCarouselComponent,
     SearchBoxComponent,
+    CombosComponent,
   ],
   templateUrl: './homepage.html',
   styleUrl: './homepage.css',
@@ -43,6 +45,9 @@ export class Homepage implements OnInit {
 
   // All Artisanal Products (Loaded dynamically from configuration.json)
   products = signal<Product[]>([]);
+
+  // Special Combos (Loaded dynamically from configuration.json)
+  combos = signal<Combo[]>([]);
 
   footerText = signal<string>('');
   footerDescription = signal<string>('');
@@ -109,6 +114,10 @@ export class Homepage implements OnInit {
       next: (config) => {
         if (config?.products) {
           this.products.set(config.products.map(p => new Product(p)));
+        }
+
+        if (config?.combos) {
+          this.combos.set(config.combos.map(c => new Combo(c)));
         }
 
         if (config?.footer?.['contact-info']) {
