@@ -10,7 +10,7 @@
       "image": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=80",
       "isPopular": true,
       "rating": 4.9,
-      "weight": "120g"
+      "weight": "2 unidades"
     },
     {
       "id": "p2",
@@ -22,7 +22,7 @@
       "image": "https://images.unsplash.com/photo-1665757516805-ead01c014ceb?auto=format&fit=crop&w=800&q=80",
       "isPopular": true,
       "rating": 4.8,
-      "weight": "150g"
+      "weight": "2 unidades"
     },
     {
       "id": "p3",
@@ -34,7 +34,7 @@
       "image": "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=800&q=80",
       "isPopular": true,
       "rating": 5.0,
-      "weight": "180g (6 uds)"
+      "weight": "6 unidades"
     },
     {
       "id": "p4",
@@ -46,7 +46,7 @@
       "image": "https://images.unsplash.com/photo-1515037893149-de7f840978e2?auto=format&fit=crop&w=800&q=80",
       "isPopular": false,
       "rating": 4.7,
-      "weight": "125g"
+      "weight": "1 unidad"
     },
     {
       "id": "p5",
@@ -58,7 +58,7 @@
       "image": "https://images.unsplash.com/photo-1575224300306-1b8da36134ec?auto=format&fit=crop&w=800&q=80",
       "isPopular": true,
       "rating": 4.9,
-      "weight": "150g"
+      "weight": "2 unidades"
     },
     {
       "id": "p6",
@@ -70,7 +70,7 @@
       "image": "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=800&q=80",
       "isPopular": false,
       "rating": 4.9,
-      "weight": "160g"
+      "weight": "2 unidades"
     },
     {
       "id": "p7",

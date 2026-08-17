@@ -24,16 +24,17 @@
     </div>
 
     <nav class="header-nav-desktop">
-      <a href="#populares" class="nav-link">Lo Más Popular</a>
-      <a href="#catalogo" class="nav-link">Catálogo</a>
-      <a href="#contacto" class="nav-link">Contacto</a>
+      <a href="#populares" class="nav-link">Lo Más popular</a>
+      <a href="#catalogo" (click)="selectCategory('Todos')" class="nav-link">Todos los productos</a>
+      <a href="#contacto" class="nav-link">Contacto & Pedidos</a>
+      <a href="#catalogo" (click)="selectCategory('Combos')" class="nav-link">Combos</a>
+    </nav>
+
+    <div class="header-right">
       <button class="theme-toggle-btn-desktop" (click)="toggleTheme()"
         [title]="'Cambiar a Modo ' + (isDarkMode() ? 'Claro' : 'Oscuro')">
         <span>{{ isDarkMode() ? '🌙 Modo Oscuro' : '☀️ Modo Claro' }}</span>
       </button>
-    </nav>
-
-    <div class="header-right">
       <button class="cart-btn" (click)="toggleCart()" id="btn-cart" aria-label="Ver Carrito de Compras">
         <span class="cart-icon">🛒</span>
         <span class="cart-text">Carrito</span>
@@ -51,12 +52,13 @@
       </div>
 
       <nav class="drawer-nav">
-        <a href="#populares" (click)="closeMenu()" class="drawer-link">🔥 Lo Más Popular</a>
-        <a href="#catalogo" (click)="closeMenu()" class="drawer-link">🍬 Gomitas Ancestrales</a>
-        <a href="#catalogo" (click)="closeMenu()" class="drawer-link">🍫 Brownies & Repostería</a>
-        <a href="#catalogo" (click)="closeMenu()" class="drawer-link">🍪 Galletas Artesanales</a>
-        <a href="#nosotros" (click)="closeMenu()" class="drawer-link">🌿 Sobre Nosotros</a>
+        <a href="#populares" (click)="closeMenu()" class="drawer-link">🔥 Lo Más popular</a>
+        <a href="#catalogo" (click)="closeMenu(); selectCategory('Todos')" class="drawer-link">🍬 Todos los productos</a>
         <a href="#contacto" (click)="closeMenu()" class="drawer-link">📞 Contacto & Pedidos</a>
+        <a href="#catalogo" (click)="closeMenu(); selectCategory('Combos')" class="drawer-link">🎁 Combos</a>
+        <button type="button" (click)="closeMenu(); toggleCart()" class="drawer-link drawer-cart-btn">
+          🛒 Carrito de compras
+        </button>
 
         <!-- Theme Toggle inside Menu -->
         <div class="theme-switch-item" (click)="toggleTheme()">
