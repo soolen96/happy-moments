@@ -25,8 +25,8 @@
 
     <nav class="header-nav-desktop">
       <a href="#populares" class="nav-link">Lo Más popular</a>
-      <a href="#catalogo" (click)="selectCategory('Todos')" class="nav-link">Todos los productos</a>
-      <a href="#contacto" class="nav-link">Contacto & Pedidos</a>
+      <a href="#catalogo" (click)="selectCategory('Todos')" class="nav-link">Productos</a>
+      <a href="#contacto" class="nav-link">Contacto</a>
       <a href="#catalogo" (click)="selectCategory('Combos')" class="nav-link">Combos</a>
     </nav>
 
@@ -53,8 +53,8 @@
 
       <nav class="drawer-nav">
         <a href="#populares" (click)="closeMenu()" class="drawer-link">🔥 Lo Más popular</a>
-        <a href="#catalogo" (click)="closeMenu(); selectCategory('Todos')" class="drawer-link">🍬 Todos los productos</a>
-        <a href="#contacto" (click)="closeMenu()" class="drawer-link">📞 Contacto & Pedidos</a>
+        <a href="#catalogo" (click)="closeMenu(); selectCategory('Todos')" class="drawer-link">🍬 Productos</a>
+        <a href="#contacto" (click)="closeMenu()" class="drawer-link">📞 Contacto</a>
         <a href="#catalogo" (click)="closeMenu(); selectCategory('Combos')" class="drawer-link">🎁 Combos</a>
         <button type="button" (click)="closeMenu(); toggleCart()" class="drawer-link drawer-cart-btn">
           🛒 Carrito de compras
@@ -92,13 +92,9 @@
     </div>
 
     <!-- Search Box Component -->
-    <app-search-box
-      [searchQuery]="searchQuery()"
-      (searchQueryChange)="searchQuery.set($event)"
-      [categories]="categories"
-      [selectedCategory]="selectedCategory()"
-      (categoryChange)="selectCategory($event)"
-    ></app-search-box>
+    <app-search-box [searchQuery]="searchQuery()" (searchQueryChange)="searchQuery.set($event)"
+      [categories]="categories" [selectedCategory]="selectedCategory()"
+      (categoryChange)="selectCategory($event)"></app-search-box>
 
     <!-- Products Grid -->
     <div class="products-grid" *ngIf="filteredProducts().length > 0; else noProducts">
