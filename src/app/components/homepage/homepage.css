@@ -237,23 +237,37 @@ button.drawer-link {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: var(--magenta-gradient);
-  color: #ffffff;
-  border: none;
-  padding: 0.6rem 1.25rem;
+  background: #ffffff;
+  color: var(--color-plum);
+  border: 1px solid var(--border-glass-hover);
+  padding: 0.55rem 1.15rem;
   border-radius: var(--radius-full);
   font-family: var(--font-body);
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   cursor: pointer;
-  box-shadow: var(--shadow-magenta);
+  box-shadow: 0 4px 15px rgba(90, 24, 70, 0.08);
   transition: all 0.25s ease;
   position: relative;
 }
 
 .cart-btn:hover {
-  transform: scale(1.04);
-  box-shadow: 0 12px 35px rgba(232, 59, 135, 0.5);
+  transform: translateY(-1px);
+  border-color: var(--color-magenta);
+  color: var(--color-magenta);
+  box-shadow: 0 6px 20px rgba(232, 59, 135, 0.2);
+}
+
+:host-context(.dark-mode) .cart-btn {
+  background: var(--magenta-gradient) !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: var(--shadow-magenta) !important;
+}
+
+:host-context(.dark-mode) .cart-btn:hover {
+  transform: scale(1.04) !important;
+  box-shadow: 0 12px 35px rgba(232, 59, 135, 0.5) !important;
 }
 
 .cart-badge {
