@@ -1,0 +1,54 @@
+<!-- Hero & Popular Products Carousel -->
+<section class="hero-carousel-section" id="populares">
+  <div class="section-badge">
+    <span>🌿 EDIBLES ANCESTRALES & COMIDA ARTESANAL</span>
+  </div>
+  <h1 class="hero-heading">
+    Descubre la magia de nuestros <br />
+    <span class="gradient-title">Edibles Ancestrales</span>
+  </h1>
+
+  <!-- Carousel Container -->
+  <div class="carousel-container" *ngIf="popularProducts.length > 0">
+    <button class="carousel-arrow prev" (click)="prevSlide()" aria-label="Producto anterior">❮</button>
+
+    <div class="carousel-track-wrapper">
+      <div class="carousel-slide" *ngFor="let item of popularProducts; let i = index"
+        [class.active]="i === carouselIndex">
+        <div class="slide-content" *ngIf="i === carouselIndex">
+          <div class="slide-image-box">
+            <img [src]="item.image" [alt]="item.name" loading="eager" />
+            <span class="slide-badge" *ngIf="item.badge">{{ item.badge }}</span>
+          </div>
+
+          <div class="slide-info-box">
+            <div class="slide-header">
+              <span class="slide-category">{{ item.category }} • {{ item.weight }}</span>
+              <div class="slide-rating">⭐ {{ item.rating }}</div>
+            </div>
+            <h2 class="slide-title">{{ item.name }}</h2>
+            <p class="slide-description">{{ item.description }}</p>
+
+            <div class="slide-action-row">
+              <div class="slide-price-tag">
+                <span class="price-label">Precio:</span>
+                <span class="price-value">{{ formatCOP(item.price) }}</span>
+              </div>
+              <button class="btn-primary-add" (click)="addToCart(item)">
+                <span>🛒 Agregar al Carrito</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="carousel-arrow next" (click)="nextSlide()" aria-label="Producto siguiente">❯</button>
+
+    <!-- Indicators -->
+    <div class="carousel-indicators">
+      <button *ngFor="let item of popularProducts; let i = index" class="indicator-dot"
+        [class.active]="i === carouselIndex" (click)="setSlide(i)" [attr.aria-label]="'Ir a ' + item.name"></button>
+    </div>
+  </div>
+</section>

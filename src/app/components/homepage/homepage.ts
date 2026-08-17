@@ -1,19 +1,27 @@
-import { Component, signal, computed, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, signal, computed, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ConfigurationService } from '../../services/configuration.service';
 import { CartService } from '../../services/cart.service';
 import { Product, ProductCategory, ContactInfo } from '../../models';
 import { CartComponent } from '../cart/cart';
+import { ProductCarouselComponent } from '../product-carousel/product-carousel';
+import { SearchBoxComponent } from '../search-box/search-box';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [CommonModule, FormsModule, CartComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    CartComponent,
+    ProductCarouselComponent,
+    SearchBoxComponent,
+  ],
   templateUrl: './homepage.html',
   styleUrl: './homepage.css',
 })
-export class Homepage implements OnInit, OnDestroy {
+export class Homepage implements OnInit {
   private configService = inject(ConfigurationService);
   cartService = inject(CartService);
 
@@ -29,10 +37,6 @@ export class Homepage implements OnInit, OnDestroy {
   // Filter & Search
   selectedCategory = signal<string>('Todos');
   searchQuery = signal<string>('');
-
-  // Carousel state
-  carouselIndex = signal<number>(0);
-  private carouselInterval: any;
 
   // Categories
   categories = ['Todos', ProductCategory.Brownies, ProductCategory.Gomitas, ProductCategory.Galletas, ProductCategory.Combos];
@@ -67,7 +71,6 @@ export class Homepage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initTheme();
-    this.startCarouselAutoPlay();
     this.loadConfiguration();
   }
 
@@ -117,43 +120,6 @@ export class Homepage implements OnInit, OnDestroy {
       },
       error: (err) => console.error('Error loading configuration JSON:', err)
     });
-  }
-
-  ngOnDestroy() {
-    this.stopCarouselAutoPlay();
-  }
-
-  // Carousel logic
-  startCarouselAutoPlay() {
-    this.stopCarouselAutoPlay();
-    this.carouselInterval = setInterval(() => {
-      this.nextSlide();
-    }, 5000);
-  }
-
-  stopCarouselAutoPlay() {
-    if (this.carouselInterval) {
-      clearInterval(this.carouselInterval);
-    }
-  }
-
-  nextSlide() {
-    const count = this.popularProducts().length;
-    if (count > 0) {
-      this.carouselIndex.set((this.carouselIndex() + 1) % count);
-    }
-  }
-
-  prevSlide() {
-    const count = this.popularProducts().length;
-    if (count > 0) {
-      this.carouselIndex.set((this.carouselIndex() - 1 + count) % count);
-    }
-  }
-
-  setSlide(index: number) {
-    this.carouselIndex.set(index);
-    this.startCarouselAutoPlay();
   }
 
   // Navigation logic
