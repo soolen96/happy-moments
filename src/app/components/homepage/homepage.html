@@ -31,10 +31,7 @@
     </nav>
 
     <div class="header-right">
-      <button class="theme-toggle-btn-desktop" (click)="toggleTheme()"
-        [title]="'Cambiar a Modo ' + (isDarkMode() ? 'Claro' : 'Oscuro')">
-        <span>{{ isDarkMode() ? '🌙 Modo Oscuro' : '☀️ Modo Claro' }}</span>
-      </button>
+
       <button class="cart-btn" (click)="toggleCart()" id="btn-cart" aria-label="Ver Carrito de Compras">
         <span class="cart-icon">🛒</span>
         <span class="cart-text">Carrito</span>
