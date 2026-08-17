@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ConfigurationService } from '../../services/configuration.service';
 import { CartService } from '../../services/cart.service';
-import { Product, ProductCategory, ContactInfo } from '../../models';
+import { ProductService } from '../../services/product.service';
+import { ProductCategory, ContactInfo } from '../../models';
 import { CartComponent } from '../cart/cart';
 import { ProductCarouselComponent } from '../product-carousel/product-carousel';
 import { SearchBoxComponent } from '../search-box/search-box';
@@ -24,6 +25,7 @@ import { SearchBoxComponent } from '../search-box/search-box';
 export class Homepage implements OnInit {
   private configService = inject(ConfigurationService);
   cartService = inject(CartService);
+  productService = inject(ProductService);
 
   // Configuration state
   contactInfo = signal<ContactInfo | null>(null);
@@ -41,8 +43,8 @@ export class Homepage implements OnInit {
   // Categories
   categories = ['Todos', ProductCategory.Brownies, ProductCategory.Gomitas, ProductCategory.Galletas, ProductCategory.Combos];
 
-  // All Artisanal Products (Loaded dynamically from configuration.json)
-  products = signal<Product[]>([]);
+  // All Artisanal Products (Synced via ProductService)
+  products = this.productService.products;
 
   footerText = signal<string>('');
   footerDescription = signal<string>('');
@@ -107,10 +109,6 @@ export class Homepage implements OnInit {
   loadConfiguration() {
     this.configService.getConfig().subscribe({
       next: (config) => {
-        if (config?.products) {
-          this.products.set(config.products.map(p => new Product(p)));
-        }
-
         if (config?.footer?.['contact-info']) {
           this.contactInfo.set(config.footer['contact-info']);
         }
@@ -132,7 +130,7 @@ export class Homepage implements OnInit {
   }
 
   // Cart logic delegated to CartService
-  addToCart(product: Product) {
+  addToCart(product: any) {
     this.cartService.addToCart(product);
   }
 
