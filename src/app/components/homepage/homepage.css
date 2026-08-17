@@ -223,7 +223,6 @@ button.drawer-link {
   border: none;
   font-family: inherit;
   cursor: pointer;
-  padding: 0;
   text-align: left;
 }
 
@@ -332,10 +331,17 @@ button.drawer-link {
 .drawer-link {
   color: var(--text-primary);
   text-decoration: none;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  padding: 0.5rem 0;
-  transition: color 0.2s;
+  padding: 0.5rem 0.6rem;
+  margin: 0;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  box-sizing: border-box;
+  line-height: 1.35;
+  transition: all 0.2s ease;
 }
 
 .drawer-link:hover {
