@@ -2,7 +2,7 @@
 <section class="combos-section" id="combos">
   <div class="combos-header">
     <div class="section-badge">
-      <span>🎁 PAQUETES & COMBOS ESPECIALES</span>
+      <span><img src="assets/icons/gift.svg" alt="Combos" class="inline-icon" /> PAQUETES & COMBOS ESPECIALES</span>
     </div>
     <h2 class="combos-title">Combos Happy Moments</h2>
     <p class="combos-subtitle">La mejor combinación de nuestros edibles artesanales para compartir o disfrutar a tu ritmo.</p>
@@ -17,8 +17,8 @@
 
       <div class="combo-body">
         <div class="combo-meta">
-          <span class="combo-items-badge" *ngIf="combo.itemsCount">📦 {{ combo.itemsCount }}</span>
-          <span class="combo-rating" *ngIf="combo.rating">⭐ {{ combo.rating }}</span>
+          <span class="combo-items-badge" *ngIf="combo.itemsCount"><img src="assets/icons/box.svg" alt="Paquete" class="rating-icon" /> {{ combo.itemsCount }}</span>
+          <span class="combo-rating" *ngIf="combo.rating"><img src="assets/icons/star.svg" alt="Calificación" class="rating-icon" /> {{ combo.rating }}</span>
         </div>
 
         <h3 class="combo-name">{{ combo.name }}</h3>
@@ -31,7 +31,7 @@
           </div>
 
           <button class="btn-add-combo" (click)="addToCart(combo)">
-            <span>🛒 Agregar</span>
+            <span><img src="assets/icons/cart.svg" alt="Carrito" class="menu-icon" /> Agregar</span>
           </button>
         </div>
       </div>

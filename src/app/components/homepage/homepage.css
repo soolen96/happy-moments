@@ -325,6 +325,17 @@ button.drawer-link {
 .drawer-header h2 {
   font-size: 1.2rem;
   color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.menu-icon {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  display: inline-block;
+  flex-shrink: 0;
 }
 
 .close-btn {
@@ -1159,6 +1170,14 @@ button.drawer-link {
   font-size: 1.15rem;
   margin-bottom: 1.25rem;
   color: #ffffff;
+  text-align: center;
+}
+
+.contact-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .footer-links {
@@ -1179,13 +1198,53 @@ button.drawer-link {
   color: var(--color-green);
 }
 
+.contact-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.contact-svg-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.inline-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.rating-icon {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+  vertical-align: middle;
+  display: inline-block;
+  margin-right: 2px;
+}
+
+.empty-icon {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
 .contact-info-list {
   list-style: none;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.85rem;
   font-size: 0.9rem;
   color: #d1c1cb;
+  width: 100%;
 }
 
 .contact-info-list li {
@@ -1193,15 +1252,19 @@ button.drawer-link {
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
+  width: 100%;
+  text-align: center;
 }
 
 .contact-info-list li.schedule-li {
   align-items: flex-start;
+  justify-content: center;
 }
 
 .schedule-text {
   white-space: pre-line;
   line-height: 1.4;
+  text-align: center;
 }
 
 .footer-contact-link {
@@ -1384,7 +1447,9 @@ button.drawer-link {
 }
 
 .theme-icon-indicator {
-  font-size: 1.2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .theme-switch-pill {

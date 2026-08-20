@@ -19,7 +19,7 @@
               <button class="qty-btn" (click)="cartService.updateQuantity(item.product.id, 1)">+</button>
             </div>
           </div>
-          <button class="remove-item-btn" (click)="cartService.removeFromCart(item.product.id)" title="Eliminar">🗑️</button>
+          <button class="remove-item-btn" (click)="cartService.removeFromCart(item.product.id)" title="Eliminar"><img src="assets/icons/trash.svg" alt="Eliminar" class="menu-icon" /></button>
         </div>
       </div>
 
@@ -27,7 +27,7 @@
       <div class="cart-mascot-container">
         <img src="assets/mascot-cart.png" alt="Mascota Happy Moments" class="cart-mascot-img" />
         <div class="cart-mascot-bubble">
-          <span>✨ ¡Tus edibles preferidos están listos para acompañar tus mejores momentos! 🌿</span>
+          <span><img src="assets/icons/sparkles.svg" alt="Sparkles" class="inline-icon" /> ¡Tus edibles preferidos están listos para acompañar tus mejores momentos! <img src="assets/icons/leaf.svg" alt="Natural" class="inline-icon" /></span>
         </div>
       </div>
     </div>
@@ -47,7 +47,7 @@
         <span class="total-amount">{{ cartService.formatCOP(cartService.cartTotalPrice()) }}</span>
       </div>
       <a [href]="cartService.getWhatsAppUrl(contactInfo)" target="_blank" rel="noopener noreferrer" class="checkout-btn">
-        <span>📲 Realizar Pedido por WhatsApp</span>
+        <span><img src="assets/icons/whatsapp.svg" alt="WhatsApp" class="inline-icon" /> Realizar Pedido por WhatsApp</span>
       </a>
     </div>
   </aside>

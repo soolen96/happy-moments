@@ -33,7 +33,7 @@
     <div class="header-right">
 
       <button class="cart-btn" (click)="toggleCart()" id="btn-cart" aria-label="Ver Carrito de Compras">
-        <span class="cart-icon">🛒</span>
+        <span class="cart-icon"><img src="assets/icons/cart.svg" alt="Carrito" class="menu-icon" /></span>
         <span class="cart-text">Carrito</span>
         <span class="cart-badge" *ngIf="cartService.cartTotalCount() > 0">{{ cartService.cartTotalCount() }}</span>
       </button>
@@ -44,23 +44,42 @@
   <div class="menu-overlay" *ngIf="isMenuOpen()" (click)="closeMenu()">
     <aside class="menu-drawer" (click)="$event.stopPropagation()">
       <div class="drawer-header">
-        <h2>✨ Menú Principal</h2>
+        <h2>
+          <img src="assets/icons/sparkles.svg" alt="Menú" class="menu-icon" />
+          Menú Principal
+        </h2>
         <button class="close-btn" (click)="closeMenu()">&times;</button>
       </div>
 
       <nav class="drawer-nav">
-        <a href="#populares" (click)="closeMenu()" class="drawer-link">🔥 Lo Más popular</a>
-        <a href="#catalogo" (click)="closeMenu(); selectCategory('Todos')" class="drawer-link">🍬 Productos</a>
-        <a href="#catalogo" (click)="closeMenu(); selectCategory('Combos')" class="drawer-link">🎁 Combos</a>
+        <a href="#populares" (click)="closeMenu()" class="drawer-link">
+          <img src="assets/icons/fire.svg" alt="Popular" class="menu-icon" />
+          Lo Más popular
+        </a>
+        <a href="#catalogo" (click)="closeMenu(); selectCategory('Todos')" class="drawer-link">
+          <img src="assets/icons/candy.svg" alt="Productos" class="menu-icon" />
+          Productos
+        </a>
+        <a href="#catalogo" (click)="closeMenu(); selectCategory('Combos')" class="drawer-link">
+          <img src="assets/icons/gift.svg" alt="Combos" class="menu-icon" />
+          Combos
+        </a>
         <button type="button" (click)="closeMenu(); toggleCart()" class="drawer-link drawer-cart-btn">
-          🛒 Carrito de compras
+          <img src="assets/icons/cart.svg" alt="Carrito" class="menu-icon" />
+          Carrito de compras
         </button>
-        <a href="#contacto" (click)="closeMenu()" class="drawer-link">📞 Contacto</a>
+        <a href="#contacto" (click)="closeMenu()" class="drawer-link">
+          <img src="assets/icons/phone.svg" alt="Contacto" class="menu-icon" />
+          Contacto
+        </a>
 
         <!-- Theme Toggle inside Menu -->
         <div class="theme-switch-item" (click)="toggleTheme()">
           <div class="theme-switch-label">
-            <span class="theme-icon-indicator">{{ isDarkMode() ? '🌙' : '☀️' }}</span>
+            <span class="theme-icon-indicator">
+              <img [src]="isDarkMode() ? 'assets/icons/moon.svg' : 'assets/icons/sun.svg'"
+                [alt]="isDarkMode() ? 'Modo Oscuro' : 'Modo Claro'" class="menu-icon" />
+            </span>
             <span>Modo {{ isDarkMode() ? 'Oscuro' : 'Claro' }}</span>
           </div>
           <div class="theme-switch-pill" [class.dark]="isDarkMode()">
@@ -70,9 +89,9 @@
       </nav>
 
       <div class="drawer-footer">
-        <p class="drawer-info">🌿 Edibles de receta ancestral elaborados con amor e ingredientes naturales.</p>
+        <p class="drawer-info"><img src="assets/icons/leaf.svg" alt="Ancestral" class="inline-icon" /> Edibles de receta ancestral elaborados con amor e ingredientes naturales.</p>
         <div class="drawer-socials">
-          <span>📲 WhatsApp: +57 300 123 4567</span>
+          <span><img src="assets/icons/whatsapp.svg" alt="WhatsApp" class="inline-icon" /> WhatsApp: +57 300 123 4567</span>
         </div>
       </div>
     </aside>
@@ -108,7 +127,7 @@
         <div class="card-body">
           <div class="card-top-meta">
             <span class="card-category">{{ product.category }}</span>
-            <span class="card-rating">⭐ {{ product.rating }}</span>
+            <span class="card-rating"><img src="assets/icons/star.svg" alt="Calificación" class="rating-icon" /> {{ product.rating }}</span>
           </div>
 
           <h3 class="card-title">{{ product.name }}</h3>
@@ -126,35 +145,12 @@
 
     <ng-template #noProducts>
       <div class="empty-catalog">
-        <span class="empty-emoji">🍬</span>
+        <span class="empty-emoji"><img src="assets/icons/candy.svg" alt="Sin productos" class="empty-icon" /></span>
         <h3>No se encontraron productos</h3>
         <p>Intenta con otra búsqueda o selecciona una categoría diferente.</p>
       </div>
     </ng-template>
   </section>
-
-  <!-- About Section -->
-  <!--<section class="about-section" id="nosotros">
-    <div class="about-card">
-      <div class="about-text">
-        <span class="about-badge">🌿 EDIBLES ANCESTRALES</span>
-        <h2>¿Por qué elegir Happy Moments?</h2>
-        <p>
-          En <strong>Happy Moments</strong> rescatamos el arte de los <em>edibles ancestrales</em>. Elaboramos nuestras
-          gomitas y reposteria con extractos puros y pulpas naturales de fruta, sin aditivos sintéticos.
-        </p>
-        <ul class="about-features">
-          <li>💚 Ingredientes botánicos 100% naturales</li>
-          <li>✨ Recetas ancestrales artesanales y horneado diario</li>
-          <li>📦 Envíos discretos y seguros a todo el país</li>
-        </ul>
-      </div>
-      <div class="about-image-box">
-        <img src="https://images.unsplash.com/photo-1582058091505-f87aede55a60?auto=format&fit=crop&w=800&q=80"
-          alt="Edibles artesanales" />
-      </div>
-    </div>
-  </section>-->
 
   <!-- Shopping Cart Component -->
   <app-cart [contactInfo]="contactInfo()"></app-cart>
@@ -184,7 +180,7 @@
               class="social-icon" title="Instagram">
               <img src="assets/instagram-icon.png" alt="Instagram" class="ig-icon" /> @happy.moments.bog</a>
             <a href="https://wa.me/573144882666" target="_blank" rel="noopener noreferrer" class="social-icon"
-              title="WhatsApp">💬 +57 314
+              title="WhatsApp"><img src="assets/icons/whatsapp.svg" alt="WhatsApp" class="inline-icon" /> +57 314
               4882666</a>
           </div>
         </ng-template>
@@ -196,15 +192,15 @@
         <h3 class="footer-title">Información de Contacto</h3>
         <ul class="contact-info-list" *ngIf="contactInfo() as info">
           <li>
-            <span class="contact-icon">📍</span>
+            <span class="contact-icon"><img src="assets/icons/location.svg" alt="Ubicación" class="contact-svg-icon" /></span>
             <span>{{ info.location }}</span>
           </li>
           <li>
-            <span class="contact-icon">📞</span>
+            <span class="contact-icon"><img src="assets/icons/phone.svg" alt="Teléfono" class="contact-svg-icon" /></span>
             <span>{{ info.phone }}</span>
           </li>
           <li>
-            <span class="contact-icon">✉️</span>
+            <span class="contact-icon"><img src="assets/icons/mail.svg" alt="Correo" class="contact-svg-icon" /></span>
             <span>{{ info.email }}</span>
           </li>
           <li>
@@ -215,7 +211,7 @@
             </a>
           </li>
           <li class="schedule-li">
-            <span class="contact-icon">⏰</span>
+            <span class="contact-icon"><img src="assets/icons/clock.svg" alt="Horario" class="contact-svg-icon" /></span>
             <span class="schedule-text">{{ info.schedule }}</span>
           </li>
         </ul>
