@@ -55,12 +55,32 @@ export class Homepage implements OnInit {
   // Popular products carousel filter
   popularProducts = computed(() => this.products().filter(p => p.isPopular));
 
+  // Combined list of products and converted combos for catalog search & filter
+  allCatalogProducts = computed(() => {
+    const regularProducts = this.products();
+    const comboProducts = this.combos().map(
+      (c) =>
+        new Product({
+          id: c.id,
+          name: c.name,
+          category: ProductCategory.Combos,
+          price: c.price,
+          description: c.description,
+          badge: c.badge || 'Combo',
+          image: c.image,
+          weight: c.itemsCount || '',
+          isPopular: true,
+        })
+    );
+    return [...regularProducts, ...comboProducts];
+  });
+
   // Catalog filtered products
   filteredProducts = computed(() => {
     const category = this.selectedCategory();
     const query = this.searchQuery().toLowerCase().trim();
 
-    return this.products().filter((p) => {
+    return this.allCatalogProducts().filter((p) => {
       const matchesCategory = category === 'Todos' || p.category === category;
       const matchesSearch =
         p.name.toLowerCase().includes(query) ||

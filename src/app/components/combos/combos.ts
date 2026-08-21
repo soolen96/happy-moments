@@ -25,7 +25,6 @@ export class CombosComponent {
       description: combo.description,
       badge: combo.badge || 'Combo Especial',
       image: combo.image,
-      rating: combo.rating || 5.0,
       weight: combo.itemsCount || 'Combo Pack',
       isPopular: true,
     });

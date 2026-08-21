@@ -5,7 +5,6 @@ export class Combo {
   description: string;
   badge?: string;
   image: string;
-  rating?: number;
   itemsCount?: string;
 
   constructor(init?: Partial<Combo>) {
@@ -15,7 +14,6 @@ export class Combo {
     this.description = init?.description ?? '';
     this.badge = init?.badge ?? 'Combo 🎁';
     this.image = init?.image ?? 'assets/products/combo-box.png';
-    this.rating = init?.rating ?? 5.0;
     this.itemsCount = init?.itemsCount ?? '';
   }
 }
