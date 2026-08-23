@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ConfigurationService } from '../../services/configuration.service';
 import { CartService } from '../../services/cart.service';
+import { ProductService } from '../../services/product.service';
 import { Product, ProductCategory, ContactInfo, Combo } from '../../models';
 import { CartComponent } from '../cart/cart';
 import { ProductCarouselComponent } from '../product-carousel/product-carousel';
@@ -26,6 +27,7 @@ import { CombosComponent } from '../combos/combos';
 export class Homepage implements OnInit {
   private configService = inject(ConfigurationService);
   cartService = inject(CartService);
+  productService = inject(ProductService);
 
   // Configuration state
   contactInfo = signal<ContactInfo | null>(null);
@@ -43,8 +45,8 @@ export class Homepage implements OnInit {
   // Categories
   categories = ['Todos', ProductCategory.Brownies, ProductCategory.Gomitas, ProductCategory.Galletas, ProductCategory.Combos];
 
-  // All Artisanal Products (Loaded dynamically from configuration.json)
-  products = signal<Product[]>([]);
+  // All Artisanal Products (Synced via ProductService)
+  products = this.productService.products;
 
   // Special Combos (Loaded dynamically from configuration.json)
   combos = signal<Combo[]>([]);
@@ -132,20 +134,16 @@ export class Homepage implements OnInit {
   loadConfiguration() {
     this.configService.getConfig().subscribe({
       next: (config) => {
-        if (config?.products) {
-          this.products.set(config.products.map(p => new Product(p)));
-        }
-
         if (config?.combos) {
-          this.combos.set(config.combos.map(c => new Combo(c)));
+          this.combos.set(config.combos.map((c) => new Combo(c)));
         }
 
         if (config?.footer?.['contact-info']) {
           this.contactInfo.set(config.footer['contact-info']);
         }
 
-        this.footerText.set(config.footer.text);
-        this.footerDescription.set(config.footer.description);
+        this.footerText.set(config.footer?.text || '');
+        this.footerDescription.set(config.footer?.description || '');
       },
       error: (err) => console.error('Error loading configuration JSON:', err)
     });
@@ -161,7 +159,7 @@ export class Homepage implements OnInit {
   }
 
   // Cart logic delegated to CartService
-  addToCart(product: Product) {
+  addToCart(product: any) {
     this.cartService.addToCart(product);
   }
 

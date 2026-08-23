@@ -1,0 +1,166 @@
+<div class="admin-wrapper">
+  <!-- Toast Notification -->
+  <div class="admin-toast" *ngIf="toastMessage() as msg">
+    <span>{{ msg }}</span>
+  </div>
+
+  <!-- Header Nav Bar -->
+  <header class="admin-header">
+    <div class="admin-brand">
+      <img src="assets/logo-candy-jar-dark.png" alt="Happy Moments Logo" class="admin-logo-img" />
+      <div class="admin-title-box">
+        <h1>⚙️ Panel de Gestión de Productos</h1>
+        <span class="admin-sub">HAPPY MOMENTS • ADMINISTRACIÓN DE CATÁLOGO JSON</span>
+      </div>
+    </div>
+
+    <div class="admin-actions">
+      <a routerLink="/" class="btn-store">🛍️ Ir a la Tienda</a>
+      <button class="btn-action primary" (click)="addNewProduct()">➕ Agregar Producto</button>
+      <button class="btn-action secondary" (click)="downloadJSON()">📥 Descargar JSON</button>
+      <button class="btn-action danger-light" (click)="resetDefault()" title="Restablecer a JSON original">🔄 Restablecer</button>
+    </div>
+  </header>
+
+  <!-- Controls & Filters Bar -->
+  <div class="admin-controls-card">
+    <div class="search-field">
+      <span class="search-icon">🔍</span>
+      <input
+        type="text"
+        placeholder="Buscar por ID, nombre o descripción..."
+        [value]="searchTerm()"
+        (input)="searchTerm.set($any($event.target).value)"
+      />
+    </div>
+
+    <div class="filter-field">
+      <label>Filtrar Categoría:</label>
+      <select [value]="selectedFilter()" (change)="selectedFilter.set($any($event.target).value)">
+        <option value="Todos">Todas las categorías</option>
+        <option *ngFor="let cat of categoryOptions" [value]="cat">{{ cat }}</option>
+      </select>
+    </div>
+
+    <div class="stats-badge">
+      Total: <strong>{{ adminProducts().length }}</strong> productos
+    </div>
+  </div>
+
+  <!-- Product List & Editors -->
+  <div class="admin-grid" *ngIf="adminProducts().length > 0; else emptyAdmin">
+    <div class="product-admin-card" *ngFor="let p of adminProducts()">
+      <!-- Card Top Preview -->
+      <div class="card-header-bar">
+        <div class="id-tag">ID: {{ p.id }}</div>
+        <div class="card-top-actions">
+          <button class="icon-btn" (click)="duplicateProduct(p)" title="Duplicar producto">📋 Duplicar</button>
+          <button class="icon-btn danger" (click)="deleteProduct(p)" title="Eliminar producto">🗑️ Eliminar</button>
+        </div>
+      </div>
+
+      <!-- Main Form Row -->
+      <div class="card-body-grid">
+        <!-- Thumbnail & Image URL -->
+        <div class="image-preview-col">
+          <div class="img-frame">
+            <img [src]="p.image" [alt]="p.name" (error)="$any($event.target).src = 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=80'" />
+          </div>
+          <div class="field-group">
+            <label>URL de Imagen:</label>
+            <input
+              type="text"
+              [value]="p.image"
+              (change)="updateProductField(p.id, 'image', $any($event.target).value)"
+              placeholder="https://..."
+            />
+          </div>
+        </div>
+
+        <!-- Details Inputs -->
+        <div class="details-col">
+          <div class="field-row">
+            <div class="field-group flex-2">
+              <label>Nombre del Producto:</label>
+              <input
+                type="text"
+                [value]="p.name"
+                (change)="updateProductField(p.id, 'name', $any($event.target).value)"
+                placeholder="Nombre del producto"
+              />
+            </div>
+
+            <div class="field-group flex-1">
+              <label>Categoría:</label>
+              <select [value]="p.category" (change)="updateProductField(p.id, 'category', $any($event.target).value)">
+                <option *ngFor="let cat of categoryOptions" [value]="cat">{{ cat }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-group flex-1">
+              <label>Precio (COP $):</label>
+              <input
+                type="number"
+                [value]="p.price"
+                (change)="updateProductField(p.id, 'price', +$any($event.target).value)"
+              />
+              <span class="price-formatted">{{ formatCOP(p.price) }}</span>
+            </div>
+
+            <div class="field-group flex-1">
+              <label>Insignia / Badge:</label>
+              <input
+                type="text"
+                [value]="p.badge || ''"
+                (change)="updateProductField(p.id, 'badge', $any($event.target).value)"
+                placeholder="Ej: Más Vendido 👑"
+              />
+            </div>
+
+            <div class="field-group flex-1">
+              <label>Peso / Cantidad:</label>
+              <input
+                type="text"
+                [value]="p.weight || ''"
+                (change)="updateProductField(p.id, 'weight', $any($event.target).value)"
+                placeholder="Ej: 150g"
+              />
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label>Descripción:</label>
+            <textarea
+              rows="2"
+              [value]="p.description"
+              (change)="updateProductField(p.id, 'description', $any($event.target).value)"
+              placeholder="Descripción del producto..."
+            ></textarea>
+          </div>
+
+          <div class="checkbox-row">
+            <label class="checkbox-label">
+              <input
+                type="checkbox"
+                [checked]="p.isPopular"
+                (change)="updateProductField(p.id, 'isPopular', $any($event.target).checked)"
+              />
+              <span>🔥 Destacado en Carrusel Popular</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #emptyAdmin>
+    <div class="empty-admin-card">
+      <span class="empty-icon">🍬</span>
+      <h2>No se encontraron productos</h2>
+      <p>Intenta ajustar la búsqueda o agrega un nuevo producto.</p>
+      <button class="btn-action primary" (click)="addNewProduct()">➕ Agregar Producto</button>
+    </div>
+  </ng-template>
+</div>
