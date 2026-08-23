@@ -44,7 +44,6 @@ export class AdminComponent {
       badge: 'Nuevo 🌟',
       image: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=80',
       isPopular: true,
-      rating: 5.0,
       weight: '150g',
     });
 

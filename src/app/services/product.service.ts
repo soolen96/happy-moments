@@ -69,7 +69,6 @@ export class ProductService {
       badge: newProduct.badge || 'Nuevo 🌟',
       image: newProduct.image || 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=80',
       isPopular: newProduct.isPopular ?? true,
-      rating: newProduct.rating || 5.0,
       weight: newProduct.weight || '150g',
     });
 
