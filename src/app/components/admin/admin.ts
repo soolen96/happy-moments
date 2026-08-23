@@ -55,6 +55,18 @@ export class AdminComponent {
     this.showToast('💾 Cambios guardados automáticamente');
   }
 
+  getFlavorsString(flavors?: string[]): string {
+    return flavors ? flavors.join(', ') : '';
+  }
+
+  updateProductFlavors(id: string, value: string) {
+    const flavors = value
+      .split(',')
+      .map((s) => s.trim())
+      .filter((s) => s.length > 0);
+    this.updateProductField(id, 'flavors', flavors.length > 0 ? flavors : undefined);
+  }
+
   duplicateProduct(product: Product) {
     this.productService.addProduct({
       ...product,

@@ -162,8 +162,100 @@
 .slide-description {
   font-size: 0.95rem;
   color: var(--text-secondary);
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
   line-height: 1.6;
+}
+
+/* Flavor Selection Chips in Carousel */
+.carousel-flavor-selector {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.flavor-selector-label {
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-secondary);
+}
+
+.flavor-chips-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.flavor-chip-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--border-glass);
+  background: var(--bg-glass);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+}
+
+.flavor-chip-btn:hover {
+  border-color: var(--color-green);
+  background: rgba(82, 183, 55, 0.12);
+  transform: translateY(-1px);
+}
+
+.flavor-chip-btn.active {
+  border-color: var(--color-green);
+  background: rgba(82, 183, 55, 0.18);
+  color: var(--color-green-dark);
+  box-shadow: 0 2px 12px rgba(82, 183, 55, 0.25);
+  font-weight: 800;
+}
+
+.flavor-chip-icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.flavor-chip-text {
+  line-height: 1;
+}
+
+.flavor-chip-check {
+  font-size: 0.78rem;
+  font-weight: 900;
+  color: var(--color-green-dark);
+  margin-left: 2px;
+}
+
+body.dark-mode .flavor-chip-btn {
+  background: rgba(45, 12, 38, 0.7);
+  border-color: rgba(232, 59, 135, 0.25);
+  color: var(--text-secondary);
+}
+
+body.dark-mode .flavor-chip-btn:hover {
+  background: rgba(82, 183, 55, 0.2);
+  border-color: var(--color-green);
+  color: var(--text-primary);
+}
+
+body.dark-mode .flavor-chip-btn.active {
+  background: rgba(82, 183, 55, 0.28);
+  border-color: var(--color-green);
+  color: #79dd58;
+  box-shadow: 0 0 12px rgba(82, 183, 55, 0.3);
+}
+
+body.dark-mode .flavor-chip-check {
+  color: #79dd58;
 }
 
 .slide-action-row {

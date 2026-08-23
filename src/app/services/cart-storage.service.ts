@@ -16,7 +16,7 @@ export class CartStorageService {
       if (!data) return [];
       const parsed = JSON.parse(data);
       if (!Array.isArray(parsed)) return [];
-      return parsed.map((item: any) => new CartItem(new Product(item.product), item.quantity));
+      return parsed.map((item: any) => new CartItem(new Product(item.product), item.quantity, item.selectedFlavor));
     } catch (e) {
       console.error('Error reading cart from localStorage:', e);
       return [];

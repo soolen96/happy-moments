@@ -10,6 +10,7 @@ export class Product {
   image: string;
   isPopular?: boolean;
   weight?: string;
+  flavors?: string[];
 
   constructor(init?: Partial<Product>) {
     this.id = init?.id ?? '';
@@ -21,5 +22,6 @@ export class Product {
     this.image = init?.image ?? '';
     this.isPopular = init?.isPopular;
     this.weight = init?.weight;
+    this.flavors = init?.flavors ? [...init.flavors] : undefined;
   }
 }
