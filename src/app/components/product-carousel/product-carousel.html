@@ -1,7 +1,7 @@
 <!-- Hero & Popular Products Carousel -->
 <section class="hero-carousel-section" id="populares">
   <div class="section-badge">
-    <span>🌿 EDIBLES ANCESTRALES & COMIDA ARTESANAL</span>
+    <span><img src="assets/icons/leaf.svg" alt="Ancestral" class="inline-icon" /> EDIBLES ANCESTRALES & COMIDA ARTESANAL</span>
   </div>
   <h1 class="hero-heading">
     Descubre la magia de nuestros <br />
@@ -24,7 +24,6 @@
           <div class="slide-info-box">
             <div class="slide-header">
               <span class="slide-category">{{ item.category }} • {{ item.weight }}</span>
-              <div class="slide-rating">⭐ {{ item.rating }}</div>
             </div>
             <h2 class="slide-title">{{ item.name }}</h2>
             <p class="slide-description">{{ item.description }}</p>
@@ -35,7 +34,7 @@
                 <span class="price-value">{{ formatCOP(item.price) }}</span>
               </div>
               <button class="btn-primary-add" (click)="addToCart(item)">
-                <span>🛒 Agregar al Carrito</span>
+                <span><img src="assets/icons/cart.svg" alt="Carrito" class="menu-icon" /> Agregar al Carrito</span>
               </button>
             </div>
           </div>

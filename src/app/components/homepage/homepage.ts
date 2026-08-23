@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { ConfigurationService } from '../../services/configuration.service';
 import { CartService } from '../../services/cart.service';
 import { ProductService } from '../../services/product.service';
-import { ProductCategory, ContactInfo } from '../../models';
+import { Product, ProductCategory, ContactInfo, Combo } from '../../models';
 import { CartComponent } from '../cart/cart';
 import { ProductCarouselComponent } from '../product-carousel/product-carousel';
 import { SearchBoxComponent } from '../search-box/search-box';
+import { CombosComponent } from '../combos/combos';
 
 @Component({
   selector: 'app-homepage',
@@ -18,6 +19,7 @@ import { SearchBoxComponent } from '../search-box/search-box';
     CartComponent,
     ProductCarouselComponent,
     SearchBoxComponent,
+    CombosComponent,
   ],
   templateUrl: './homepage.html',
   styleUrl: './homepage.css',
@@ -46,18 +48,41 @@ export class Homepage implements OnInit {
   // All Artisanal Products (Synced via ProductService)
   products = this.productService.products;
 
+  // Special Combos (Loaded dynamically from configuration.json)
+  combos = signal<Combo[]>([]);
+
   footerText = signal<string>('');
   footerDescription = signal<string>('');
 
   // Popular products carousel filter
   popularProducts = computed(() => this.products().filter(p => p.isPopular));
 
+  // Combined list of products and converted combos for catalog search & filter
+  allCatalogProducts = computed(() => {
+    const regularProducts = this.products();
+    const comboProducts = this.combos().map(
+      (c) =>
+        new Product({
+          id: c.id,
+          name: c.name,
+          category: ProductCategory.Combos,
+          price: c.price,
+          description: c.description,
+          badge: c.badge || 'Combo',
+          image: c.image,
+          weight: c.itemsCount || '',
+          isPopular: true,
+        })
+    );
+    return [...regularProducts, ...comboProducts];
+  });
+
   // Catalog filtered products
   filteredProducts = computed(() => {
     const category = this.selectedCategory();
     const query = this.searchQuery().toLowerCase().trim();
 
-    return this.products().filter((p) => {
+    return this.allCatalogProducts().filter((p) => {
       const matchesCategory = category === 'Todos' || p.category === category;
       const matchesSearch =
         p.name.toLowerCase().includes(query) ||
@@ -109,12 +134,16 @@ export class Homepage implements OnInit {
   loadConfiguration() {
     this.configService.getConfig().subscribe({
       next: (config) => {
+        if (config?.combos) {
+          this.combos.set(config.combos.map((c) => new Combo(c)));
+        }
+
         if (config?.footer?.['contact-info']) {
           this.contactInfo.set(config.footer['contact-info']);
         }
 
-        this.footerText.set(config.footer.text);
-        this.footerDescription.set(config.footer.description);
+        this.footerText.set(config.footer?.text || '');
+        this.footerDescription.set(config.footer?.description || '');
       },
       error: (err) => console.error('Error loading configuration JSON:', err)
     });

@@ -9,7 +9,7 @@ export class Product {
   badge?: string;
   image: string;
   isPopular?: boolean;
-  rating: number;
+  rating?: number;
   weight?: string;
 
   constructor(init?: Partial<Product>) {
@@ -21,7 +21,7 @@ export class Product {
     this.badge = init?.badge;
     this.image = init?.image ?? '';
     this.isPopular = init?.isPopular;
-    this.rating = init?.rating ?? 0;
+    this.rating = init?.rating ?? 5.0;
     this.weight = init?.weight;
   }
 }

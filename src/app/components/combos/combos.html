@@ -1,0 +1,45 @@
+<!-- Special Combos Section -->
+<section class="combos-section" id="combos">
+  <div class="combos-header">
+    <div class="section-badge">
+      <span><img src="assets/icons/gift.svg" alt="Combos" class="inline-icon" /> PAQUETES & COMBOS ESPECIALES</span>
+    </div>
+    <h2 class="combos-title">Combos Happy Moments</h2>
+    <p class="combos-subtitle">La mejor combinación de nuestros edibles artesanales para compartir o disfrutar a tu ritmo.</p>
+  </div>
+
+  <div class="combos-grid" *ngIf="combos.length > 0; else noCombos">
+    <div class="combo-card" *ngFor="let combo of combos">
+      <div class="combo-img-container">
+        <img [src]="combo.image" [alt]="combo.name" loading="lazy" />
+        <span class="combo-tag" *ngIf="combo.badge">{{ combo.badge }}</span>
+      </div>
+
+      <div class="combo-body">
+        <div class="combo-meta">
+          <span class="combo-items-badge" *ngIf="combo.itemsCount"><img src="assets/icons/box.svg" alt="Paquete" class="meta-icon" /> {{ combo.itemsCount }}</span>
+        </div>
+
+        <h3 class="combo-name">{{ combo.name }}</h3>
+        <p class="combo-desc">{{ combo.description }}</p>
+
+        <div class="combo-footer">
+          <div class="combo-price-box">
+            <span class="combo-price-label">Precio:</span>
+            <span class="combo-price-value">{{ formatCOP(combo.price) }}</span>
+          </div>
+
+          <button class="btn-add-combo" (click)="addToCart(combo)">
+            <span><img src="assets/icons/cart.svg" alt="Carrito" class="menu-icon" /> Agregar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noCombos>
+    <div class="no-combos">
+      <p>Cargando combos especiales...</p>
+    </div>
+  </ng-template>
+</section>

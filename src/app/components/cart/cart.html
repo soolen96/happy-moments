@@ -7,25 +7,36 @@
     </div>
 
     <div class="cart-drawer-body" *ngIf="cartService.cart().length > 0; else emptyCart">
-      <div class="cart-item" *ngFor="let item of cartService.cart()">
-        <img [src]="item.product.image" [alt]="item.product.name" class="cart-item-img" />
-        <div class="cart-item-info">
-          <h4 class="cart-item-title">{{ item.product.name }}</h4>
-          <span class="cart-item-price">{{ cartService.formatCOP(item.product.price) }}</span>
-          <div class="qty-controls">
-            <button class="qty-btn" (click)="cartService.updateQuantity(item.product.id, -1)">-</button>
-            <span class="qty-val">{{ item.quantity }}</span>
-            <button class="qty-btn" (click)="cartService.updateQuantity(item.product.id, 1)">+</button>
+      <div class="cart-items-list">
+        <div class="cart-item" *ngFor="let item of cartService.cart()">
+          <img [src]="item.product.image" [alt]="item.product.name" class="cart-item-img" />
+          <div class="cart-item-info">
+            <h4 class="cart-item-title">{{ item.product.name }}</h4>
+            <span class="cart-item-price">{{ cartService.formatCOP(item.product.price) }}</span>
+            <div class="qty-controls">
+              <button class="qty-btn" (click)="cartService.updateQuantity(item.product.id, -1)">-</button>
+              <span class="qty-val">{{ item.quantity }}</span>
+              <button class="qty-btn" (click)="cartService.updateQuantity(item.product.id, 1)">+</button>
+            </div>
           </div>
+          <button class="remove-item-btn" (click)="cartService.removeFromCart(item.product.id)" title="Eliminar"><img src="assets/icons/trash.svg" alt="Eliminar" class="menu-icon" /></button>
         </div>
-        <button class="remove-item-btn" (click)="cartService.removeFromCart(item.product.id)" title="Eliminar">🗑️</button>
+      </div>
+
+      <!-- Mascot Illustration Banner -->
+      <div class="cart-mascot-container">
+        <img src="assets/mascot-cart.png" alt="Mascota Happy Moments" class="cart-mascot-img" />
+        <div class="cart-mascot-bubble">
+          <span><img src="assets/icons/sparkles.svg" alt="Sparkles" class="inline-icon" /> ¡Tus edibles preferidos están listos para acompañar tus mejores momentos! <img src="assets/icons/leaf.svg" alt="Natural" class="inline-icon" /></span>
+        </div>
       </div>
     </div>
 
     <ng-template #emptyCart>
       <div class="empty-cart-state">
-        <span class="empty-cart-icon">🛒</span>
-        <p>Tu carrito está vacío.</p>
+        <img src="assets/mascot-cart.png" alt="Mascota Happy Moments" class="empty-mascot-img" />
+        <p class="empty-title">Tu carrito está vacío</p>
+        <p class="empty-sub">¡Agrega gomitas o brownies para comenzar la experiencia!</p>
         <button class="btn-secondary-action" (click)="cartService.toggleCart()">Explorar Productos</button>
       </div>
     </ng-template>
@@ -36,7 +47,7 @@
         <span class="total-amount">{{ cartService.formatCOP(cartService.cartTotalPrice()) }}</span>
       </div>
       <a [href]="cartService.getWhatsAppUrl(contactInfo)" target="_blank" rel="noopener noreferrer" class="checkout-btn">
-        <span>📲 Realizar Pedido por WhatsApp</span>
+        <span><img src="assets/icons/whatsapp.svg" alt="WhatsApp" class="inline-icon" /> Realizar Pedido por WhatsApp</span>
       </a>
     </div>
   </aside>

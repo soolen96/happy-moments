@@ -151,11 +151,6 @@
   letter-spacing: 1px;
 }
 
-.slide-rating {
-  font-size: 0.9rem;
-  color: var(--color-yellow);
-  font-weight: 800;
-}
 
 .slide-title {
   font-size: 1.75rem;
@@ -234,12 +229,44 @@
 }
 
 @media (max-width: 768px) {
+  .carousel-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .carousel-arrow.prev {
+    left: 8px;
+  }
+
+  .carousel-arrow.next {
+    right: 8px;
+  }
+
   .slide-content {
     grid-template-columns: 1fr;
     gap: 1.5rem;
     padding: 1.5rem;
   }
+
   .slide-image-box {
     min-height: 220px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
+  }
+
+  .carousel-arrow.prev {
+    left: 6px;
+  }
+
+  .carousel-arrow.next {
+    right: 6px;
   }
 }

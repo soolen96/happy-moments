@@ -2,97 +2,125 @@
   "products": [
     {
       "id": "p1",
-      "name": "Brownie Fudge con Nuez y Caramelo",
-      "category": "Brownies",
-      "price": 12500,
-      "description": "Brownie artesanal melcochudo elaborado con cacao al 70%, nueces crocantes y un toque de caramelo salado.",
-      "badge": "Más Vendido 👑",
-      "image": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=80",
-      "isPopular": true,
-      "rating": 4.9,
-      "weight": "120g"
-    },
-    {
-      "id": "p2",
-      "name": "Gomitas Artesanales de Frutos Rojos",
+      "name": "gomitas Lite x4 unidades",
       "category": "Gomitas",
-      "price": 8500,
-      "description": "Gomitas 100% artesanales con pulpa natural de mora, fresa y arándanos, sin conservantes artificiales.",
-      "badge": "Receta Secreta 🫐",
-      "image": "https://images.unsplash.com/photo-1665757516805-ead01c014ceb?auto=format&fit=crop&w=800&q=80",
+      "price": 20000,
+      "description": "precio por unidad $ 6.000",
+      "badge": "Lite",
+      "image": "assets/products/gomitas-lite.png",
       "isPopular": true,
-      "rating": 4.8,
-      "weight": "150g"
+      "weight": "4 unidades"
     },
     {
       "id": "p3",
-      "name": "Galletas de Chispas de Chocolate & Vainilla",
-      "category": "Galletas",
-      "price": 9800,
-      "description": "Galletas horneadas al momento, suaves por dentro y doradas por fuera, cargadas de trozos de chocolate real.",
-      "badge": "Horneado Hoy 🍪",
-      "image": "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=800&q=80",
-      "isPopular": true,
-      "rating": 5.0,
-      "weight": "180g (6 uds)"
-    },
-    {
-      "id": "p4",
-      "name": "Brownie Rubio de Arequipe & Avellanas",
-      "category": "Brownies",
-      "price": 13000,
-      "description": "Blondie blanco artesanal relleno de arequipe tradicional colombiano y trozos de avellana tostada.",
-      "badge": "Especial ✨",
-      "image": "https://images.unsplash.com/photo-1515037893149-de7f840978e2?auto=format&fit=crop&w=800&q=80",
-      "isPopular": false,
-      "rating": 4.7,
-      "weight": "125g"
-    },
-    {
-      "id": "p5",
-      "name": "Gomitas Ácidas de Maracuyá & Mango",
+      "name": "gomitas mix x4 unidades",
       "category": "Gomitas",
-      "price": 9000,
-      "description": "Explosión cítrica y dulce elaborada con jugos de maracuyá y mango real espolvoreadas con azúcar ácida.",
-      "badge": "Nuevo 🥭",
-      "image": "https://images.unsplash.com/photo-1575224300306-1b8da36134ec?auto=format&fit=crop&w=800&q=80",
+      "price": 24000,
+      "description": "este paquete contiene: 2 gomitas Lite y 2 gomitas Power.",
+      "badge": "Mix",
+      "image": "assets/products/gomitas-mix.png",
       "isPopular": true,
-      "rating": 4.9,
-      "weight": "150g"
+      "weight": "4 unidades"
     },
     {
       "id": "p6",
-      "name": "Galletas Red Velvet con Centro de Queso Crema",
+      "name": "galletas fusión x4 unidades",
       "category": "Galletas",
-      "price": 11000,
-      "description": "Galletas estilo neoyorquino con masa suave sabor red velvet y delicioso relleno artesanal.",
-      "badge": "Favorito ❤️",
-      "image": "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=800&q=80",
-      "isPopular": false,
-      "rating": 4.9,
-      "weight": "160g"
+      "price": 26000,
+      "description": "precio por unidad $ 8.000",
+      "badge": "Fusión",
+      "image": "assets/products/galletas-fusion.png",
+      "isPopular": true,
+      "weight": "4 unidades"
     },
     {
       "id": "p7",
-      "name": "Caja Regalo \"Momento Dulce\" (Combo)",
-      "category": "Combos",
-      "price": 32000,
-      "description": "Incluye 2 Brownies Fudge, 1 Paquete de Gomitas de Frutos Rojos y 4 Galletas de Chispas. Ideal para regalar.",
-      "badge": "Mejor Opción 🎁",
-      "image": "https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?auto=format&fit=crop&w=800&q=80",
+      "name": "gomitas power x4 unidades",
+      "category": "Gomitas",
+      "price": 26000,
+      "description": "precio por unidad $ 6.000",
+      "badge": "Power",
+      "image": "assets/products/gomitas-power.png",
       "isPopular": true,
-      "rating": 5.0,
-      "weight": "Caja Surtida"
+      "weight": "4 unidades"
+    },
+    {
+      "id": "p8",
+      "name": "Brownies fusión x2 unidades",
+      "category": "Brownies",
+      "price": 26000,
+      "description": "precio por unidad $ 15.000",
+      "badge": "Fusión",
+      "image": "assets/products/brownies-fusion.png",
+      "isPopular": true,
+      "weight": "2 unidades"
+    }
+  ],
+  "combos": [
+    {
+      "id": "c1",
+      "name": "Combo Personal",
+      "price": 14000,
+      "description": "1 Chocolate Lite - 1 Gomita Power",
+      "badge": "Personal",
+      "image": "assets/combos/combo-personal.png",
+      "itemsCount": "2 productos"
+    },
+    {
+      "id": "c2",
+      "name": "Combo Duo",
+      "price": 24000,
+      "description": "2 Chocolates Lite - 2 Gomitas Power",
+      "badge": "Duo",
+      "image": "assets/combos/combo-duo.png",
+      "itemsCount": "4 productos"
+    },
+    {
+      "id": "c3",
+      "name": "Combo Bowl",
+      "price": 32000,
+      "description": "2 Galletas Fusión - 3 Chocolates Lite - 3 Gomitas Lite",
+      "badge": "Bowl",
+      "image": "assets/combos/combo-bowl.png",
+      "itemsCount": "8 productos"
+    },
+    {
+      "id": "c4",
+      "name": "Combo Pequeño",
+      "price": 34000,
+      "description": "1 Chocolate Power - 2 Galletas Fusión - 1 Brownie Fusión - 1 Gomita Lite",
+      "badge": "Favorito",
+      "image": "assets/combos/combo-pequeno.png",
+      "itemsCount": "5 productos"
+    },
+    {
+      "id": "c5",
+      "name": "Combo Delicius",
+      "price": 35000,
+      "description": "1 Brownie Fusión - 1 Sundae Power - 1 Chocolate Lite",
+      "badge": "Delicius",
+      "image": "assets/combos/combo-delicius.png",
+      "itemsCount": "3 productos"
+    },
+    {
+      "id": "c6",
+      "name": "Combo Especial",
+      "price": 65000,
+      "description": "2 Chocolates Power - 2 Chocolates Lite - 2 Galletas Fusión - 2 Brownies Fusión - 2 Gomitas Power - 2 Gomitas Lite",
+      "badge": "Fiesta",
+      "image": "assets/combos/combo-especial.png",
+      "itemsCount": "12 productos"
     }
   ],
   "footer": {
     "contact-info": {
       "location": "Bogotá, Colombia",
       "phone": "+57 314 4882666",
-      "instagram": "@happymomentsbyfio",
+      "instagram": "@happy.moments.bog",
+      "instagramUrl": "https://www.instagram.com/happy.moments.bog",
       "email": "happymoments420@gmail.com",
       "whatsapp": "+57 314 4882666",
-      "schedule": "Lunes a Domingo de 10:00 am a 8:00 pm"
+      "schedule": "Lunes a Sábado 9am a 9pm\nDomingos 9am a 6pm"
     },
     "text": "© 2026 Happy Moments - Edibles Ancestrales. Todos los derechos reservados",
     "description": "Edibles Ancestrales & Comida Artesanal. Gomitas, brownies y galletas creados para elevar tus mejores momentos con sabor y bienestar natural."
