@@ -24,7 +24,6 @@
     </div>
 
     <nav class="header-nav-desktop">
-      <a href="#populares" class="nav-link">Lo Más popular</a>
       <a href="#catalogo" (click)="selectCategory('Todos')" class="nav-link">Productos</a>
       <a href="#catalogo" (click)="selectCategory('Combos')" class="nav-link">Combos</a>
       <a href="#contacto" class="nav-link">Contacto</a>
@@ -52,10 +51,6 @@
       </div>
 
       <nav class="drawer-nav">
-        <a href="#populares" (click)="closeMenu()" class="drawer-link">
-          <img src="assets/icons/fire.svg" alt="Popular" class="menu-icon" />
-          Lo Más popular
-        </a>
         <a href="#catalogo" (click)="closeMenu(); selectCategory('Todos')" class="drawer-link">
           <img src="assets/icons/candy.svg" alt="Productos" class="menu-icon" />
           Productos

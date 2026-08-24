@@ -26,12 +26,12 @@
       "id": "p_1787526107002",
       "name": "Arequipe",
       "category": "Otros",
-      "price": 25000,
+      "price": 50000,
       "description": "Dulce a base de leche",
       "badge": "Power",
       "image": "assets/products/arequipe-power.png",
       "isPopular": true,
-      "weight": "1 unidad"
+      "weight": "140g - 10 Portions"
     },
     {
       "id": "p_1787525199025",
