@@ -42,7 +42,12 @@
       "badge": "Power",
       "image": "assets/products/sundae-power.png",
       "isPopular": true,
-      "weight": "1 unidad"
+      "weight": "1 unidad",
+      "flavors": [
+        "Frutos Amarillos",
+        "Frutos Rojos",
+        "Oreo"
+      ]
     },
     {
       "id": "p_1787523810273",
