@@ -31,8 +31,8 @@ export class AdminComponent {
   selectedFilter = signal<string>('Todos');
   toastMessage = signal<string | null>(null);
 
-  performLogin(): void {
-    const success = this.authService.login(this.loginUsername(), this.loginPassword());
+  async performLogin(): Promise<void> {
+    const success = await this.authService.login(this.loginUsername(), this.loginPassword());
     if (success) {
       this.loginError.set(null);
       this.showToast('🔓 Sesión iniciada correctamente');
