@@ -71,18 +71,6 @@ export class ProductCarouselComponent implements OnInit, OnDestroy {
     this.selectedFlavors[productId] = flavor;
   }
 
-  getFlavorIcon(flavor: string): string {
-    const lower = flavor.toLowerCase();
-    if (lower.includes('choco')) return '🍫';
-    if (lower.includes('arequipe') || lower.includes('caramelo') || lower.includes('dulce')) return '🍯';
-    if (lower.includes('mix') || lower.includes('combinado') || lower.includes('dúo') || lower.includes('duo')) return '✨';
-    if (lower.includes('fresa') || lower.includes('berry') || lower.includes('frut')) return '🍓';
-    if (lower.includes('vainilla')) return '🍦';
-    if (lower.includes('menta')) return '🍃';
-    if (lower.includes('café') || lower.includes('cafe')) return '☕';
-    return '🍬';
-  }
-
   addToCart(product: Product) {
     const flavor = product.flavors && product.flavors.length > 0 ? this.getSelectedFlavor(product) : undefined;
     this.cartService.addToCart(product, flavor);
