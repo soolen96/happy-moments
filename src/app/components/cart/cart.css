@@ -101,10 +101,34 @@
   color: var(--color-plum-text);
 }
 
+.cart-item-flavor-badge {
+  display: inline-block;
+  background: rgba(82, 183, 55, 0.12);
+  color: var(--color-green-dark);
+  border: 1px solid rgba(82, 183, 55, 0.3);
+  font-size: 0.72rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: var(--radius-full);
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.cart-item-flavor-badge strong {
+  font-weight: 800;
+}
+
+:host-context(.dark-mode) .cart-item-flavor-badge {
+  background: rgba(82, 183, 55, 0.2);
+  color: #7ce858;
+  border-color: rgba(82, 183, 55, 0.4);
+}
+
 .cart-item-price {
   font-size: 0.85rem;
   color: var(--color-green-dark);
   font-weight: 800;
+  display: block;
 }
 
 .qty-controls {

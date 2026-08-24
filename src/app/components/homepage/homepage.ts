@@ -158,6 +158,17 @@ export class Homepage implements OnInit {
     });
   }
 
+  // Flavor selection state per product
+  selectedFlavors = signal<Record<string, string>>({});
+
+  getSelectedFlavor(product: Product): string {
+    return this.selectedFlavors()[product.id] || (product.flavors && product.flavors.length > 0 ? product.flavors[0] : '');
+  }
+
+  selectFlavor(productId: string, flavor: string): void {
+    this.selectedFlavors.update((map) => ({ ...map, [productId]: flavor }));
+  }
+
   // Navigation logic
   toggleMenu() {
     this.isMenuOpen.update(v => !v);
@@ -169,7 +180,8 @@ export class Homepage implements OnInit {
 
   // Cart logic delegated to CartService
   addToCart(product: any) {
-    this.cartService.addToCart(product);
+    const flavor = product.flavors && product.flavors.length > 0 ? this.getSelectedFlavor(product) : undefined;
+    this.cartService.addToCart(product, flavor);
   }
 
   toggleCart() {

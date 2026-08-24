@@ -46,8 +46,13 @@
 }
 
 @keyframes floatOrb {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(45px, 65px) scale(1.15); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate(45px, 65px) scale(1.15);
+  }
 }
 
 /* Header Navbar */
@@ -149,8 +154,15 @@
 }
 
 @keyframes bounceLogo {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
 }
 
 .logo-titles {
@@ -309,8 +321,13 @@ button.drawer-link {
 }
 
 @keyframes slideDrawer {
-  from { transform: translateX(-100%); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
 }
 
 .drawer-header {
@@ -451,8 +468,13 @@ button.drawer-link {
   transform: translateY(-50%) scale(1.1);
 }
 
-.carousel-arrow.prev { left: -20px; }
-.carousel-arrow.next { right: -20px; }
+.carousel-arrow.prev {
+  left: -20px;
+}
+
+.carousel-arrow.next {
+  right: -20px;
+}
 
 .carousel-track-wrapper {
   background: var(--bg-card);
@@ -479,8 +501,15 @@ button.drawer-link {
 }
 
 @keyframes fadeInSlide {
-  from { opacity: 0; transform: scale(0.98); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .slide-image-box {
@@ -800,8 +829,96 @@ button.drawer-link {
   font-size: 0.88rem;
   color: var(--text-secondary);
   line-height: 1.5;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
   flex-grow: 1;
+}
+
+/* Flavor Selector Chips in Product Cards */
+.card-flavor-selector {
+  margin-top: -0.3rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.flavor-selector-label {
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-secondary);
+}
+
+.flavor-chips-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.flavor-chip-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--border-glass);
+  background: var(--bg-glass);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+}
+
+.flavor-chip-btn:hover {
+  border-color: var(--color-green);
+  background: rgba(82, 183, 55, 0.1);
+  transform: translateY(-1px);
+}
+
+.flavor-chip-btn.active {
+  border-color: var(--color-green);
+  background: rgba(82, 183, 55, 0.18);
+  color: var(--color-green-dark);
+  box-shadow: 0 2px 10px rgba(82, 183, 55, 0.2);
+  font-weight: 800;
+}
+
+.flavor-chip-text {
+  line-height: 1;
+}
+
+.flavor-chip-check {
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: var(--color-green-dark);
+  margin-left: 2px;
+}
+
+body.dark-mode .flavor-chip-btn {
+  background: rgba(45, 12, 38, 0.7);
+  border-color: rgba(232, 59, 135, 0.25);
+  color: var(--text-secondary);
+}
+
+body.dark-mode .flavor-chip-btn:hover {
+  background: rgba(82, 183, 55, 0.2);
+  border-color: var(--color-green);
+  color: var(--text-primary);
+}
+
+body.dark-mode .flavor-chip-btn.active {
+  background: rgba(82, 183, 55, 0.28);
+  border-color: var(--color-green);
+  color: #79dd58;
+  box-shadow: 0 0 12px rgba(82, 183, 55, 0.3);
+}
+
+body.dark-mode .flavor-chip-check {
+  color: #79dd58;
 }
 
 .card-price-action {
@@ -943,8 +1060,13 @@ button.drawer-link {
 }
 
 @keyframes slideCart {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
 }
 
 .cart-drawer-header {
@@ -1459,7 +1581,7 @@ button.drawer-link {
   top: 3px;
   left: 3px;
   transition: transform 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .theme-switch-pill.dark .theme-switch-thumb {

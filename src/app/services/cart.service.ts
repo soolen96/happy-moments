@@ -19,36 +19,44 @@ export class CartService {
     this.cart.set(savedCart);
   }
 
-  addToCart(product: Product): void {
+  addToCart(product: Product, selectedFlavor?: string): void {
+    const flavor = selectedFlavor || (product.flavors && product.flavors.length > 0 ? product.flavors[0] : undefined);
+
     this.cart.update((currentItems) => {
-      const existing = currentItems.find((item) => item.product.id === product.id);
+      const existing = currentItems.find(
+        (item) => item.product.id === product.id && item.selectedFlavor === flavor
+      );
       let updated: CartItem[];
       if (existing) {
         updated = currentItems.map((item) =>
-          item.product.id === product.id ? new CartItem(item.product, item.quantity + 1) : item
+          item.product.id === product.id && item.selectedFlavor === flavor
+            ? new CartItem(item.product, item.quantity + 1, item.selectedFlavor)
+            : item
         );
       } else {
-        updated = [...currentItems, new CartItem(product, 1)];
+        updated = [...currentItems, new CartItem(product, 1, flavor)];
       }
       this.cartStorage.saveCart(updated);
       return updated;
     });
   }
 
-  removeFromCart(productId: string): void {
+  removeFromCart(productId: string, selectedFlavor?: string): void {
     this.cart.update((items) => {
-      const updated = items.filter((i) => i.product.id !== productId);
+      const updated = items.filter(
+        (i) => !(i.product.id === productId && (selectedFlavor === undefined || i.selectedFlavor === selectedFlavor))
+      );
       this.cartStorage.saveCart(updated);
       return updated;
     });
   }
 
-  updateQuantity(productId: string, change: number): void {
+  updateQuantity(productId: string, change: number, selectedFlavor?: string): void {
     this.cart.update((items) => {
       const updated = items.map((item) => {
-        if (item.product.id === productId) {
+        if (item.product.id === productId && (selectedFlavor === undefined || item.selectedFlavor === selectedFlavor)) {
           const newQty = item.quantity + change;
-          return newQty > 0 ? new CartItem(item.product, newQty) : item;
+          return newQty > 0 ? new CartItem(item.product, newQty, item.selectedFlavor) : item;
         }
         return item;
       });
@@ -84,7 +92,8 @@ export class CartService {
 
     let message = '¡Hola! Quisiera realizar el siguiente pedido en Happy Moments:\n\n';
     items.forEach((item) => {
-      message += `• ${item.product.name} x${item.quantity} - ${this.formatCOP(item.product.price * item.quantity)}\n`;
+      const flavorTag = item.selectedFlavor ? ` (Sabor: ${item.selectedFlavor})` : '';
+      message += `• ${item.product.name}${flavorTag} x${item.quantity} - ${this.formatCOP(item.product.price * item.quantity)}\n`;
     });
     message += `\n*Total:* ${this.formatCOP(this.cartTotalPrice())}`;
 

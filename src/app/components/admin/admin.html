@@ -140,6 +140,16 @@
             ></textarea>
           </div>
 
+          <div class="field-group">
+            <label>Sabores Disponibles (separados por coma):</label>
+            <input
+              type="text"
+              [value]="getFlavorsString(p.flavors)"
+              (change)="updateProductFlavors(p.id, $any($event.target).value)"
+              placeholder="Ej: Chocolate, Arequipe, Mixto"
+            />
+          </div>
+
           <div class="checkbox-row">
             <label class="checkbox-label">
               <input

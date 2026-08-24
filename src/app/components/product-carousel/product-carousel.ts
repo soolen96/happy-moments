@@ -58,8 +58,34 @@ export class ProductCarouselComponent implements OnInit, OnDestroy {
     this.startCarouselAutoPlay();
   }
 
+  selectedFlavors: Record<string, string> = {};
+
+  getSelectedFlavor(product: Product): string {
+    return this.selectedFlavors[product.id] || (product.flavors && product.flavors.length > 0 ? product.flavors[0] : '');
+  }
+
+  selectFlavor(productId: string, flavor: string, event?: Event): void {
+    if (event) {
+      event.stopPropagation();
+    }
+    this.selectedFlavors[productId] = flavor;
+  }
+
+  getFlavorIcon(flavor: string): string {
+    const lower = flavor.toLowerCase();
+    if (lower.includes('choco')) return '🍫';
+    if (lower.includes('arequipe') || lower.includes('caramelo') || lower.includes('dulce')) return '🍯';
+    if (lower.includes('mix') || lower.includes('combinado') || lower.includes('dúo') || lower.includes('duo')) return '✨';
+    if (lower.includes('fresa') || lower.includes('berry') || lower.includes('frut')) return '🍓';
+    if (lower.includes('vainilla')) return '🍦';
+    if (lower.includes('menta')) return '🍃';
+    if (lower.includes('café') || lower.includes('cafe')) return '☕';
+    return '🍬';
+  }
+
   addToCart(product: Product) {
-    this.cartService.addToCart(product);
+    const flavor = product.flavors && product.flavors.length > 0 ? this.getSelectedFlavor(product) : undefined;
+    this.cartService.addToCart(product, flavor);
   }
 
   formatCOP(amount: number): string {

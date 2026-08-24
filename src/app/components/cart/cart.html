@@ -12,14 +12,17 @@
           <img [src]="item.product.image" [alt]="item.product.name" class="cart-item-img" />
           <div class="cart-item-info">
             <h4 class="cart-item-title">{{ item.product.name }}</h4>
+            <span class="cart-item-flavor-badge" *ngIf="item.selectedFlavor">
+              Sabor: <strong>{{ item.selectedFlavor }}</strong>
+            </span>
             <span class="cart-item-price">{{ cartService.formatCOP(item.product.price) }}</span>
             <div class="qty-controls">
-              <button class="qty-btn" (click)="cartService.updateQuantity(item.product.id, -1)">-</button>
+              <button class="qty-btn" (click)="cartService.updateQuantity(item.product.id, -1, item.selectedFlavor)">-</button>
               <span class="qty-val">{{ item.quantity }}</span>
-              <button class="qty-btn" (click)="cartService.updateQuantity(item.product.id, 1)">+</button>
+              <button class="qty-btn" (click)="cartService.updateQuantity(item.product.id, 1, item.selectedFlavor)">+</button>
             </div>
           </div>
-          <button class="remove-item-btn" (click)="cartService.removeFromCart(item.product.id)" title="Eliminar"><img src="assets/icons/trash.svg" alt="Eliminar" class="menu-icon" /></button>
+          <button class="remove-item-btn" (click)="cartService.removeFromCart(item.product.id, item.selectedFlavor)" title="Eliminar"><img src="assets/icons/trash.svg" alt="Eliminar" class="menu-icon" /></button>
         </div>
       </div>
 

@@ -28,6 +28,25 @@
             <h2 class="slide-title">{{ item.name }}</h2>
             <p class="slide-description">{{ item.description }}</p>
 
+            <!-- Flavor Selection Chips in Carousel -->
+            <div class="carousel-flavor-selector" *ngIf="item.flavors && item.flavors.length > 0">
+              <span class="flavor-selector-label">Elige tu sabor:</span>
+              <div class="flavor-chips-group">
+                <button
+                  type="button"
+                  class="flavor-chip-btn"
+                  *ngFor="let flavor of item.flavors"
+                  [class.active]="getSelectedFlavor(item) === flavor"
+                  (click)="selectFlavor(item.id, flavor, $event)"
+                  [attr.aria-label]="'Elegir sabor ' + flavor"
+                >
+                  <span class="flavor-chip-icon">{{ getFlavorIcon(flavor) }}</span>
+                  <span class="flavor-chip-text">{{ flavor }}</span>
+                  <span class="flavor-chip-check" *ngIf="getSelectedFlavor(item) === flavor">✓</span>
+                </button>
+              </div>
+            </div>
+
             <div class="slide-action-row">
               <div class="slide-price-tag">
                 <span class="price-label">Precio:</span>

@@ -64,7 +64,11 @@
       "badge": "Lite",
       "image": "assets/products/gomitas-lite.png",
       "isPopular": true,
-      "weight": "4 unidades"
+      "weight": "4 unidades",
+      "flavors": [
+        "Frutos rojos",
+        "Mango"
+      ]
     },
     {
       "id": "p3",
@@ -108,7 +112,12 @@
       "badge": "Fusión",
       "image": "assets/products/brownies-fusion.png",
       "isPopular": true,
-      "weight": "2 unidades"
+      "weight": "2 unidades",
+      "flavors": [
+        "Chocolate",
+        "Arequipe",
+        "Mixto"
+      ]
     }
   ],
   "combos": [
