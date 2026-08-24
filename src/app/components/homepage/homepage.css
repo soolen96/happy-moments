@@ -468,6 +468,22 @@ button.drawer-link {
   transform: translateY(-50%) scale(1.1);
 }
 
+body.dark-mode .carousel-arrow,
+:host-context(.dark-mode) .carousel-arrow {
+  background: rgba(32, 9, 27, 0.95);
+  border: 1.5px solid rgba(232, 59, 135, 0.4);
+  color: #ffffff;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .carousel-arrow:hover,
+:host-context(.dark-mode) .carousel-arrow:hover {
+  background: var(--color-green);
+  border-color: var(--color-green);
+  color: #ffffff;
+  box-shadow: 0 0 18px rgba(82, 183, 55, 0.6);
+}
+
 .carousel-arrow.prev {
   left: -20px;
 }
