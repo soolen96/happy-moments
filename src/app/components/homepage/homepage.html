@@ -8,7 +8,7 @@
   <header class="main-header">
     <div class="header-left">
       <button class="menu-toggle-btn" (click)="toggleMenu()" id="btn-menu" aria-label="Abrir menú de navegación">
-        <span class="hamburger-icon">☰</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="inline-icon"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         <span class="menu-text">Menú</span>
       </button>
 
@@ -148,7 +148,7 @@
           <div class="card-price-action">
             <span class="product-price">{{ formatCOP(product.price) }}</span>
             <button class="add-cart-btn" (click)="addToCart(product)">
-              <span>+ Añadir</span>
+              <span><img src="assets/icons/plus.svg" alt="Añadir" class="inline-icon" /> Añadir</span>
             </button>
           </div>
         </div>
