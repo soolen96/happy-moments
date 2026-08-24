@@ -43,7 +43,16 @@ export class Homepage implements OnInit {
   searchQuery = signal<string>('');
 
   // Categories
-  categories = ['Todos', ProductCategory.Brownies, ProductCategory.Gomitas, ProductCategory.Galletas, ProductCategory.Combos];
+  categories = [
+    'Todos',
+    ProductCategory.Brownies,
+    ProductCategory.Gomitas,
+    ProductCategory.Galletas,
+    ProductCategory.Chocolates,
+    ProductCategory.Sundaes,
+    ProductCategory.Otros,
+    ProductCategory.Combos,
+  ];
 
   // All Artisanal Products (Synced via ProductService)
   products = this.productService.products;

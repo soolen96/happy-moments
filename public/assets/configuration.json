@@ -1,11 +1,66 @@
 {
   "products": [
     {
+      "id": "p_1787526607439",
+      "name": "Chocolates Mix",
+      "category": "Chocolates",
+      "price": 24000,
+      "description": "Precio por unidad $6.000",
+      "badge": "Mix",
+      "image": "assets/products/chocolates-mix.png",
+      "isPopular": true,
+      "weight": "4 unidades"
+    },
+    {
+      "id": "p_1787526476972",
+      "name": "Chocolates Power",
+      "category": "Chocolates",
+      "price": 24000,
+      "description": "Precio por unidad $6.000",
+      "badge": "Power",
+      "image": "assets/products/chocolates-power.png",
+      "isPopular": true,
+      "weight": "4 unidades"
+    },
+    {
+      "id": "p_1787526107002",
+      "name": "Arequipe",
+      "category": "Otros",
+      "price": 25000,
+      "description": "Dulce a base de leche",
+      "badge": "Power",
+      "image": "assets/products/arequipe-power.png",
+      "isPopular": true,
+      "weight": "1 unidad"
+    },
+    {
+      "id": "p_1787525199025",
+      "name": "Sundae",
+      "category": "Sundaes",
+      "price": 25000,
+      "description": "Helado de vainilla con toppings de sabores",
+      "badge": "Power",
+      "image": "assets/products/sundae-power.png",
+      "isPopular": true,
+      "weight": "1 unidad"
+    },
+    {
+      "id": "p_1787523810273",
+      "name": "Chocolates Lite",
+      "category": "Chocolates",
+      "price": 24000,
+      "description": "Precio por unidad $6.000",
+      "badge": "Lite",
+      "image": "assets/products/chocolates-lite.png",
+      "isPopular": true,
+      "weight": "4 unidades"
+    },
+    {
       "id": "p1",
-      "name": "gomitas Lite x4 unidades",
+      "name": "Gomitas Lite",
       "category": "Gomitas",
       "price": 20000,
-      "description": "precio por unidad $ 6.000",
+      "description": "Precio por unidad $ 6.000",
       "badge": "Lite",
       "image": "assets/products/gomitas-lite.png",
       "isPopular": true,
@@ -13,10 +68,10 @@
     },
     {
       "id": "p3",
-      "name": "gomitas mix x4 unidades",
+      "name": "Gomitas Mix ",
       "category": "Gomitas",
       "price": 24000,
-      "description": "este paquete contiene: 2 gomitas Lite y 2 gomitas Power.",
+      "description": "Este paquete contiene: 2 gomitas Lite y 2 gomitas Power.",
       "badge": "Mix",
       "image": "assets/products/gomitas-mix.png",
       "isPopular": true,
@@ -24,10 +79,10 @@
     },
     {
       "id": "p6",
-      "name": "galletas fusión x4 unidades",
+      "name": "Galletas Fusión ",
       "category": "Galletas",
       "price": 26000,
-      "description": "precio por unidad $ 8.000",
+      "description": "Precio por unidad $ 8.000",
       "badge": "Fusión",
       "image": "assets/products/galletas-fusion.png",
       "isPopular": true,
@@ -35,10 +90,10 @@
     },
     {
       "id": "p7",
-      "name": "gomitas power x4 unidades",
+      "name": "Gomitas Power",
       "category": "Gomitas",
       "price": 26000,
-      "description": "precio por unidad $ 6.000",
+      "description": "Precio por unidad $ 6.000",
       "badge": "Power",
       "image": "assets/products/gomitas-power.png",
       "isPopular": true,
@@ -46,10 +101,10 @@
     },
     {
       "id": "p8",
-      "name": "Brownies fusión x2 unidades",
+      "name": "Brownies Fusión",
       "category": "Brownies",
       "price": 26000,
-      "description": "precio por unidad $ 15.000",
+      "description": "Precio por unidad $ 15.000",
       "badge": "Fusión",
       "image": "assets/products/brownies-fusion.png",
       "isPopular": true,
@@ -116,11 +171,10 @@
     "contact-info": {
       "location": "Bogotá, Colombia",
       "phone": "+57 314 4882666",
-      "instagram": "@happy.moments.bog",
-      "instagramUrl": "https://www.instagram.com/happy.moments.bog",
+      "instagram": "@happymomentsbyfio",
       "email": "happymoments420@gmail.com",
       "whatsapp": "+57 314 4882666",
-      "schedule": "Lunes a Sábado 9am a 9pm\nDomingos 9am a 6pm"
+      "schedule": "Lunes a Domingo de 10:00 am a 8:00 pm"
     },
     "text": "© 2026 Happy Moments - Edibles Ancestrales. Todos los derechos reservados",
     "description": "Edibles Ancestrales & Comida Artesanal. Gomitas, brownies y galletas creados para elevar tus mejores momentos con sabor y bienestar natural."

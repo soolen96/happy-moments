@@ -36,7 +36,7 @@
 
     <div class="filter-field">
       <label>Filtrar Categoría:</label>
-      <select [value]="selectedFilter()" (change)="selectedFilter.set($any($event.target).value)">
+      <select [ngModel]="selectedFilter()" (ngModelChange)="selectedFilter.set($event)">
         <option value="Todos">Todas las categorías</option>
         <option *ngFor="let cat of categoryOptions" [value]="cat">{{ cat }}</option>
       </select>
@@ -49,7 +49,7 @@
 
   <!-- Product List & Editors -->
   <div class="admin-grid" *ngIf="adminProducts().length > 0; else emptyAdmin">
-    <div class="product-admin-card" *ngFor="let p of adminProducts()">
+    <div class="product-admin-card" *ngFor="let p of adminProducts(); trackBy: trackById">
       <!-- Card Top Preview -->
       <div class="card-header-bar">
         <div class="id-tag">ID: {{ p.id }}</div>
@@ -92,7 +92,7 @@
 
             <div class="field-group flex-1">
               <label>Categoría:</label>
-              <select [value]="p.category" (change)="updateProductField(p.id, 'category', $any($event.target).value)">
+              <select [ngModel]="p.category" (ngModelChange)="updateProductField(p.id, 'category', $event)">
                 <option *ngFor="let cat of categoryOptions" [value]="cat">{{ cat }}</option>
               </select>
             </div>

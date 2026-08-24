@@ -103,4 +103,8 @@ export class AdminComponent {
       maximumFractionDigits: 0,
     }).format(amount || 0);
   }
+
+  trackById(index: number, p: Product): string {
+    return p.id;
+  }
 }

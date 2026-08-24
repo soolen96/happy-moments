@@ -2,5 +2,8 @@ export enum ProductCategory {
   Brownies = 'Brownies',
   Gomitas = 'Gomitas',
   Galletas = 'Galletas',
-  Combos = 'Combos'
+  Chocolates = 'Chocolates',
+  Sundaes = 'Sundaes',
+  Otros = 'Otros',
+  Combos = 'Combos',
 }

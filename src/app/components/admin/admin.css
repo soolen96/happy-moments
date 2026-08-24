@@ -286,10 +286,9 @@
 
 .img-frame {
   width: 100%;
-  height: 160px;
+  height: 180px;
   border-radius: var(--radius-sm, 10px);
   overflow: hidden;
-  background: #000000;
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -297,6 +296,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
 }
 
 .details-col {
