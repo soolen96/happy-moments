@@ -245,22 +245,104 @@
 }
 
 .cart-drawer-footer {
-  padding-top: 1.5rem;
+  padding-top: 1rem;
   border-top: 1px solid rgba(90, 24, 70, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.cart-promo-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.85rem;
+  border-radius: var(--radius-sm, 10px);
+  background: rgba(232, 59, 135, 0.08);
+  border: 1px dashed rgba(232, 59, 135, 0.4);
+  color: var(--color-plum-text);
+  font-size: 0.78rem;
+  line-height: 1.3;
+  transition: all 0.3s ease;
+}
+
+.cart-promo-pill.unlocked {
+  background: rgba(82, 183, 55, 0.12);
+  border: 1px solid rgba(82, 183, 55, 0.4);
+  color: var(--color-green-dark, #2b7a14);
+}
+
+:host-context(.dark-mode) .cart-promo-pill {
+  background: rgba(232, 59, 135, 0.15);
+  border-color: rgba(232, 59, 135, 0.5);
+  color: #f7d5e6;
+}
+
+:host-context(.dark-mode) .cart-promo-pill.unlocked {
+  background: rgba(82, 183, 55, 0.2);
+  border-color: rgba(82, 183, 55, 0.5);
+  color: #8ce86b;
+}
+
+.promo-pill-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.cart-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed rgba(90, 24, 70, 0.12);
+}
+
+:host-context(.dark-mode) .cart-breakdown {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+}
+
+.delivery-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.delivery-amount {
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
 .cart-summary-row {
   display: flex;
   justify-content: space-between;
-  font-size: 1.1rem;
+  align-items: baseline;
+  font-size: 1.15rem;
   font-weight: 800;
-  margin-bottom: 1.2rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.25rem;
   color: var(--color-plum-text);
+}
+
+:host-context(.dark-mode) .cart-summary-row {
+  color: #ffffff;
 }
 
 .total-amount {
   color: var(--color-green-dark);
   font-family: var(--font-heading);
+  font-size: 1.35rem;
+}
+
+:host-context(.dark-mode) .total-amount {
+  color: #7ce858;
 }
 
 .checkout-btn {

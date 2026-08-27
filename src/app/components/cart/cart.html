@@ -45,6 +45,32 @@
     </ng-template>
 
     <div class="cart-drawer-footer" *ngIf="cartService.cart().length > 0">
+      <!-- Free Gummy Promo Banner -->
+      <div class="cart-promo-pill" [class.unlocked]="cartService.hasFreeGummyReward()">
+        <span class="promo-pill-icon">{{ cartService.hasFreeGummyReward() ? '🎉' : '🍬' }}</span>
+        <span class="promo-pill-text" *ngIf="cartService.hasFreeGummyReward()">
+          <strong>¡Gomita de regalo incluida!</strong> En compras ≥ $20.000
+        </span>
+        <span class="promo-pill-text" *ngIf="!cartService.hasFreeGummyReward()">
+          Agrega <strong>{{ cartService.formatCOP(cartService.amountForFreeGummy()) }}</strong> más y recibe <strong>1 gomita gratis</strong>
+        </span>
+      </div>
+
+      <!-- Cost Breakdown -->
+      <div class="cart-breakdown">
+        <div class="breakdown-row">
+          <span>Subtotal productos:</span>
+          <span>{{ cartService.formatCOP(cartService.cartSubtotalPrice()) }}</span>
+        </div>
+        <div class="breakdown-row">
+          <span class="delivery-label">
+            <img src="assets/icons/location.svg" alt="Bogotá" class="inline-icon" />
+            Domicilio (Todo Bogotá):
+          </span>
+          <span class="delivery-amount">{{ cartService.formatCOP(cartService.cartDeliveryFee()) }}</span>
+        </div>
+      </div>
+
       <div class="cart-summary-row">
         <span>Total a pagar:</span>
         <span class="total-amount">{{ cartService.formatCOP(cartService.cartTotalPrice()) }}</span>

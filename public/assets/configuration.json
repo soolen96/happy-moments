@@ -1,6 +1,21 @@
 {
   "products": [
     {
+      "id": "p_1787799317901",
+      "name": "Yogurt Griego",
+      "category": "Otros",
+      "price": 25000,
+      "description": "Delicioso yogurt griego con toppings a elección",
+      "badge": "Power",
+      "image": "assets/products/yogurt-griego.png",
+      "isPopular": true,
+      "weight": "1 unidad",
+      "flavors": [
+        "Frutos Amarillos",
+        "Frutos Rojos"
+      ]
+    },
+    {
       "id": "p_1787526607439",
       "name": "Chocolates Mix",
       "category": "Chocolates",
@@ -69,11 +84,7 @@
       "badge": "Lite",
       "image": "assets/products/gomitas-lite.png",
       "isPopular": true,
-      "weight": "4 unidades",
-      "flavors": [
-        "Frutos rojos",
-        "Mango"
-      ]
+      "weight": "4 unidades"
     },
     {
       "id": "p3",
@@ -117,68 +128,7 @@
       "badge": "Fusión",
       "image": "assets/products/brownies-fusion.png",
       "isPopular": true,
-      "weight": "2 unidades",
-      "flavors": [
-        "Chocolate",
-        "Arequipe",
-        "Mixto"
-      ]
-    }
-  ],
-  "combos": [
-    {
-      "id": "c1",
-      "name": "Combo Personal",
-      "price": 14000,
-      "description": "1 Chocolate Lite - 1 Gomita Power",
-      "badge": "Personal",
-      "image": "assets/combos/combo-personal.png",
-      "itemsCount": "2 productos"
-    },
-    {
-      "id": "c2",
-      "name": "Combo Duo",
-      "price": 24000,
-      "description": "2 Chocolates Lite - 2 Gomitas Power",
-      "badge": "Duo",
-      "image": "assets/combos/combo-duo.png",
-      "itemsCount": "4 productos"
-    },
-    {
-      "id": "c3",
-      "name": "Combo Bowl",
-      "price": 32000,
-      "description": "2 Galletas Fusión - 3 Chocolates Lite - 3 Gomitas Lite",
-      "badge": "Bowl",
-      "image": "assets/combos/combo-bowl.png",
-      "itemsCount": "8 productos"
-    },
-    {
-      "id": "c4",
-      "name": "Combo Pequeño",
-      "price": 34000,
-      "description": "1 Chocolate Power - 2 Galletas Fusión - 1 Brownie Fusión - 1 Gomita Lite",
-      "badge": "Favorito",
-      "image": "assets/combos/combo-pequeno.png",
-      "itemsCount": "5 productos"
-    },
-    {
-      "id": "c5",
-      "name": "Combo Delicius",
-      "price": 35000,
-      "description": "1 Brownie Fusión - 1 Sundae Power - 1 Chocolate Lite",
-      "badge": "Delicius",
-      "image": "assets/combos/combo-delicius.png",
-      "itemsCount": "3 productos"
-    },
-    {
-      "id": "c6",
-      "name": "Combo Especial",
-      "price": 65000,
-      "description": "2 Chocolates Power - 2 Chocolates Lite - 2 Galletas Fusión - 2 Brownies Fusión - 2 Gomitas Power - 2 Gomitas Lite",
-      "badge": "Fiesta",
-      "image": "assets/combos/combo-especial.png",
-      "itemsCount": "12 productos"
+      "weight": "2 unidades"
     }
   ],
   "footer": {

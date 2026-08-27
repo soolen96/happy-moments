@@ -16,7 +16,9 @@ describe('CartService - Flavor Selection', () => {
   });
 
   beforeEach(() => {
-    localStorage.clear();
+    if (typeof localStorage !== 'undefined') {
+      localStorage.clear();
+    }
     TestBed.configureTestingModule({
       providers: [CartService, CartStorageService],
     });
@@ -46,7 +48,10 @@ describe('CartService - Flavor Selection', () => {
     expect(arequipeItem?.quantity).toBe(2);
     expect(chocolateItem?.quantity).toBe(1);
     expect(service.cartTotalCount()).toBe(3);
-    expect(service.cartTotalPrice()).toBe(26000 * 3);
+    expect(service.cartSubtotalPrice()).toBe(26000 * 3);
+    expect(service.cartDeliveryFee()).toBe(10000);
+    expect(service.cartTotalPrice()).toBe(26000 * 3 + 10000);
+    expect(service.hasFreeGummyReward()).toBe(true);
   });
 
   it('should update quantity for a specific flavor', () => {

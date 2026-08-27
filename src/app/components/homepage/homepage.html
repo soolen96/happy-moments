@@ -108,6 +108,63 @@
   <!-- Combos Component -->
   <app-combos [combos]="combos()"></app-combos>
 
+  <!-- Delivery Information Section -->
+  <section class="delivery-info-section" id="domicilio">
+    <div class="delivery-card">
+      <div class="delivery-badge-floating">
+        <span class="delivery-emoji">🛵</span>
+      </div>
+
+      <div class="delivery-card-inner">
+        <div class="delivery-card-main">
+          <div class="delivery-header-meta">
+            <span class="delivery-chip">
+              <img src="assets/icons/location.svg" alt="Ubicación" class="inline-icon" />
+              Cobertura en toda la ciudad
+            </span>
+            <span class="delivery-price-highlight">Tarifa fija: $10.000</span>
+          </div>
+
+          <h2 class="delivery-title">Domicilio en todo Bogotá. Valor: $10.000</h2>
+          
+          <div class="delivery-promo-banner">
+            <span class="delivery-gift-emoji">🎁</span>
+            <div class="delivery-promo-content">
+              <span class="promo-highlight-badge">¡Promo especial!</span>
+              <p class="delivery-promo-desc">
+                El precio del envío incluye una <strong>gomita</strong> en todas las compras iguales o superiores a <strong>$20.000</strong>.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="delivery-perks-row">
+          <div class="delivery-perk">
+            <span class="perk-icon"><img src="assets/icons/location.svg" alt="Bogotá" class="inline-icon" /></span>
+            <div class="perk-info">
+              <strong>Todo Bogotá</strong>
+              <small>Entregas directas a tu puerta</small>
+            </div>
+          </div>
+          <div class="delivery-perk">
+            <span class="perk-icon"><img src="assets/icons/candy.svg" alt="Gomita" class="inline-icon" /></span>
+            <div class="perk-info">
+              <strong>1 Gomita de Cortesía</strong>
+              <small>En compras ≥ $20.000</small>
+            </div>
+          </div>
+          <div class="delivery-perk">
+            <span class="perk-icon"><img src="assets/icons/sparkles.svg" alt="Fresco" class="inline-icon" /></span>
+            <div class="perk-info">
+              <strong>Fresco y Discreto</strong>
+              <small>Empaque sellado de alta calidad</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Product Catalog & Search Section -->
   <section class="catalog-section" id="catalogo">
     <div class="catalog-header">

@@ -111,7 +111,7 @@ export class Homepage implements OnInit {
   }
 
   initTheme() {
-    const savedTheme = localStorage.getItem('happy_moments_theme');
+    const savedTheme = typeof localStorage !== 'undefined' ? localStorage.getItem('happy_moments_theme') : null;
     if (savedTheme === 'dark') {
       this.isDarkMode.set(true);
     } else {
@@ -131,12 +131,13 @@ export class Homepage implements OnInit {
       if (isDark) {
         document.body.classList.remove('light-mode');
         document.body.classList.add('dark-mode');
-        localStorage.setItem('happy_moments_theme', 'dark');
       } else {
         document.body.classList.remove('dark-mode');
         document.body.classList.add('light-mode');
-        localStorage.setItem('happy_moments_theme', 'light');
       }
+    }
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('happy_moments_theme', isDark ? 'dark' : 'light');
     }
   }
 

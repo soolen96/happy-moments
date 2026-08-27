@@ -11,8 +11,15 @@ export class CartService {
   cart = signal<CartItem[]>([]);
   isCartOpen = signal<boolean>(false);
 
+  readonly DELIVERY_FEE = 10000;
+  readonly FREE_GUMMY_THRESHOLD = 20000;
+
   cartTotalCount = computed(() => this.cart().reduce((sum, item) => sum + item.quantity, 0));
-  cartTotalPrice = computed(() => this.cart().reduce((sum, item) => sum + (item.product.price * item.quantity), 0));
+  cartSubtotalPrice = computed(() => this.cart().reduce((sum, item) => sum + (item.product.price * item.quantity), 0));
+  cartDeliveryFee = computed(() => (this.cart().length > 0 ? this.DELIVERY_FEE : 0));
+  cartTotalPrice = computed(() => this.cartSubtotalPrice() + this.cartDeliveryFee());
+  hasFreeGummyReward = computed(() => this.cartSubtotalPrice() >= this.FREE_GUMMY_THRESHOLD);
+  amountForFreeGummy = computed(() => Math.max(0, this.FREE_GUMMY_THRESHOLD - this.cartSubtotalPrice()));
 
   constructor() {
     const savedCart = this.cartStorage.getCart();
@@ -95,7 +102,13 @@ export class CartService {
       const flavorTag = item.selectedFlavor ? ` (Sabor: ${item.selectedFlavor})` : '';
       message += `• ${item.product.name}${flavorTag} x${item.quantity} - ${this.formatCOP(item.product.price * item.quantity)}\n`;
     });
-    message += `\n*Total:* ${this.formatCOP(this.cartTotalPrice())}`;
+
+    message += `\n*Subtotal productos:* ${this.formatCOP(this.cartSubtotalPrice())}`;
+    message += `\n*Domicilio Bogotá:* ${this.formatCOP(this.cartDeliveryFee())}`;
+    if (this.hasFreeGummyReward()) {
+      message += `\n*Promoción:* 🎁 1 Gomita de cortesía incluida (compras ≥ $20.000)`;
+    }
+    message += `\n*Total a pagar:* ${this.formatCOP(this.cartTotalPrice())}`;
 
     return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
   }
