@@ -4,173 +4,421 @@
     <span>{{ msg }}</span>
   </div>
 
-  <!-- Header Nav Bar -->
-  <header class="admin-header">
-    <div class="admin-brand">
-      <img src="assets/logo-candy-jar-dark.png" alt="Happy Moments Logo" class="admin-logo-img" />
-      <div class="admin-title-box">
-        <h1>⚙️ Panel de Gestión de Productos</h1>
-        <span class="admin-sub">HAPPY MOMENTS • ADMINISTRACIÓN DE CATÁLOGO JSON</span>
-      </div>
-    </div>
-
-    <div class="admin-actions">
-      <a routerLink="/" class="btn-store">🛍️ Ir a la Tienda</a>
-      <button class="btn-action primary" (click)="addNewProduct()">➕ Agregar Producto</button>
-      <button class="btn-action secondary" (click)="downloadJSON()">📥 Descargar JSON</button>
-      <button class="btn-action danger-light" (click)="resetDefault()" title="Restablecer a JSON original">🔄 Restablecer</button>
-    </div>
-  </header>
-
-  <!-- Controls & Filters Bar -->
-  <div class="admin-controls-card">
-    <div class="search-field">
-      <span class="search-icon">🔍</span>
-      <input
-        type="text"
-        placeholder="Buscar por ID, nombre o descripción..."
-        [value]="searchTerm()"
-        (input)="searchTerm.set($any($event.target).value)"
-      />
-    </div>
-
-    <div class="filter-field">
-      <label>Filtrar Categoría:</label>
-      <select [ngModel]="selectedFilter()" (ngModelChange)="selectedFilter.set($event)">
-        <option value="Todos">Todas las categorías</option>
-        <option *ngFor="let cat of categoryOptions" [value]="cat">{{ cat }}</option>
-      </select>
-    </div>
-
-    <div class="stats-badge">
-      Total: <strong>{{ adminProducts().length }}</strong> productos
-    </div>
-  </div>
-
-  <!-- Product List & Editors -->
-  <div class="admin-grid" *ngIf="adminProducts().length > 0; else emptyAdmin">
-    <div class="product-admin-card" *ngFor="let p of adminProducts(); trackBy: trackById">
-      <!-- Card Top Preview -->
-      <div class="card-header-bar">
-        <div class="id-tag">ID: {{ p.id }}</div>
-        <div class="card-top-actions">
-          <button class="icon-btn" (click)="duplicateProduct(p)" title="Duplicar producto">📋 Duplicar</button>
-          <button class="icon-btn danger" (click)="deleteProduct(p)" title="Eliminar producto">🗑️ Eliminar</button>
+  <ng-container *ngIf="authService.isAuthenticated(); else loginScreen">
+    <!-- Header Nav Bar -->
+    <header class="admin-header">
+      <div class="admin-brand">
+        <img src="assets/logo-candy-jar-dark.png" alt="Happy Moments Logo" class="admin-logo-img" />
+        <div class="admin-title-box">
+          <h1><img src="assets/icons/settings.svg" alt="Gestión" class="menu-icon" /> Panel de Gestión General</h1>
+          <span class="admin-sub">HAPPY MOMENTS • ADMINISTRACIÓN DE CATÁLOGO JSON</span>
         </div>
       </div>
 
-      <!-- Main Form Row -->
-      <div class="card-body-grid">
-        <!-- Thumbnail & Image URL -->
-        <div class="image-preview-col">
-          <div class="img-frame">
-            <img [src]="p.image" [alt]="p.name" (error)="$any($event.target).src = 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=80'" />
-          </div>
-          <div class="field-group">
-            <label>URL de Imagen:</label>
-            <input
-              type="text"
-              [value]="p.image"
-              (change)="updateProductField(p.id, 'image', $any($event.target).value)"
-              placeholder="https://..."
-            />
-          </div>
+      <div class="admin-actions">
+        <a routerLink="/" class="btn-store"><img src="assets/icons/store.svg" alt="Tienda" class="inline-icon" /> Ir a la Tienda</a>
+        <button class="btn-action primary" *ngIf="activeTab() === 'products'" (click)="addNewProduct()">
+          <img src="assets/icons/plus.svg" alt="Agregar" class="inline-icon" /> Agregar Producto
+        </button>
+        <button class="btn-action primary" *ngIf="activeTab() === 'combos'" (click)="addNewCombo()">
+          <img src="assets/icons/gift.svg" alt="Agregar Combo" class="inline-icon" /> Agregar Combo
+        </button>
+        <button class="btn-action secondary" (click)="downloadJSON()">
+          <img src="assets/icons/download.svg" alt="Descargar" class="inline-icon" /> Descargar JSON
+        </button>
+        <button class="btn-action danger-light" (click)="resetDefault()" title="Restablecer a JSON original">
+          <img src="assets/icons/refresh.svg" alt="Restablecer" class="inline-icon" /> Restablecer
+        </button>
+        <button class="btn-action logout-btn" (click)="performLogout()" title="Cerrar Sesión">
+          <img src="assets/icons/logout.svg" alt="Salir" class="inline-icon" /> Salir
+        </button>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs Bar -->
+    <div class="admin-tabs-nav">
+      <button type="button" class="tab-btn" [class.active]="activeTab() === 'products'"
+        (click)="setActiveTab('products')">
+        <img src="assets/icons/cart.svg" alt="Productos" class="inline-icon" /> Productos ({{ productService.products().length }})
+      </button>
+
+      <button type="button" class="tab-btn" [class.active]="activeTab() === 'combos'" (click)="setActiveTab('combos')">
+        <img src="assets/icons/gift.svg" alt="Combos" class="inline-icon" /> Combos Especiales ({{ productService.combos().length }})
+      </button>
+
+      <button type="button" class="tab-btn" [class.active]="activeTab() === 'footer'" (click)="setActiveTab('footer')">
+        <img src="assets/icons/sparkles.svg" alt="Pie de Página" class="inline-icon" /> Pie de Página & Contacto
+      </button>
+    </div>
+
+    <!-- TAB 1: PRODUCTOS -->
+    <ng-container *ngIf="activeTab() === 'products'">
+      <!-- Controls & Filters Bar -->
+      <div class="admin-controls-card">
+        <div class="search-field">
+          <span class="search-icon"><img src="assets/icons/search.svg" alt="Buscar" class="inline-icon" /></span>
+          <input type="text" placeholder="Buscar por ID, nombre o descripción..." [value]="searchTerm()"
+            (input)="searchTerm.set($any($event.target).value)" />
         </div>
 
-        <!-- Details Inputs -->
-        <div class="details-col">
-          <div class="field-row">
-            <div class="field-group flex-2">
-              <label>Nombre del Producto:</label>
-              <input
-                type="text"
-                [value]="p.name"
-                (change)="updateProductField(p.id, 'name', $any($event.target).value)"
-                placeholder="Nombre del producto"
-              />
-            </div>
+        <div class="filter-field">
+          <label>Filtrar Categoría:</label>
+          <select [ngModel]="selectedFilter()" (ngModelChange)="selectedFilter.set($event)">
+            <option value="Todos">Todas las categorías</option>
+            <option *ngFor="let cat of categoryOptions" [value]="cat">{{ cat }}</option>
+          </select>
+        </div>
 
-            <div class="field-group flex-1">
-              <label>Categoría:</label>
-              <select [ngModel]="p.category" (ngModelChange)="updateProductField(p.id, 'category', $event)">
-                <option *ngFor="let cat of categoryOptions" [value]="cat">{{ cat }}</option>
-              </select>
-            </div>
-          </div>
+        <div class="stats-badge">
+          Total: <strong>{{ adminProducts().length }}</strong> productos
+        </div>
+      </div>
 
-          <div class="field-row">
-            <div class="field-group flex-1">
-              <label>Precio (COP $):</label>
-              <input
-                type="number"
-                [value]="p.price"
-                (change)="updateProductField(p.id, 'price', +$any($event.target).value)"
-              />
-              <span class="price-formatted">{{ formatCOP(p.price) }}</span>
-            </div>
-
-            <div class="field-group flex-1">
-              <label>Insignia / Badge:</label>
-              <input
-                type="text"
-                [value]="p.badge || ''"
-                (change)="updateProductField(p.id, 'badge', $any($event.target).value)"
-                placeholder="Ej: Más Vendido 👑"
-              />
-            </div>
-
-            <div class="field-group flex-1">
-              <label>Peso / Cantidad:</label>
-              <input
-                type="text"
-                [value]="p.weight || ''"
-                (change)="updateProductField(p.id, 'weight', $any($event.target).value)"
-                placeholder="Ej: 150g"
-              />
+      <!-- Product List & Editors -->
+      <div class="admin-grid" *ngIf="adminProducts().length > 0; else emptyProducts">
+        <div class="product-admin-card" *ngFor="let p of adminProducts(); trackBy: trackById">
+          <!-- Card Top Preview -->
+          <div class="card-header-bar">
+            <div class="id-tag">ID: {{ p.id }}</div>
+            <div class="card-top-actions">
+              <button class="icon-btn" (click)="duplicateProduct(p)" title="Duplicar producto">
+                <img src="assets/icons/copy.svg" alt="Duplicar" class="inline-icon" /> Duplicar
+              </button>
+              <button class="icon-btn danger" (click)="deleteProduct(p)" title="Eliminar producto">
+                <img src="assets/icons/trash.svg" alt="Eliminar" class="inline-icon" /> Eliminar
+              </button>
             </div>
           </div>
 
-          <div class="field-group">
-            <label>Descripción:</label>
-            <textarea
-              rows="2"
-              [value]="p.description"
-              (change)="updateProductField(p.id, 'description', $any($event.target).value)"
-              placeholder="Descripción del producto..."
-            ></textarea>
-          </div>
+          <!-- Main Form Row -->
+          <div class="card-body-grid">
+            <!-- Thumbnail & Image URL -->
+            <div class="image-preview-col">
+              <div class="img-frame">
+                <img [src]="p.image" [alt]="p.name"
+                  (error)="$any($event.target).src = 'assets/products/chocolates-mix.png'" />
+              </div>
+              <div class="field-group">
+                <label>URL de Imagen:</label>
+                <input type="text" [value]="p.image"
+                  (change)="updateProductField(p.id, 'image', $any($event.target).value)"
+                  placeholder="assets/products/... o https://..." />
+              </div>
+            </div>
 
-          <div class="field-group">
-            <label>Sabores Disponibles (separados por coma):</label>
-            <input
-              type="text"
-              [value]="getFlavorsString(p.flavors)"
-              (change)="updateProductFlavors(p.id, $any($event.target).value)"
-              placeholder="Ej: Chocolate, Arequipe, Mixto"
-            />
-          </div>
+            <!-- Details Inputs -->
+            <div class="details-col">
+              <div class="field-row">
+                <div class="field-group flex-2">
+                  <label>Nombre del Producto:</label>
+                  <input type="text" [value]="p.name"
+                    (change)="updateProductField(p.id, 'name', $any($event.target).value)"
+                    placeholder="Nombre del producto" />
+                </div>
 
-          <div class="checkbox-row">
-            <label class="checkbox-label">
-              <input
-                type="checkbox"
-                [checked]="p.isPopular"
-                (change)="updateProductField(p.id, 'isPopular', $any($event.target).checked)"
-              />
-              <span>🔥 Destacado en Carrusel Popular</span>
-            </label>
+                <div class="field-group flex-1">
+                  <label>Categoría:</label>
+                  <select [ngModel]="p.category" (ngModelChange)="updateProductField(p.id, 'category', $event)">
+                    <option *ngFor="let cat of categoryOptions" [value]="cat">{{ cat }}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field-group flex-1">
+                  <label>Precio (COP $):</label>
+                  <input type="number" [value]="p.price"
+                    (change)="updateProductField(p.id, 'price', +$any($event.target).value)" />
+                  <span class="price-formatted">{{ formatCOP(p.price) }}</span>
+                </div>
+
+                <div class="field-group flex-1">
+                  <label>Insignia / Badge:</label>
+                  <input type="text" [value]="p.badge || ''"
+                    (change)="updateProductField(p.id, 'badge', $any($event.target).value)"
+                    placeholder="Ej: Más Vendido" />
+                </div>
+
+                <div class="field-group flex-1">
+                  <label>Peso / Cantidad:</label>
+                  <input type="text" [value]="p.weight || ''"
+                    (change)="updateProductField(p.id, 'weight', $any($event.target).value)" placeholder="Ej: 150g" />
+                </div>
+              </div>
+
+              <div class="field-group">
+                <label>Descripción:</label>
+                <textarea rows="2" [value]="p.description"
+                  (change)="updateProductField(p.id, 'description', $any($event.target).value)"
+                  placeholder="Descripción del producto..."></textarea>
+              </div>
+
+              <div class="field-group">
+                <label>Sabores Disponibles (separados por coma):</label>
+                <input type="text" [value]="getFlavorsString(p.flavors)"
+                  (change)="updateProductFlavors(p.id, $any($event.target).value)"
+                  placeholder="Ej: Chocolate, Arequipe, Mixto" />
+              </div>
+
+              <div class="checkbox-row">
+                <label class="checkbox-label">
+                  <input type="checkbox" [checked]="p.isPopular"
+                    (change)="updateProductField(p.id, 'isPopular', $any($event.target).checked)" />
+                  <span><img src="assets/icons/fire.svg" alt="Popular" class="inline-icon" /> Destacado en Carrusel Popular</span>
+                </label>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <ng-template #emptyAdmin>
-    <div class="empty-admin-card">
-      <span class="empty-icon">🍬</span>
-      <h2>No se encontraron productos</h2>
-      <p>Intenta ajustar la búsqueda o agrega un nuevo producto.</p>
-      <button class="btn-action primary" (click)="addNewProduct()">➕ Agregar Producto</button>
+      <ng-template #emptyProducts>
+        <div class="empty-admin-card">
+          <img src="assets/icons/candy.svg" alt="Sin productos" class="empty-icon" />
+          <h2>No se encontraron productos</h2>
+          <p>Intenta ajustar la búsqueda o agrega un nuevo producto.</p>
+          <button class="btn-action primary" (click)="addNewProduct()">
+            <img src="assets/icons/plus.svg" alt="Agregar" class="inline-icon" /> Agregar Producto
+          </button>
+        </div>
+      </ng-template>
+    </ng-container>
+
+    <!-- TAB 2: COMBOS -->
+    <ng-container *ngIf="activeTab() === 'combos'">
+      <!-- Controls Bar -->
+      <div class="admin-controls-card">
+        <div class="search-field">
+          <span class="search-icon"><img src="assets/icons/search.svg" alt="Buscar" class="inline-icon" /></span>
+          <input type="text" placeholder="Buscar combo por ID, nombre o contenido..." [value]="searchTerm()"
+            (input)="searchTerm.set($any($event.target).value)" />
+        </div>
+
+        <div class="stats-badge">
+          Total: <strong>{{ adminCombos().length }}</strong> combos
+        </div>
+
+        <button class="btn-action primary" (click)="addNewCombo()">
+          <img src="assets/icons/gift.svg" alt="Agregar Combo" class="inline-icon" /> Agregar Combo
+        </button>
+      </div>
+
+      <!-- Combos List & Editors -->
+      <div class="admin-grid" *ngIf="adminCombos().length > 0; else emptyCombos">
+        <div class="product-admin-card combo-card-style" *ngFor="let c of adminCombos(); trackBy: trackById">
+          <div class="card-header-bar">
+            <div class="id-tag">ID: {{ c.id }}</div>
+            <div class="card-top-actions">
+              <button class="icon-btn" (click)="duplicateCombo(c)" title="Duplicar combo">
+                <img src="assets/icons/copy.svg" alt="Duplicar" class="inline-icon" /> Duplicar
+              </button>
+              <button class="icon-btn danger" (click)="deleteCombo(c)" title="Eliminar combo">
+                <img src="assets/icons/trash.svg" alt="Eliminar" class="inline-icon" /> Eliminar
+              </button>
+            </div>
+          </div>
+
+          <div class="card-body-grid">
+            <!-- Thumbnail & Image URL -->
+            <div class="image-preview-col">
+              <div class="img-frame">
+                <img [src]="c.image" [alt]="c.name"
+                  (error)="$any($event.target).src = 'assets/combos/combo-personal.png'" />
+              </div>
+              <div class="field-group">
+                <label>URL de Imagen:</label>
+                <input type="text" [value]="c.image"
+                  (change)="updateComboField(c.id, 'image', $any($event.target).value)"
+                  placeholder="assets/combos/... o https://..." />
+              </div>
+            </div>
+
+            <!-- Details Inputs -->
+            <div class="details-col">
+              <div class="field-row">
+                <div class="field-group flex-2">
+                  <label>Nombre del Combo:</label>
+                  <input type="text" [value]="c.name"
+                    (change)="updateComboField(c.id, 'name', $any($event.target).value)"
+                    placeholder="Ej: Combo Personal" />
+                </div>
+
+                <div class="field-group flex-1">
+                  <label>Etiqueta / Badge:</label>
+                  <input type="text" [value]="c.badge || ''"
+                    (change)="updateComboField(c.id, 'badge', $any($event.target).value)"
+                    placeholder="Ej: Personal" />
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field-group flex-1">
+                  <label>Precio (COP $):</label>
+                  <input type="number" [value]="c.price"
+                    (change)="updateComboField(c.id, 'price', +$any($event.target).value)" />
+                  <span class="price-formatted">{{ formatCOP(c.price) }}</span>
+                </div>
+
+                <div class="field-group flex-1">
+                  <label>Cantidad de Ítems (texto):</label>
+                  <input type="text" [value]="c.itemsCount || ''"
+                    (change)="updateComboField(c.id, 'itemsCount', $any($event.target).value)"
+                    placeholder="Ej: 4 productos" />
+                </div>
+              </div>
+
+              <div class="field-group">
+                <label>Descripción de Productos Incluidos:</label>
+                <textarea rows="2" [value]="c.description"
+                  (change)="updateComboField(c.id, 'description', $any($event.target).value)"
+                  placeholder="Ej: 2 Chocolates Lite - 2 Gomitas Power..."></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ng-template #emptyCombos>
+        <div class="empty-admin-card">
+          <img src="assets/icons/gift.svg" alt="Sin combos" class="empty-icon" />
+          <h2>No se encontraron combos</h2>
+          <p>Agrega un nuevo combo para enriquecer tu catálogo promocional.</p>
+          <button class="btn-action primary" (click)="addNewCombo()">
+            <img src="assets/icons/gift.svg" alt="Agregar Combo" class="inline-icon" /> Agregar Combo
+          </button>
+        </div>
+      </ng-template>
+    </ng-container>
+
+    <!-- TAB 3: FOOTER CONFIGURATION -->
+    <ng-container *ngIf="activeTab() === 'footer'">
+      <div class="config-sections-wrapper">
+        <!-- Section 1: Contact Info -->
+        <div class="config-card">
+          <div class="config-card-header">
+            <h2><img src="assets/icons/phone.svg" alt="Contacto" class="menu-icon" /> Información de Contacto</h2>
+            <p>Datos visibles en la barra lateral, pie de página y botones de WhatsApp/Instagram.</p>
+          </div>
+
+          <div class="config-card-body" *ngIf="contactInfo() as info">
+            <div class="field-row">
+              <div class="field-group flex-1">
+                <label><img src="assets/icons/location.svg" alt="Ubicación" class="inline-icon" /> Ubicación:</label>
+                <input type="text" [value]="info.location"
+                  (change)="updateContactInfoField('location', $any($event.target).value)"
+                  placeholder="Ej: Bogotá, Colombia" />
+              </div>
+
+              <div class="field-group flex-1">
+                <label><img src="assets/icons/phone.svg" alt="Teléfono" class="inline-icon" /> Teléfono de Contacto:</label>
+                <input type="text" [value]="info.phone"
+                  (change)="updateContactInfoField('phone', $any($event.target).value)"
+                  placeholder="Ej: +57 314 4882666" />
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field-group flex-1">
+                <label><img src="assets/icons/whatsapp.svg" alt="WhatsApp" class="inline-icon" /> Número de WhatsApp (Formato Internacional):</label>
+                <input type="text" [value]="info.whatsapp"
+                  (change)="updateContactInfoField('whatsapp', $any($event.target).value)"
+                  placeholder="Ej: +57 314 4882666" />
+              </div>
+
+              <div class="field-group flex-1">
+                <label><img src="assets/icons/mail.svg" alt="Email" class="inline-icon" /> Correo Electrónico:</label>
+                <input type="email" [value]="info.email"
+                  (change)="updateContactInfoField('email', $any($event.target).value)"
+                  placeholder="Ej: happymoments420@gmail.com" />
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field-group flex-1">
+                <label><img src="assets/instagram-icon.png" alt="Instagram" class="inline-icon" /> Instagram Handle:</label>
+                <input type="text" [value]="info.instagram"
+                  (change)="updateContactInfoField('instagram', $any($event.target).value)"
+                  placeholder="Ej: @happymomentsbyfio" />
+              </div>
+
+              <div class="field-group flex-1">
+                <label><img src="assets/icons/link.svg" alt="Enlace" class="inline-icon" /> Enlace URL de Instagram:</label>
+                <input type="text" [value]="info.instagramUrl || ''"
+                  (change)="updateContactInfoField('instagramUrl', $any($event.target).value)"
+                  placeholder="Ej: https://www.instagram.com/happy.moments.bog" />
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label><img src="assets/icons/clock.svg" alt="Horario" class="inline-icon" /> Horario de Atención:</label>
+              <input type="text" [value]="info.schedule"
+                (change)="updateContactInfoField('schedule', $any($event.target).value)"
+                placeholder="Ej: Lunes a Domingo de 10:00 am a 8:00 pm" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: General Footer Content -->
+        <div class="config-card">
+          <div class="config-card-header">
+            <h2><img src="assets/icons/sparkles.svg" alt="Textos" class="menu-icon" /> Textos Generales del Pie de Página</h2>
+            <p>Textos informativos del footer corporativo.</p>
+          </div>
+
+          <div class="config-card-body" *ngIf="footerConfig() as footer">
+            <div class="field-group">
+              <label><img src="assets/icons/sparkles.svg" alt="Descripción" class="inline-icon" /> Descripción de la Marca (Footer):</label>
+              <textarea rows="3" [value]="footer.description"
+                (change)="updateFooterField('description', $any($event.target).value)"
+                placeholder="Descripción corta de la marca que aparece en el pie de página..."></textarea>
+            </div>
+
+            <div class="field-group">
+              <label><img src="assets/icons/sparkles.svg" alt="Copyright" class="inline-icon" /> Texto de Copyright / Derechos Reservados:</label>
+              <input type="text" [value]="footer.text" (change)="updateFooterField('text', $any($event.target).value)"
+                placeholder="Ej: © 2026 Happy Moments - Edibles Ancestrales. Todos los derechos reservados" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <!-- LOGIN SCREEN TEMPLATE -->
+  <ng-template #loginScreen>
+    <div class="admin-login-wrapper">
+      <div class="admin-login-card">
+        <div class="login-brand">
+          <img src="assets/logo-candy-jar-dark.png" alt="Happy Moments" class="login-logo-img" />
+          <h1><img src="assets/icons/lock.svg" alt="Candado" class="menu-icon" /> Acceso Administrativo</h1>
+          <p class="login-subtitle">HAPPY MOMENTS • PANEL DE CONTROL</p>
+        </div>
+
+        <div class="login-form">
+          <div class="login-error-badge" *ngIf="loginError() as err">
+            <span>{{ err }}</span>
+          </div>
+
+          <div class="form-group">
+            <label for="login-username">Usuario Administrador</label>
+            <input id="login-username" type="text" placeholder="Ingresa tu usuario" [ngModel]="loginUsername()"
+              (ngModelChange)="loginUsername.set($event)" (keyup.enter)="performLogin()" autocomplete="username" />
+          </div>
+
+          <div class="form-group">
+            <label for="login-password">Contraseña</label>
+            <input id="login-password" type="password" placeholder="••••••••••••" [ngModel]="loginPassword()"
+              (ngModelChange)="loginPassword.set($event)" (keyup.enter)="performLogin()"
+              autocomplete="current-password" />
+          </div>
+
+          <button type="button" class="btn-login-submit" (click)="performLogin()">
+            Ingresar
+          </button>
+
+          <a routerLink="/" class="back-store-link">Volver a la Tienda</a>
+        </div>
+      </div>
     </div>
   </ng-template>
 </div>

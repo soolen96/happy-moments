@@ -3,7 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ProductService } from '../../services/product.service';
-import { Product, ProductCategory } from '../../models';
+import { AuthService } from '../../services/auth.service';
+import { Product, ProductCategory, Combo, ContactInfo } from '../../models';
+
+export type AdminTab = 'products' | 'combos' | 'footer';
 
 @Component({
   selector: 'app-admin',
@@ -14,13 +17,36 @@ import { Product, ProductCategory } from '../../models';
 })
 export class AdminComponent {
   productService = inject(ProductService);
+  authService = inject(AuthService);
+
+  // Authentication State
+  loginUsername = signal<string>('');
+  loginPassword = signal<string>('');
+  loginError = signal<string | null>(null);
+
+  activeTab = signal<AdminTab>('products');
 
   categoryOptions = Object.values(ProductCategory);
   searchTerm = signal<string>('');
   selectedFilter = signal<string>('Todos');
   toastMessage = signal<string | null>(null);
 
-  // Filtered list for admin view
+  async performLogin(): Promise<void> {
+    const success = await this.authService.login(this.loginUsername(), this.loginPassword());
+    if (success) {
+      this.loginError.set(null);
+      this.showToast('🔓 Sesión iniciada correctamente');
+    } else {
+      this.loginError.set('Usuario o contraseña incorrectos');
+    }
+  }
+
+  performLogout(): void {
+    this.authService.logout();
+    this.showToast('🔒 Sesión cerrada');
+  }
+
+  // Filtered list for admin products view
   adminProducts = computed(() => {
     const query = this.searchTerm().toLowerCase().trim();
     const cat = this.selectedFilter();
@@ -35,6 +61,28 @@ export class AdminComponent {
     });
   });
 
+  // Filtered list for admin combos view
+  adminCombos = computed(() => {
+    const query = this.searchTerm().toLowerCase().trim();
+
+    return this.productService.combos().filter((c) => {
+      return (
+        c.name.toLowerCase().includes(query) ||
+        c.description.toLowerCase().includes(query) ||
+        c.id.toLowerCase().includes(query)
+      );
+    });
+  });
+
+  // Footer state helper
+  footerConfig = computed(() => this.productService.footer());
+  contactInfo = computed(() => this.productService.footer()['contact-info']);
+
+  setActiveTab(tab: AdminTab) {
+    this.activeTab.set(tab);
+  }
+
+  // --- PRODUCTS ACTIONS ---
   addNewProduct() {
     const newProd = this.productService.addProduct({
       name: 'Nuevo Edible Artesanal',
@@ -42,7 +90,7 @@ export class AdminComponent {
       price: 12000,
       description: 'Descripción del nuevo producto artesanal.',
       badge: 'Nuevo 🌟',
-      image: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=80',
+      image: 'assets/products/chocolates-mix.png',
       isPopular: true,
       weight: '150g',
     });
@@ -82,6 +130,55 @@ export class AdminComponent {
     }
   }
 
+  // --- COMBOS ACTIONS ---
+  addNewCombo() {
+    const newCombo = this.productService.addCombo({
+      name: 'Nuevo Combo Especial',
+      price: 30000,
+      description: 'Descripción de los productos incluidos en el combo.',
+      badge: 'Combo 🎁',
+      image: 'assets/combos/combo-personal.png',
+      itemsCount: '3 productos',
+    });
+
+    this.showToast(`🎁 Combo "${newCombo.name}" agregado con éxito`);
+  }
+
+  updateComboField(id: string, field: keyof Combo, value: any) {
+    this.productService.updateCombo(id, { [field]: value });
+    this.showToast('💾 Cambios de combo guardados');
+  }
+
+  duplicateCombo(combo: Combo) {
+    this.productService.addCombo({
+      ...combo,
+      name: `${combo.name} (Copia)`,
+    });
+    this.showToast(`📋 Combo duplicado`);
+  }
+
+  deleteCombo(combo: Combo) {
+    if (confirm(`¿Estás seguro de que deseas eliminar el combo "${combo.name}"?`)) {
+      this.productService.deleteCombo(combo.id);
+      this.showToast(`🗑️ Combo "${combo.name}" eliminado`);
+    }
+  }
+
+  // --- FOOTER ACTIONS ---
+  updateFooterField(field: 'text' | 'description', value: string) {
+    const current = this.footerConfig();
+    const text = field === 'text' ? value : current.text;
+    const desc = field === 'description' ? value : current.description;
+    this.productService.updateFooter(text, desc);
+    this.showToast('💾 Información del pie de página guardada');
+  }
+
+  updateContactInfoField(field: keyof ContactInfo, value: string) {
+    this.productService.updateContactInfo({ [field]: value });
+    this.showToast('💾 Datos de contacto guardados');
+  }
+
+  // --- COMMON ACTIONS ---
   downloadJSON() {
     const jsonStr = this.productService.exportJSON();
     const blob = new Blob([jsonStr], { type: 'application/json' });
@@ -95,9 +192,9 @@ export class AdminComponent {
   }
 
   resetDefault() {
-    if (confirm('¿Deseas restablecer los productos al estado inicial de configuration.json?')) {
+    if (confirm('¿Deseas restablecer toda la configuración al estado inicial de configuration.json?')) {
       this.productService.resetToDefault();
-      this.showToast('🔄 Productos restablecidos al archivo JSON original');
+      this.showToast('🔄 Configuración restablecida al archivo JSON original');
     }
   }
 
@@ -116,7 +213,7 @@ export class AdminComponent {
     }).format(amount || 0);
   }
 
-  trackById(index: number, p: Product): string {
-    return p.id;
+  trackById(index: number, item: { id: string }): string {
+    return item.id;
   }
 }

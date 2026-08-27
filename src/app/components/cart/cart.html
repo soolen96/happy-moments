@@ -2,7 +2,7 @@
 <div class="cart-overlay" *ngIf="cartService.isCartOpen()" (click)="cartService.toggleCart()">
   <aside class="cart-drawer" (click)="$event.stopPropagation()">
     <div class="cart-drawer-header">
-      <h2> Tu Carrito ({{ cartService.cartTotalCount() }})</h2>
+      <h2><img src="assets/icons/cart.svg" alt="Carrito" class="menu-icon" /> Tu Carrito ({{ cartService.cartTotalCount() }})</h2>
       <button class="close-btn" (click)="cartService.toggleCart()">&times;</button>
     </div>
 
