@@ -1,0 +1,89 @@
+<!-- Footer with Contact Info -->
+<footer class="main-footer" id="contacto">
+  <div class="footer-top">
+    <!-- Brand Info -->
+    <div class="footer-col brand-col">
+      <div class="footer-logo">
+        <img [src]="isDarkMode() ? 'assets/logo-candy-jar-dark.png' : 'assets/logo-candy-jar.png'"
+          alt="Happy Moments Logo" class="logo-img-footer" />
+        <div class="logo-titles">
+          <span class="brand-name-happy">HAPPY</span>
+          <span class="brand-name-moments">MOMENTS</span>
+        </div>
+      </div>
+      <p class="footer-desc">
+        {{ footerDescription() }}
+      </p>
+      <div class="social-links" *ngIf="contactInfo() as info; else defaultSocial">
+        <a [href]="info.instagramUrl || 'https://www.instagram.com/happy.moments.bog'" target="_blank"
+          rel="noopener noreferrer" class="social-icon" title="Instagram">
+          <img src="assets/instagram-icon.png" alt="Instagram" class="ig-icon" />
+          {{ info.instagram || '@happy.moments.bog' }}
+        </a>
+        <a [href]="cartService.getWhatsAppUrl(info)" target="_blank" rel="noopener noreferrer" class="social-icon"
+          title="WhatsApp">
+          <img src="assets/icons/whatsapp.svg" alt="WhatsApp" class="inline-icon" />
+          {{ info.whatsapp || '+57 314 4882666' }}
+        </a>
+      </div>
+      <ng-template #defaultSocial>
+        <div class="social-links">
+          <a href="https://www.instagram.com/happy.moments.bog" target="_blank" rel="noopener noreferrer"
+            class="social-icon" title="Instagram">
+            <img src="assets/instagram-icon.png" alt="Instagram" class="ig-icon" />
+            @happy.moments.bog
+          </a>
+          <a [href]="cartService.getWhatsAppUrl(contactInfo())" target="_blank" rel="noopener noreferrer"
+            class="social-icon" title="WhatsApp">
+            <img src="assets/icons/whatsapp.svg" alt="WhatsApp" class="inline-icon" />
+            +57 314 4882666
+          </a>
+        </div>
+      </ng-template>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="footer-col contact-col">
+      <h3 class="footer-title">Información de Contacto</h3>
+      <ul class="contact-info-list" *ngIf="contactInfo() as info">
+        <li>
+          <span class="contact-icon">
+            <img src="assets/icons/location.svg" alt="Ubicación" class="contact-svg-icon" />
+          </span>
+          <span>{{ info.location }}</span>
+        </li>
+        <li>
+          <span class="contact-icon">
+            <img src="assets/icons/phone.svg" alt="Teléfono" class="contact-svg-icon" />
+          </span>
+          <span>{{ info.phone }}</span>
+        </li>
+        <li>
+          <span class="contact-icon">
+            <img src="assets/icons/mail.svg" alt="Correo" class="contact-svg-icon" />
+          </span>
+          <span>{{ info.email }}</span>
+        </li>
+        <li>
+          <span class="contact-icon">
+            <img src="assets/instagram-icon.png" alt="Instagram" class="ig-icon" />
+          </span>
+          <a [href]="info.instagramUrl || 'https://www.instagram.com/happy.moments.bog'" target="_blank"
+            rel="noopener noreferrer" class="footer-contact-link">
+            {{ info.instagram || '@happy.moments.bog' }}
+          </a>
+        </li>
+        <li class="schedule-li">
+          <span class="contact-icon">
+            <img src="assets/icons/clock.svg" alt="Horario" class="contact-svg-icon" />
+          </span>
+          <span class="schedule-text">{{ info.schedule }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom" *ngIf="footerText() as text">
+    <p>{{ text }}</p>
+  </div>
+</footer>

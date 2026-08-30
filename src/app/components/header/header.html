@@ -1,0 +1,98 @@
+<!-- Header Navigation -->
+<header class="main-header">
+  <div class="header-left">
+    <button class="menu-toggle-btn" (click)="toggleMenu()" id="btn-menu" aria-label="Abrir menú de navegación">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none"
+        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="inline-icon">
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="18" x2="21" y2="18" />
+      </svg>
+      <span class="menu-text">Menú</span>
+    </button>
+
+    <a href="#" class="logo-brand">
+      <img [src]="isDarkMode() ? 'assets/logo-candy-jar-dark.png' : 'assets/logo-candy-jar.png'"
+        alt="Happy Moments Logo" class="logo-img" />
+      <div class="logo-titles">
+        <span class="brand-name-happy">HAPPY</span>
+        <span class="brand-name-moments">MOMENTS</span>
+        <span class="brand-sub">EDIBLES ANCESTRALES</span>
+      </div>
+    </a>
+  </div>
+
+  <nav class="header-nav-desktop">
+    <a href="#catalogo" (click)="selectCategory('Todos')" class="nav-link">Productos</a>
+    <a href="#catalogo" (click)="selectCategory('Combos')" class="nav-link">Combos</a>
+    <a href="#contacto" class="nav-link">Contacto</a>
+  </nav>
+
+  <div class="header-right">
+    <button class="cart-btn" (click)="toggleCart()" id="btn-cart" aria-label="Ver Carrito de Compras">
+      <span class="cart-icon"><img src="assets/icons/cart.svg" alt="Carrito" class="menu-icon" /></span>
+      <span class="cart-text">Carrito</span>
+      <span class="cart-badge" *ngIf="cartService.cartTotalCount() > 0">{{ cartService.cartTotalCount() }}</span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile Navigation Drawer -->
+<div class="menu-overlay" *ngIf="isMenuOpen()" (click)="closeMenu()">
+  <aside class="menu-drawer" (click)="$event.stopPropagation()">
+    <div class="drawer-header">
+      <h2>
+        <img src="assets/icons/sparkles.svg" alt="Menú" class="menu-icon" />
+        Menú Principal
+      </h2>
+      <button class="close-btn" (click)="closeMenu()">&times;</button>
+    </div>
+
+    <nav class="drawer-nav">
+      <a href="#catalogo" (click)="selectCategory('Todos')" class="drawer-link">
+        <img src="assets/icons/candy.svg" alt="Productos" class="menu-icon" />
+        Productos
+      </a>
+      <a href="#catalogo" (click)="selectCategory('Combos')" class="drawer-link">
+        <img src="assets/icons/gift.svg" alt="Combos" class="menu-icon" />
+        Combos
+      </a>
+      <button type="button" (click)="closeMenu(); toggleCart()" class="drawer-link drawer-cart-btn">
+        <img src="assets/icons/cart.svg" alt="Carrito" class="menu-icon" />
+        Carrito de compras
+      </button>
+      <a href="#contacto" (click)="closeMenu()" class="drawer-link">
+        <img src="assets/icons/phone.svg" alt="Contacto" class="menu-icon" />
+        Contacto
+      </a>
+
+      <!-- Theme Toggle inside Menu -->
+      <div class="theme-switch-item" (click)="toggleTheme()">
+        <div class="theme-switch-label">
+          <span class="theme-icon-indicator">
+            <img [src]="isDarkMode() ? 'assets/icons/moon.svg' : 'assets/icons/sun.svg'"
+              [alt]="isDarkMode() ? 'Modo Oscuro' : 'Modo Claro'" class="menu-icon" />
+          </span>
+          <span>Modo {{ isDarkMode() ? 'Oscuro' : 'Claro' }}</span>
+        </div>
+        <div class="theme-switch-pill" [class.dark]="isDarkMode()">
+          <span class="theme-switch-thumb"></span>
+        </div>
+      </div>
+    </nav>
+
+    <div class="drawer-footer">
+      <p class="drawer-info">
+        <img src="assets/icons/leaf.svg" alt="Ancestral" class="inline-icon" />
+        Edibles de receta ancestral elaborados con amor e ingredientes naturales.
+      </p>
+      <div class="drawer-socials">
+        <a [href]="cartService.getWhatsAppUrl(contactInfo())" target="_blank" rel="noopener noreferrer"
+          class="drawer-whatsapp-link">
+          <img src="assets/icons/whatsapp.svg" alt="WhatsApp" class="inline-icon" />
+          WhatsApp: {{ contactInfo()?.whatsapp || '+57 314 4882666' }}
+        </a>
+      </div>
+    </div>
+  </aside>
+</div>
