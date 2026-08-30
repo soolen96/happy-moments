@@ -2,11 +2,11 @@
   "products": [
     {
       "id": "p_1787799317901",
-      "name": "Yogurt Griego",
+      "name": "Happy Greek",
       "category": "Otros",
       "price": 25000,
       "description": "Delicioso yogurt griego con toppings a elección",
-      "badge": "Power",
+      "badge": "Fusión",
       "image": "assets/products/yogurt-griego.png",
       "isPopular": true,
       "weight": "1 unidad",
@@ -167,7 +167,7 @@
       "price": 32000,
       "description": "2 Galletas Fusión - 3 Chocolates Lite - 3 Gomitas Lite",
       "badge": "Bowl",
-      "image": "assets/combos/combo-bowl.png",
+      "image": "assets/combos/happy-bowl.png",
       "itemsCount": "8 productos"
     },
     {
