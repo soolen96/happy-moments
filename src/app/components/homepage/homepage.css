@@ -1659,13 +1659,27 @@ body.dark-mode .flavor-chip-check {
 }
 
 @keyframes floatDelivery {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-6px) rotate(-4deg); }
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-6px) rotate(-4deg);
+  }
 }
 
 :host-context(.dark-mode) .delivery-badge-floating {
   background: rgba(82, 183, 55, 0.2);
   border-color: rgba(82, 183, 55, 0.45);
+}
+
+.delivery-icon-badge {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  display: block;
 }
 
 .delivery-card-inner {
@@ -1790,8 +1804,6 @@ body.dark-mode .flavor-chip-check {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.2rem;
-  padding-top: 0.6rem;
-  border-top: 1px solid rgba(90, 24, 70, 0.08);
 }
 
 :host-context(.dark-mode) .delivery-perks-row {
@@ -2028,16 +2040,36 @@ body.dark-mode .flavor-chip-check {
   transform-origin: bottom;
 }
 
-.soundwave-bars .bar-1 { height: 14px; animation-delay: 0.1s; }
-.soundwave-bars .bar-2 { height: 22px; animation-delay: 0.35s; }
-.soundwave-bars .bar-3 { height: 10px; animation-delay: 0.2s; }
-.soundwave-bars .bar-4 { height: 18px; animation-delay: 0.45s; }
-.soundwave-bars .bar-5 { height: 15px; animation-delay: 0.25s; }
+.soundwave-bars .bar-1 {
+  height: 14px;
+  animation-delay: 0.1s;
+}
+
+.soundwave-bars .bar-2 {
+  height: 22px;
+  animation-delay: 0.35s;
+}
+
+.soundwave-bars .bar-3 {
+  height: 10px;
+  animation-delay: 0.2s;
+}
+
+.soundwave-bars .bar-4 {
+  height: 18px;
+  animation-delay: 0.45s;
+}
+
+.soundwave-bars .bar-5 {
+  height: 15px;
+  animation-delay: 0.25s;
+}
 
 @keyframes soundwaveJump {
   0% {
     transform: scaleY(0.25);
   }
+
   100% {
     transform: scaleY(1);
   }
@@ -2199,4 +2231,3 @@ body.dark-mode .flavor-chip-check {
     padding: 0.75rem 1.4rem;
   }
 }
-
