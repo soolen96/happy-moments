@@ -1,0 +1,88 @@
+.app-splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.5s ease;
+  pointer-events: auto;
+}
+
+.app-splash-screen.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.splash-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+.splash-mascot {
+  width: 220px;
+  max-width: 65vw;
+  max-height: 45vh;
+  height: auto;
+  object-fit: contain;
+  animation: mascotPulseFloat 2.4s ease-in-out infinite;
+}
+
+.splash-loader-dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.splash-loader-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  animation: dotBounce 1.2s infinite ease-in-out both;
+}
+
+.splash-loader-dots span:nth-child(1) {
+  background-color: #e83b87;
+  animation-delay: -0.32s;
+}
+
+.splash-loader-dots span:nth-child(2) {
+  background-color: #52b737;
+  animation-delay: -0.16s;
+}
+
+.splash-loader-dots span:nth-child(3) {
+  background-color: #f5b729;
+  animation-delay: 0s;
+}
+
+@keyframes mascotPulseFloat {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.02);
+  }
+}
+
+@keyframes dotBounce {
+  0%, 80%, 100% {
+    transform: scale(0.6);
+    opacity: 0.4;
+  }
+  40% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}

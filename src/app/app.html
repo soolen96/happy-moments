@@ -1,1 +1,15 @@
+@if (isLoading()) {
+  <div class="app-splash-screen" [class.fade-out]="isFadingOut()" aria-label="Cargando...">
+    <div class="splash-content">
+      <img src="assets/mascot-cart.png" alt="Happy Moments" class="splash-mascot" />
+      <div class="splash-loader-dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+}
+
 <router-outlet></router-outlet>
+
