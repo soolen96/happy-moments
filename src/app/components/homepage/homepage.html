@@ -4,352 +4,45 @@
   <div class="bg-orb orb-magenta"></div>
   <div class="bg-orb orb-plum"></div>
 
-  <!-- Header Navigation -->
-  <header class="main-header">
-    <div class="header-left">
-      <button class="menu-toggle-btn" (click)="toggleMenu()" id="btn-menu" aria-label="Abrir menú de navegación">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none"
-          stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="inline-icon">
-          <line x1="3" y1="6" x2="21" y2="6" />
-          <line x1="3" y1="12" x2="21" y2="12" />
-          <line x1="3" y1="18" x2="21" y2="18" />
-        </svg>
-        <span class="menu-text">Menú</span>
-      </button>
-
-      <a href="#" class="logo-brand">
-        <img [src]="isDarkMode() ? 'assets/logo-candy-jar-dark.png' : 'assets/logo-candy-jar.png'"
-          alt="Happy Moments Logo" class="logo-img" />
-        <div class="logo-titles">
-          <span class="brand-name-happy">HAPPY</span>
-          <span class="brand-name-moments">MOMENTS</span>
-          <span class="brand-sub">EDIBLES ANCESTRALES</span>
-        </div>
-      </a>
-    </div>
-
-    <nav class="header-nav-desktop">
-      <a href="#catalogo" (click)="selectCategory('Todos')" class="nav-link">Productos</a>
-      <a href="#catalogo" (click)="selectCategory('Combos')" class="nav-link">Combos</a>
-      <a href="#contacto" class="nav-link">Contacto</a>
-    </nav>
-
-    <div class="header-right">
-      <button class="cart-btn" (click)="toggleCart()" id="btn-cart" aria-label="Ver Carrito de Compras">
-        <span class="cart-icon"><img src="assets/icons/cart.svg" alt="Carrito" class="menu-icon" /></span>
-        <span class="cart-text">Carrito</span>
-        <span class="cart-badge" *ngIf="cartService.cartTotalCount() > 0">{{ cartService.cartTotalCount() }}</span>
-      </button>
-    </div>
-  </header>
-
-  <!-- Mobile Navigation Drawer -->
-  <div class="menu-overlay" *ngIf="isMenuOpen()" (click)="closeMenu()">
-    <aside class="menu-drawer" (click)="$event.stopPropagation()">
-      <div class="drawer-header">
-        <h2>
-          <img src="assets/icons/sparkles.svg" alt="Menú" class="menu-icon" />
-          Menú Principal
-        </h2>
-        <button class="close-btn" (click)="closeMenu()">&times;</button>
-      </div>
-
-      <nav class="drawer-nav">
-        <a href="#catalogo" (click)="closeMenu(); selectCategory('Todos')" class="drawer-link">
-          <img src="assets/icons/candy.svg" alt="Productos" class="menu-icon" />
-          Productos
-        </a>
-        <a href="#catalogo" (click)="closeMenu(); selectCategory('Combos')" class="drawer-link">
-          <img src="assets/icons/gift.svg" alt="Combos" class="menu-icon" />
-          Combos
-        </a>
-        <button type="button" (click)="closeMenu(); toggleCart()" class="drawer-link drawer-cart-btn">
-          <img src="assets/icons/cart.svg" alt="Carrito" class="menu-icon" />
-          Carrito de compras
-        </button>
-        <a href="#contacto" (click)="closeMenu()" class="drawer-link">
-          <img src="assets/icons/phone.svg" alt="Contacto" class="menu-icon" />
-          Contacto
-        </a>
-
-        <!-- Theme Toggle inside Menu -->
-        <div class="theme-switch-item" (click)="toggleTheme()">
-          <div class="theme-switch-label">
-            <span class="theme-icon-indicator">
-              <img [src]="isDarkMode() ? 'assets/icons/moon.svg' : 'assets/icons/sun.svg'"
-                [alt]="isDarkMode() ? 'Modo Oscuro' : 'Modo Claro'" class="menu-icon" />
-            </span>
-            <span>Modo {{ isDarkMode() ? 'Oscuro' : 'Claro' }}</span>
-          </div>
-          <div class="theme-switch-pill" [class.dark]="isDarkMode()">
-            <span class="theme-switch-thumb"></span>
-          </div>
-        </div>
-      </nav>
-
-      <div class="drawer-footer">
-        <p class="drawer-info"><img src="assets/icons/leaf.svg" alt="Ancestral" class="inline-icon" /> Edibles de receta
-          ancestral elaborados con amor e ingredientes naturales.</p>
-        <div class="drawer-socials">
-          <a [href]="cartService.getWhatsAppUrl(contactInfo())" target="_blank" rel="noopener noreferrer"
-            style="color: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;">
-            <img src="assets/icons/whatsapp.svg" alt="WhatsApp" class="inline-icon" /> WhatsApp: {{
-            contactInfo()?.whatsapp || '+57 314 4882666' }}
-          </a>
-        </div>
-      </div>
-    </aside>
-  </div>
+  <!-- Header & Navigation -->
+  <app-header
+    [contactInfo]="contactInfo()"
+    [isDarkMode]="isDarkMode()"
+    (categorySelected)="selectCategory($event)"
+    (themeToggled)="toggleTheme()">
+  </app-header>
 
   <!-- Hero & Popular Products Carousel Component -->
   <app-product-carousel [popularProducts]="popularProducts()"></app-product-carousel>
 
   <!-- Product Catalog & Search Section -->
-  <section class="catalog-section" id="catalogo">
-    <div class="catalog-header">
-      <h2 class="section-title">Nuestro Catálogo Ancestral</h2>
-      <p class="section-subtitle">Gomitas artesanales, brownies e infusiones horneadas con técnicas tradicionales.</p>
-    </div>
+  <app-product-catalog
+    [products]="filteredProducts()"
+    [categories]="categories"
+    [selectedCategory]="selectedCategory()"
+    [searchQuery]="searchQuery()"
+    (searchQueryChange)="searchQuery.set($event)"
+    (categoryChange)="selectCategory($event)"
+    (productAdded)="addToCart($event)">
+  </app-product-catalog>
 
-    <!-- Search Box Component -->
-    <app-search-box [searchQuery]="searchQuery()" (searchQueryChange)="searchQuery.set($event)"
-      [categories]="categories" [selectedCategory]="selectedCategory()"
-      (categoryChange)="selectCategory($event)"></app-search-box>
-
-    <!-- Products Grid -->
-    <div class="products-grid" *ngIf="filteredProducts().length > 0; else noProducts">
-      <div class="product-card" *ngFor="let product of filteredProducts()">
-        <div class="card-img-container">
-          <img [src]="product.image" [alt]="product.name" loading="lazy" />
-          <span class="card-tag" *ngIf="product.badge">{{ product.badge }}</span>
-          <span class="weight-tag" *ngIf="product.weight">{{ product.weight }}</span>
-        </div>
-
-        <div class="card-body">
-          <div class="card-top-meta">
-            <span class="card-category">{{ product.category }}</span>
-          </div>
-
-          <h3 class="card-title">{{ product.name }}</h3>
-          <p class="card-desc">{{ product.description }}</p>
-
-          <!-- Flavor Selection Chips (Option 1) -->
-          <div class="card-flavor-selector" *ngIf="product.flavors && product.flavors.length > 0">
-            <span class="flavor-selector-label">Sabor:</span>
-            <div class="flavor-chips-group">
-              <button type="button" class="flavor-chip-btn" *ngFor="let flavor of product.flavors"
-                [class.active]="getSelectedFlavor(product) === flavor" (click)="selectFlavor(product.id, flavor)"
-                [attr.aria-label]="'Elegir sabor ' + flavor">
-                <span class="flavor-chip-text">{{ flavor }}</span>
-                <span class="flavor-chip-check" *ngIf="getSelectedFlavor(product) === flavor">✓</span>
-              </button>
-            </div>
-          </div>
-
-          <div class="card-price-action">
-            <span class="product-price">{{ formatCOP(product.price) }}</span>
-            <button class="add-cart-btn" (click)="addToCart(product)">
-              <span><img src="assets/icons/plus.svg" alt="Añadir" class="inline-icon" /> Añadir</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <ng-template #noProducts>
-      <div class="empty-catalog">
-        <span class="empty-emoji"><img src="assets/icons/candy.svg" alt="Sin productos" class="empty-icon" /></span>
-        <h3>No se encontraron productos</h3>
-        <p>Intenta con otra búsqueda o selecciona una categoría diferente.</p>
-      </div>
-    </ng-template>
-  </section>
   <!-- Combos Component -->
   <app-combos [combos]="combos()"></app-combos>
 
   <!-- Delivery Information Section -->
-  <section class="delivery-info-section" id="domicilio">
-    <div class="delivery-card">
-      <div class="delivery-badge-floating">
-        <img src="assets/icons/scooter.svg" alt="Domicilio" class="delivery-icon-badge" />
-      </div>
-
-      <div class="delivery-card-inner">
-        <div class="delivery-card-main">
-          <h2 class="delivery-title">Domicilio en todo Bogotá. Valor: $10.000</h2>
-        </div>
-
-        <div class="delivery-perks-row">
-          <div class="delivery-perk">
-            <span class="perk-icon"><img src="assets/icons/location.svg" alt="Bogotá" class="inline-icon" /></span>
-            <div class="perk-info">
-              <strong>Todo Bogotá</strong>
-              <small>Entregas directas a tu puerta</small>
-            </div>
-          </div>
-          <div class="delivery-perk">
-            <span class="perk-icon"><img src="assets/icons/candy.svg" alt="Gomita" class="inline-icon" /></span>
-            <div class="perk-info">
-              <strong>1 Gomita de Cortesía</strong>
-              <small>En compras ≥ $20.000</small>
-            </div>
-          </div>
-          <div class="delivery-perk">
-            <span class="perk-icon"><img src="assets/icons/sparkles.svg" alt="Fresco" class="inline-icon" /></span>
-            <div class="perk-info">
-              <strong>Fresco y Discreto</strong>
-              <small>Empaque sellado de alta calidad</small>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <app-delivery-info></app-delivery-info>
 
   <!-- Spotify Playlist Section ("La Frecuencia Ancestral") -->
-  <section class="spotify-section" id="musica">
-    <div class="spotify-card">
-      <div class="spotify-glow-orb"></div>
-
-      <div class="spotify-content-grid">
-        <!-- Left Side: Storytelling, Mood Tags & CTA -->
-        <div class="spotify-info">
-          <div class="spotify-chip">
-            <span class="spotify-chip-icon">✨</span>
-            <span>Vibra Ancestral</span>
-          </div>
-
-          <h2 class="spotify-title">Ponle ritmo a tu <span class="gradient-text">momento</span></h2>
-
-          <p class="spotify-desc">
-            Eleva tus sentidos con nuestra selección sonora oficial. Dale play a ritmos envolventes y relajantes
-            diseñados para acompañar tu experiencia con cada uno de nuestros edibles ancestrales.
-          </p>
-
-          <!-- Soundwave Animation -->
-          <div class="soundwave-wrapper">
-            <div class="soundwave-bars" aria-hidden="true">
-              <span class="bar bar-1"></span>
-              <span class="bar bar-2"></span>
-              <span class="bar bar-3"></span>
-              <span class="bar bar-4"></span>
-              <span class="bar bar-5"></span>
-            </div>
-            <span class="soundwave-label">Playlist Oficial de Happy Moments</span>
-          </div>
-
-          <!-- Mood Tags -->
-          <div class="spotify-mood-tags">
-            <span class="mood-tag">🌿 Relax & Chill</span>
-            <span class="mood-tag">✨ Ancestral Vibes</span>
-            <span class="mood-tag">🎧 Good Times</span>
-          </div>
-
-          <!-- Direct Spotify Action Button -->
-          <a href="https://open.spotify.com/playlist/0Hgwiz9wiyH3BYyv8Xdxli" target="_blank" rel="noopener noreferrer"
-            class="spotify-external-btn" aria-label="Abrir playlist en Spotify">
-            <svg class="spotify-svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-              <path
-                d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.48.66.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z" />
-            </svg>
-            <span>Escuchar en Spotify</span>
-          </a>
-        </div>
-
-        <!-- Right Side: Spotify Player Iframe Container -->
-        <div class="spotify-widget-wrapper">
-          <div class="spotify-player-container">
-            <iframe data-testid="embed-iframe" style="border-radius:12px; display: block;"
-              src="https://open.spotify.com/embed/playlist/0Hgwiz9wiyH3BYyv8Xdxli?utm_source=generator&si=681f1e75780e4af7"
-              width="100%" height="352" frameBorder="0" allowfullscreen=""
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"
-              title="Happy Moments Spotify Playlist">
-            </iframe>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <app-spotify-section></app-spotify-section>
 
   <!-- Shopping Cart Component -->
   <app-cart [contactInfo]="contactInfo()"></app-cart>
 
   <!-- Footer with Contact Info -->
-  <footer class="main-footer" id="contacto">
-    <div class="footer-top">
-      <!-- Brand Info -->
-      <div class="footer-col brand-col">
-        <div class="footer-logo">
-          <img [src]="isDarkMode() ? 'assets/logo-candy-jar-dark.png' : 'assets/logo-candy-jar.png'"
-            alt="Happy Moments Logo" class="logo-img-footer" />
-          <div class="logo-titles">
-            <span class="brand-name-happy">HAPPY</span>
-            <span class="brand-name-moments">MOMENTS</span>
-          </div>
-        </div>
-        <p class="footer-desc">
-          {{footerDescription()}}
-        </p>
-        <div class="social-links" *ngIf="contactInfo() as info; else defaultSocial">
-          <a [href]="info.instagramUrl || 'https://www.instagram.com/happy.moments.bog'" target="_blank"
-            rel="noopener noreferrer" class="social-icon" title="Instagram">
-            <img src="assets/instagram-icon.png" alt="Instagram" class="ig-icon" /> {{ info.instagram ||
-            '@happy.moments.bog' }}</a>
-          <a [href]="cartService.getWhatsAppUrl(info)" target="_blank" rel="noopener noreferrer" class="social-icon"
-            title="WhatsApp"><img src="assets/icons/whatsapp.svg" alt="WhatsApp" class="inline-icon" /> {{ info.whatsapp
-            || '+57 314 4882666' }}</a>
-        </div>
-        <ng-template #defaultSocial>
-          <div class="social-links">
-            <a href="https://www.instagram.com/happy.moments.bog" target="_blank" rel="noopener noreferrer"
-              class="social-icon" title="Instagram">
-              <img src="assets/instagram-icon.png" alt="Instagram" class="ig-icon" /> @happy.moments.bog</a>
-            <a [href]="cartService.getWhatsAppUrl(contactInfo())" target="_blank" rel="noopener noreferrer"
-              class="social-icon" title="WhatsApp"><img src="assets/icons/whatsapp.svg" alt="WhatsApp"
-                class="inline-icon" /> +57 314
-              4882666</a>
-          </div>
-        </ng-template>
-
-      </div>
-
-      <!-- Contact Info -->
-      <div class="footer-col contact-col">
-        <h3 class="footer-title">Información de Contacto</h3>
-        <ul class="contact-info-list" *ngIf="contactInfo() as info">
-          <li>
-            <span class="contact-icon"><img src="assets/icons/location.svg" alt="Ubicación"
-                class="contact-svg-icon" /></span>
-            <span>{{ info.location }}</span>
-          </li>
-          <li>
-            <span class="contact-icon"><img src="assets/icons/phone.svg" alt="Teléfono"
-                class="contact-svg-icon" /></span>
-            <span>{{ info.phone }}</span>
-          </li>
-          <li>
-            <span class="contact-icon"><img src="assets/icons/mail.svg" alt="Correo" class="contact-svg-icon" /></span>
-            <span>{{ info.email }}</span>
-          </li>
-          <li>
-            <span class="contact-icon"><img src="assets/instagram-icon.png" alt="Instagram" class="ig-icon" /></span>
-            <a [href]="info.instagramUrl || 'https://www.instagram.com/happy.moments.bog'" target="_blank"
-              rel="noopener noreferrer" class="footer-contact-link">
-              {{ info.instagram || '@happy.moments.bog' }}
-            </a>
-          </li>
-          <li class="schedule-li">
-            <span class="contact-icon"><img src="assets/icons/clock.svg" alt="Horario"
-                class="contact-svg-icon" /></span>
-            <span class="schedule-text">{{ info.schedule }}</span>
-          </li>
-        </ul>
-      </div>
-
-    </div>
-
-    <div class="footer-bottom" *ngIf="footerText() as text">
-      <p>{{text}}</p>
-    </div>
-  </footer>
+  <app-footer
+    [contactInfo]="contactInfo()"
+    [footerDescription]="footerDescription()"
+    [footerText]="footerText()"
+    [isDarkMode]="isDarkMode()">
+  </app-footer>
 </div>

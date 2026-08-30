@@ -1,0 +1,64 @@
+<!-- Product Catalog & Search Section -->
+<section class="catalog-section" id="catalogo">
+  <div class="catalog-header">
+    <h2 class="section-title">Nuestro Catálogo Ancestral</h2>
+    <p class="section-subtitle">Gomitas artesanales, brownies e infusiones horneadas con técnicas tradicionales.</p>
+  </div>
+
+  <!-- Search Box Component -->
+  <app-search-box
+    [searchQuery]="searchQuery()"
+    (searchQueryChange)="searchQueryChange.emit($event)"
+    [categories]="categories()"
+    [selectedCategory]="selectedCategory()"
+    (categoryChange)="categoryChange.emit($event)">
+  </app-search-box>
+
+  <!-- Products Grid -->
+  <div class="products-grid" *ngIf="products().length > 0; else noProducts">
+    <div class="product-card" *ngFor="let product of products()">
+      <div class="card-img-container">
+        <img [src]="product.image" [alt]="product.name" loading="lazy" />
+        <span class="card-tag" *ngIf="product.badge">{{ product.badge }}</span>
+        <span class="weight-tag" *ngIf="product.weight">{{ product.weight }}</span>
+      </div>
+
+      <div class="card-body">
+        <div class="card-top-meta">
+          <span class="card-category">{{ product.category }}</span>
+        </div>
+
+        <h3 class="card-title">{{ product.name }}</h3>
+        <p class="card-desc">{{ product.description }}</p>
+
+        <!-- Flavor Selection Chips -->
+        <div class="card-flavor-selector" *ngIf="product.flavors && product.flavors.length > 0">
+          <span class="flavor-selector-label">Sabor:</span>
+          <div class="flavor-chips-group">
+            <button type="button" class="flavor-chip-btn" *ngFor="let flavor of product.flavors"
+              [class.active]="getSelectedFlavor(product) === flavor" (click)="selectFlavor(product.id, flavor)"
+              [attr.aria-label]="'Elegir sabor ' + flavor">
+              <span class="flavor-chip-text">{{ flavor }}</span>
+              <span class="flavor-chip-check" *ngIf="getSelectedFlavor(product) === flavor">✓</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="card-price-action">
+          <span class="product-price">{{ formatCOP(product.price) }}</span>
+          <button class="add-cart-btn" (click)="addToCart(product)">
+            <span><img src="assets/icons/plus.svg" alt="Añadir" class="inline-icon" /> Añadir</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noProducts>
+    <div class="empty-catalog">
+      <span class="empty-emoji"><img src="assets/icons/candy.svg" alt="Sin productos" class="empty-icon" /></span>
+      <h3>No se encontraron productos</h3>
+      <p>Intenta con otra búsqueda o selecciona una categoría diferente.</p>
+    </div>
+  </ng-template>
+</section>
