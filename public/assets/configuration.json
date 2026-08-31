@@ -8,7 +8,7 @@
       "description": "Delicioso yogurt griego con toppings a elección",
       "badge": "Fusión",
       "image": "assets/products/yogurt-griego.png",
-      "isPopular": true,
+      "isPopular": false,
       "weight": "1 unidad",
       "flavors": [
         "Frutos Amarillos",
@@ -23,7 +23,7 @@
       "description": "Precio por unidad $6.000",
       "badge": "Mix",
       "image": "assets/products/chocolates-mix.png",
-      "isPopular": true,
+      "isPopular": false,
       "weight": "4 unidades"
     },
     {
@@ -45,7 +45,7 @@
       "description": "Dulce a base de leche",
       "badge": "Power",
       "image": "assets/products/arequipe-power.png",
-      "isPopular": true,
+      "isPopular": false,
       "weight": "140g - 10 Porciones"
     },
     {
@@ -56,7 +56,7 @@
       "description": "Helado de vainilla con toppings de sabores",
       "badge": "Lite",
       "image": "assets/products/sundae-power.png",
-      "isPopular": true,
+      "isPopular": false,
       "weight": "1 unidad",
       "flavors": [
         "Frutos Amarillos",
@@ -72,7 +72,7 @@
       "description": "Helado de vainilla con toppings de sabores",
       "badge": "Power",
       "image": "assets/products/sundae-power.png",
-      "isPopular": true,
+      "isPopular": false,
       "weight": "1 unidad",
       "flavors": [
         "Frutos Amarillos",
@@ -88,7 +88,7 @@
       "description": "Precio por unidad $6.000",
       "badge": "Lite",
       "image": "assets/products/chocolates-lite.png",
-      "isPopular": true,
+      "isPopular": false,
       "weight": "4 unidades"
     },
     {
@@ -99,7 +99,7 @@
       "description": "Precio por unidad $ 6.000",
       "badge": "Lite",
       "image": "assets/products/gomitas-lite.png",
-      "isPopular": true,
+      "isPopular": false,
       "weight": "4 unidades"
     },
     {
@@ -121,7 +121,7 @@
       "description": "Precio por unidad $ 8.000",
       "badge": "Fusión",
       "image": "assets/products/galletas-fusion.png",
-      "isPopular": true,
+      "isPopular": false,
       "weight": "4 unidades"
     },
     {
@@ -132,7 +132,7 @@
       "description": "Precio por unidad $ 6.000",
       "badge": "Power",
       "image": "assets/products/gomitas-power.png",
-      "isPopular": true,
+      "isPopular": false,
       "weight": "4 unidades"
     },
     {
@@ -154,7 +154,7 @@
       "description": "Brownie chocolate con galleta de oreo",
       "badge": "Fusión",
       "image": "assets/products/brownie-fusion-1.png",
-      "isPopular": true,
+      "isPopular": false,
       "weight": "1 unidad"
     }
   ],
