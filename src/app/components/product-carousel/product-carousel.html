@@ -1,5 +1,5 @@
-<!-- Hero & Popular Products Carousel -->
-<section class="hero-carousel-section" id="populares">
+<!-- Hero & Informational Carousel -->
+<section class="hero-carousel-section" id="novedades">
   <div class="section-badge">
     <span><img src="assets/icons/leaf.svg" alt="Ancestral" class="inline-icon" /> EDIBLES ANCESTRALES & COMIDA ARTESANAL</span>
   </div>
@@ -9,63 +9,41 @@
   </h1>
 
   <!-- Carousel Container -->
-  <div class="carousel-container" *ngIf="popularProducts.length > 0">
-    <button class="carousel-arrow prev" (click)="prevSlide()" aria-label="Producto anterior">❮</button>
+  <div class="carousel-container" *ngIf="slides().length > 0">
+    <button class="carousel-arrow prev" (click)="prevSlide()" aria-label="Imagen anterior">❮</button>
 
     <div class="carousel-track-wrapper">
-      <div class="carousel-slide" *ngFor="let item of popularProducts; let i = index"
-        [class.active]="i === carouselIndex">
+      <div
+        class="carousel-slide"
+        *ngFor="let item of slides(); let i = index"
+        [class.active]="i === carouselIndex"
+      >
         <div class="slide-content" *ngIf="i === carouselIndex">
           <div class="slide-image-box">
-            <img [src]="item.image" [alt]="item.name" loading="eager" />
-            <span class="slide-badge" *ngIf="item.badge">{{ item.badge }}</span>
-          </div>
-
-          <div class="slide-info-box">
-            <div class="slide-header">
-              <span class="slide-category">{{ item.category }} • {{ item.weight }}</span>
-            </div>
-            <h2 class="slide-title">{{ item.name }}</h2>
-            <p class="slide-description">{{ item.description }}</p>
-
-            <!-- Flavor Selection Chips in Carousel -->
-            <div class="carousel-flavor-selector" *ngIf="item.flavors && item.flavors.length > 0">
-              <span class="flavor-selector-label">Elige tu sabor:</span>
-              <div class="flavor-chips-group">
-                <button
-                  type="button"
-                  class="flavor-chip-btn"
-                  *ngFor="let flavor of item.flavors"
-                  [class.active]="getSelectedFlavor(item) === flavor"
-                  (click)="selectFlavor(item.id, flavor, $event)"
-                  [attr.aria-label]="'Elegir sabor ' + flavor"
-                >
-                  <span class="flavor-chip-text">{{ flavor }}</span>
-                  <span class="flavor-chip-check" *ngIf="getSelectedFlavor(item) === flavor">✓</span>
-                </button>
-              </div>
-            </div>
-
-            <div class="slide-action-row">
-              <div class="slide-price-tag">
-                <span class="price-label">Precio:</span>
-                <span class="price-value">{{ formatCOP(item.price) }}</span>
-              </div>
-              <button class="btn-primary-add" (click)="addToCart(item)">
-                <span><img src="assets/icons/cart.svg" alt="Carrito" class="menu-icon" /> Agregar al Carrito</span>
-              </button>
-            </div>
+            <img
+              [src]="item.image"
+              [alt]="item.alt"
+              class="carousel-info-img"
+              [class.fill-cover]="item.fit === 'cover'"
+              [style.object-position]="item.position || 'center'"
+              loading="eager"
+            />
           </div>
         </div>
       </div>
     </div>
 
-    <button class="carousel-arrow next" (click)="nextSlide()" aria-label="Producto siguiente">❯</button>
+    <button class="carousel-arrow next" (click)="nextSlide()" aria-label="Imagen siguiente">❯</button>
 
     <!-- Indicators -->
     <div class="carousel-indicators">
-      <button *ngFor="let item of popularProducts; let i = index" class="indicator-dot"
-        [class.active]="i === carouselIndex" (click)="setSlide(i)" [attr.aria-label]="'Ir a ' + item.name"></button>
+      <button
+        *ngFor="let item of slides(); let i = index"
+        class="indicator-dot"
+        [class.active]="i === carouselIndex"
+        (click)="setSlide(i)"
+        [attr.aria-label]="'Ir a ' + item.alt"
+      ></button>
     </div>
   </div>
 </section>

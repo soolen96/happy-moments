@@ -67,9 +67,6 @@ export class Homepage implements OnInit {
   footerText = signal<string>('');
   footerDescription = signal<string>('');
 
-  // Popular products carousel filter
-  popularProducts = computed(() => this.products().filter((p) => p.isPopular));
-
   // Catalog filtered products (excluding combos since combos have their own section)
   filteredProducts = computed(() => {
     const category = this.selectedCategory();

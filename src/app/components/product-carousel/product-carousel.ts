@@ -1,7 +1,12 @@
-import { Component, Input, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Product } from '../../models';
-import { CartService } from '../../services/cart.service';
+
+export interface CarouselInfoSlide {
+  image: string;
+  alt: string;
+  fit?: 'cover' | 'contain';
+  position?: string;
+}
 
 @Component({
   selector: 'app-product-carousel',
@@ -11,72 +16,82 @@ import { CartService } from '../../services/cart.service';
   styleUrl: './product-carousel.css',
 })
 export class ProductCarouselComponent implements OnInit, OnDestroy {
-  cartService = inject(CartService);
+  readonly defaultSlides: CarouselInfoSlide[] = [
+    {
+      image: 'assets/info/entregas-nocturnas.jpg',
+      alt: 'Entregas todos los días en horas de la noche',
+      fit: 'cover',
+      position: 'top left',
+    },
+    {
+      image: 'assets/info/happy-greek-yogurt.jpg',
+      alt: 'Nuevo Producto Happy Greek Yogurt Griego',
+      fit: 'contain',
+      position: 'center',
+    },
+    {
+      image: 'assets/info/arequipe-fusion.jpg',
+      alt: 'Nuevo Producto Arequipe Fusión',
+      fit: 'cover',
+      position: 'center',
+    },
+    {
+      image: 'assets/info/happy-sundae-info.jpg',
+      alt: 'Sabores Happy Sundae',
+      fit: 'contain',
+      position: 'center',
+    },
+    {
+      image: 'assets/info/lineas-efectos-info.png',
+      alt: 'Guía de líneas Lite, Fusión y Power',
+      fit: 'contain',
+      position: 'center',
+    },
+  ];
 
-  @Input() popularProducts: Product[] = [];
+  slides = input<CarouselInfoSlide[]>(this.defaultSlides);
 
   carouselIndex = 0;
-  private carouselInterval: any;
+  private carouselInterval: ReturnType<typeof setInterval> | null = null;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.startCarouselAutoPlay();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.stopCarouselAutoPlay();
   }
 
-  startCarouselAutoPlay() {
+  startCarouselAutoPlay(): void {
     this.stopCarouselAutoPlay();
     this.carouselInterval = setInterval(() => {
       this.nextSlide();
     }, 5000);
   }
 
-  stopCarouselAutoPlay() {
+  stopCarouselAutoPlay(): void {
     if (this.carouselInterval) {
       clearInterval(this.carouselInterval);
+      this.carouselInterval = null;
     }
   }
 
-  nextSlide() {
-    const count = this.popularProducts.length;
-    if (count > 0) {
-      this.carouselIndex = (this.carouselIndex + 1) % count;
+  nextSlide(): void {
+    const list = this.slides();
+    if (list.length > 0) {
+      this.carouselIndex = (this.carouselIndex + 1) % list.length;
     }
   }
 
-  prevSlide() {
-    const count = this.popularProducts.length;
-    if (count > 0) {
-      this.carouselIndex = (this.carouselIndex - 1 + count) % count;
+  prevSlide(): void {
+    const list = this.slides();
+    if (list.length > 0) {
+      this.carouselIndex = (this.carouselIndex - 1 + list.length) % list.length;
     }
   }
 
-  setSlide(index: number) {
+  setSlide(index: number): void {
     this.carouselIndex = index;
     this.startCarouselAutoPlay();
-  }
-
-  selectedFlavors: Record<string, string> = {};
-
-  getSelectedFlavor(product: Product): string {
-    return this.selectedFlavors[product.id] || (product.flavors && product.flavors.length > 0 ? product.flavors[0] : '');
-  }
-
-  selectFlavor(productId: string, flavor: string, event?: Event): void {
-    if (event) {
-      event.stopPropagation();
-    }
-    this.selectedFlavors[productId] = flavor;
-  }
-
-  addToCart(product: Product) {
-    const flavor = product.flavors && product.flavors.length > 0 ? this.getSelectedFlavor(product) : undefined;
-    this.cartService.addToCart(product, flavor);
-  }
-
-  formatCOP(amount: number): string {
-    return this.cartService.formatCOP(amount);
   }
 }
