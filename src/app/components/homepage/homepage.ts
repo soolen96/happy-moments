@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { ConfigurationService } from '../../services/configuration.service';
 import { CartService } from '../../services/cart.service';
 import { ProductService } from '../../services/product.service';
-import { Product, ProductCategory, ContactInfo, Combo } from '../../models';
+import { ProductCategory, ContactInfo, Combo } from '../../models';
 import { HeaderComponent } from '../header/header';
 import { ProductCarouselComponent } from '../product-carousel/product-carousel';
 import { ProductCatalogComponent } from '../product-catalog/product-catalog';
 import { CombosComponent } from '../combos/combos';
 import { DeliveryInfoComponent } from '../delivery-info/delivery-info';
+import { ProductInfoComponent } from '../product-info/product-info';
 import { SpotifySectionComponent } from '../spotify-section/spotify-section';
 import { CartComponent } from '../cart/cart';
 import { FooterComponent } from '../footer/footer';
@@ -23,6 +24,7 @@ import { FooterComponent } from '../footer/footer';
     ProductCatalogComponent,
     CombosComponent,
     DeliveryInfoComponent,
+    ProductInfoComponent,
     SpotifySectionComponent,
     CartComponent,
     FooterComponent,
@@ -54,7 +56,6 @@ export class Homepage implements OnInit {
     ProductCategory.Chocolates,
     ProductCategory.Sundaes,
     ProductCategory.Otros,
-    ProductCategory.Combos,
   ];
 
   // All Artisanal Products (Synced via ProductService)
@@ -69,32 +70,12 @@ export class Homepage implements OnInit {
   // Popular products carousel filter
   popularProducts = computed(() => this.products().filter((p) => p.isPopular));
 
-  // Combined list of products and converted combos for catalog search & filter
-  allCatalogProducts = computed(() => {
-    const regularProducts = this.products();
-    const comboProducts = this.combos().map(
-      (c) =>
-        new Product({
-          id: c.id,
-          name: c.name,
-          category: ProductCategory.Combos,
-          price: c.price,
-          description: c.description,
-          badge: c.badge || 'Combo',
-          image: c.image,
-          weight: c.itemsCount || '',
-          isPopular: true,
-        })
-    );
-    return [...regularProducts, ...comboProducts];
-  });
-
-  // Catalog filtered products
+  // Catalog filtered products (excluding combos since combos have their own section)
   filteredProducts = computed(() => {
     const category = this.selectedCategory();
     const query = this.searchQuery().toLowerCase().trim();
 
-    return this.allCatalogProducts().filter((p) => {
+    return this.products().filter((p) => {
       const matchesCategory = category === 'Todos' || p.category === category;
       const matchesSearch =
         p.name.toLowerCase().includes(query) ||
@@ -163,9 +144,5 @@ export class Homepage implements OnInit {
 
   selectCategory(category: string): void {
     this.selectedCategory.set(category);
-  }
-
-  addToCart(event: { product: any; flavor?: string }): void {
-    this.cartService.addToCart(event.product, event.flavor);
   }
 }

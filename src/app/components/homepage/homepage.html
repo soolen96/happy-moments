@@ -22,8 +22,7 @@
     [selectedCategory]="selectedCategory()"
     [searchQuery]="searchQuery()"
     (searchQueryChange)="searchQuery.set($event)"
-    (categoryChange)="selectCategory($event)"
-    (productAdded)="addToCart($event)">
+    (categoryChange)="selectCategory($event)">
   </app-product-catalog>
 
   <!-- Combos Component -->
@@ -31,6 +30,9 @@
 
   <!-- Delivery Information Section -->
   <app-delivery-info></app-delivery-info>
+
+  <!-- Product Information Section (Mockup / Infographics) -->
+  <app-product-info></app-product-info>
 
   <!-- Spotify Playlist Section ("La Frecuencia Ancestral") -->
   <app-spotify-section></app-spotify-section>

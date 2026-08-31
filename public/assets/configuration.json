@@ -4,7 +4,7 @@
       "id": "p_1787799317901",
       "name": "Yogurt Griego",
       "category": "Otros",
-      "price": 25000,
+      "price": 15000,
       "description": "Delicioso yogurt griego con toppings a elección",
       "badge": "Power",
       "image": "assets/products/yogurt-griego.png",
@@ -30,8 +30,8 @@
       "id": "p_1787526476972",
       "name": "Chocolates Power",
       "category": "Chocolates",
-      "price": 24000,
-      "description": "Precio por unidad $6.000",
+      "price": 26000,
+      "description": "Precio por unidad $8.000",
       "badge": "Power",
       "image": "assets/products/chocolates-power.png",
       "isPopular": true,
@@ -46,13 +46,29 @@
       "badge": "Power",
       "image": "assets/products/arequipe-power.png",
       "isPopular": true,
-      "weight": "140g - 10 Portions"
+      "weight": "140g - 10 Porciones"
     },
     {
       "id": "p_1787525199025",
-      "name": "Sundae",
+      "name": "Sundae Lite",
       "category": "Sundaes",
-      "price": 25000,
+      "price": 15000,
+      "description": "Helado de vainilla con toppings de sabores",
+      "badge": "Lite",
+      "image": "assets/products/sundae-power.png",
+      "isPopular": true,
+      "weight": "1 unidad",
+      "flavors": [
+        "Frutos Amarillos",
+        "Frutos Rojos",
+        "Oreo"
+      ]
+    },
+    {
+      "id": "p_1787525199022",
+      "name": "Sundae Power",
+      "category": "Sundaes",
+      "price": 20000,
       "description": "Helado de vainilla con toppings de sabores",
       "badge": "Power",
       "image": "assets/products/sundae-power.png",
@@ -68,7 +84,7 @@
       "id": "p_1787523810273",
       "name": "Chocolates Lite",
       "category": "Chocolates",
-      "price": 24000,
+      "price": 20000,
       "description": "Precio por unidad $6.000",
       "badge": "Lite",
       "image": "assets/products/chocolates-lite.png",
@@ -88,7 +104,7 @@
     },
     {
       "id": "p3",
-      "name": "Gomitas Mix ",
+      "name": "Gomitas Mix",
       "category": "Gomitas",
       "price": 24000,
       "description": "Este paquete contiene: 2 gomitas Lite y 2 gomitas Power.",
@@ -99,7 +115,7 @@
     },
     {
       "id": "p6",
-      "name": "Galletas Fusión ",
+      "name": "Galletas Fusión",
       "category": "Galletas",
       "price": 26000,
       "description": "Precio por unidad $ 8.000",
@@ -181,12 +197,21 @@
     },
     {
       "id": "c5",
-      "name": "Combo Especial",
+      "name": "Combo Grande",
       "price": 65000,
       "description": "2 Chocolates Power - 2 Chocolates Lite - 2 Galletas Fusión - 2 Brownies Fusión - 2 Gomitas Power - 2 Gomitas Lite",
       "badge": "Fiesta",
       "image": "assets/combos/combo-especial.png",
       "itemsCount": "12 productos"
+    },
+    {
+      "id": "c6",
+      "name": "Combo Lite",
+      "price": 20000,
+      "description": "2 Chocolates - 2 Gomitas Lite",
+      "badge": "Lite",
+      "image": "assets/combos/combo-lite.png",
+      "itemsCount": "4 productos"
     }
   ],
   "footer": {

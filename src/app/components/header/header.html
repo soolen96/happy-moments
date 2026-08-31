@@ -24,7 +24,7 @@
 
   <nav class="header-nav-desktop">
     <a href="#catalogo" (click)="selectCategory('Todos')" class="nav-link">Productos</a>
-    <a href="#catalogo" (click)="selectCategory('Combos')" class="nav-link">Combos</a>
+    <a href="#combos" class="nav-link">Combos</a>
     <a href="#contacto" class="nav-link">Contacto</a>
   </nav>
 
@@ -53,7 +53,7 @@
         <img src="assets/icons/candy.svg" alt="Productos" class="menu-icon" />
         Productos
       </a>
-      <a href="#catalogo" (click)="selectCategory('Combos')" class="drawer-link">
+      <a href="#combos" (click)="closeMenu()" class="drawer-link">
         <img src="assets/icons/gift.svg" alt="Combos" class="menu-icon" />
         Combos
       </a>

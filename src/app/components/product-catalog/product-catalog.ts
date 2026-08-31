@@ -21,7 +21,6 @@ export class ProductCatalogComponent {
 
   searchQueryChange = output<string>();
   categoryChange = output<string>();
-  productAdded = output<{ product: Product; flavor?: string }>();
 
   // Flavor selection state per product
   selectedFlavors = signal<Record<string, string>>({});
@@ -43,7 +42,6 @@ export class ProductCatalogComponent {
         ? this.getSelectedFlavor(product)
         : undefined;
     this.cartService.addToCart(product, flavor);
-    this.productAdded.emit({ product, flavor });
   }
 
   formatCOP(amount: number): string {

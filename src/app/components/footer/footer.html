@@ -14,18 +14,6 @@
       <p class="footer-desc">
         {{ footerDescription() }}
       </p>
-      <div class="social-links" *ngIf="contactInfo() as info; else defaultSocial">
-        <a [href]="info.instagramUrl || 'https://www.instagram.com/happy.moments.bog'" target="_blank"
-          rel="noopener noreferrer" class="social-icon" title="Instagram">
-          <img src="assets/instagram-icon.png" alt="Instagram" class="ig-icon" />
-          {{ info.instagram || '@happy.moments.bog' }}
-        </a>
-        <a [href]="cartService.getWhatsAppUrl(info)" target="_blank" rel="noopener noreferrer" class="social-icon"
-          title="WhatsApp">
-          <img src="assets/icons/whatsapp.svg" alt="WhatsApp" class="inline-icon" />
-          {{ info.whatsapp || '+57 314 4882666' }}
-        </a>
-      </div>
       <ng-template #defaultSocial>
         <div class="social-links">
           <a href="https://www.instagram.com/happy.moments.bog" target="_blank" rel="noopener noreferrer"
