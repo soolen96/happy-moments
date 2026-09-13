@@ -23,6 +23,9 @@
         <button class="btn-action primary" *ngIf="activeTab() === 'combos'" (click)="addNewCombo()">
           <img src="assets/icons/gift.svg" alt="Agregar Combo" class="inline-icon" /> Agregar Combo
         </button>
+        <button class="btn-action primary" *ngIf="activeTab() === 'promotions'" (click)="startNewPromotion()">
+          <img src="assets/icons/plus.svg" alt="Crear Promoción" class="inline-icon" /> Nueva Promoción
+        </button>
         <button class="btn-action secondary" (click)="downloadJSON()">
           <img src="assets/icons/download.svg" alt="Descargar" class="inline-icon" /> Descargar JSON
         </button>
@@ -44,6 +47,10 @@
 
       <button type="button" class="tab-btn" [class.active]="activeTab() === 'combos'" (click)="setActiveTab('combos')">
         <img src="assets/icons/gift.svg" alt="Combos" class="inline-icon" /> Combos Especiales ({{ productService.combos().length }})
+      </button>
+
+      <button type="button" class="tab-btn" [class.active]="activeTab() === 'promotions'" (click)="setActiveTab('promotions')">
+        <span class="tab-emoji-icon">🏷️</span> Descuentos & Promos ({{ promotionService.promotions().length }})
       </button>
 
       <button type="button" class="tab-btn" [class.active]="activeTab() === 'footer'" (click)="setActiveTab('footer')">
@@ -285,6 +292,241 @@
           <p>Agrega un nuevo combo para enriquecer tu catálogo promocional.</p>
           <button class="btn-action primary" (click)="addNewCombo()">
             <img src="assets/icons/gift.svg" alt="Agregar Combo" class="inline-icon" /> Agregar Combo
+          </button>
+        </div>
+      </ng-template>
+    </ng-container>
+
+    <!-- TAB: PROMOTIONS & DISCOUNTS -->
+    <ng-container *ngIf="activeTab() === 'promotions'">
+      <!-- Controls & Summary Bar -->
+      <div class="admin-controls-card">
+        <div class="search-field">
+          <span class="search-icon"><img src="assets/icons/search.svg" alt="Buscar" class="inline-icon" /></span>
+          <input type="text" placeholder="Buscar promoción por nombre o producto..." [value]="searchTerm()"
+            (input)="searchTerm.set($any($event.target).value)" />
+        </div>
+
+        <div class="filter-actions">
+          <button class="btn-action primary" (click)="startNewPromotion()">
+            <img src="assets/icons/plus.svg" alt="Nueva Promoción" class="inline-icon" /> Nueva Promoción
+          </button>
+        </div>
+      </div>
+
+      <!-- Promotion Form Modal -->
+      <div class="admin-modal-backdrop" *ngIf="isPromoFormOpen()" (click)="closePromoForm()">
+        <div class="admin-modal-card" (click)="$event.stopPropagation()">
+          <div class="modal-header">
+            <h2>{{ editingPromoId() ? '✏️ Editar Promoción' : '✨ Crear Nueva Promoción' }}</h2>
+            <button class="modal-close-btn" (click)="closePromoForm()">&times;</button>
+          </div>
+
+          <div class="modal-body">
+            <!-- Basic Details -->
+            <div class="field-row">
+              <div class="field-group flex-2">
+                <label>Nombre de la Promoción: *</label>
+                <input type="text" [value]="formPromoName()" (input)="formPromoName.set($any($event.target).value)"
+                  placeholder="Ej: Lunes Especial, Promo Flash Fin de Semana" />
+              </div>
+
+              <div class="field-group flex-1">
+                <label>% de Descuento: *</label>
+                <div class="discount-input-wrapper">
+                  <input type="number" min="1" max="99" [value]="formPromoDiscount()"
+                    (input)="formPromoDiscount.set($any($event.target).value)" />
+                  <span class="input-suffix">%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field-group flex-2">
+                <label>Descripción / Detalle:</label>
+                <input type="text" [value]="formPromoDesc()" (input)="formPromoDesc.set($any($event.target).value)"
+                  placeholder="Ej: 10% de descuento en Gomitas Power y Chocolates Lite" />
+              </div>
+
+              <div class="field-group flex-1">
+                <label>Texto de la Insignia (Badge):</label>
+                <input type="text" [value]="formPromoBadge()" (input)="formPromoBadge.set($any($event.target).value)"
+                  placeholder="Ej: 10% OFF HOY" />
+              </div>
+            </div>
+
+            <!-- Schedule Type Selection -->
+            <div class="schedule-type-section">
+              <label class="section-label">Tipo de Programación (Vigencia):</label>
+              <div class="schedule-type-selector">
+                <button type="button" class="type-pill-btn"
+                  [class.active]="formPromoScheduleType() === 'weekly_days'"
+                  (click)="formPromoScheduleType.set('weekly_days')">
+                  📅 Días de la Semana Programados (Recurrente)
+                </button>
+                <button type="button" class="type-pill-btn"
+                  [class.active]="formPromoScheduleType() === 'date_range'"
+                  (click)="formPromoScheduleType.set('date_range')">
+                  ⏳ Rango de Fechas / Tiempo de Duración
+                </button>
+              </div>
+
+              <!-- Option A: Weekly Days -->
+              <div class="schedule-options-box" *ngIf="formPromoScheduleType() === 'weekly_days'">
+                <p class="field-hint">Selecciona qué días de la semana se activará automáticamente el descuento:</p>
+                <div class="days-selector-group">
+                  <button type="button" *ngFor="let item of availableDays"
+                    class="day-toggle-btn"
+                    [class.selected]="isDayInForm(item.day)"
+                    (click)="toggleDayInForm(item.day)">
+                    <span class="day-check" *ngIf="isDayInForm(item.day)">✓</span>
+                    {{ item.label }}
+                  </button>
+                </div>
+              </div>
+
+              <!-- Option B: Date Range -->
+              <div class="schedule-options-box" *ngIf="formPromoScheduleType() === 'date_range'">
+                <p class="field-hint">Indica la fecha y hora exacta en que inicia y finaliza la oferta:</p>
+                <div class="field-row">
+                  <div class="field-group flex-1">
+                    <label>Fecha y Hora de Inicio:</label>
+                    <input type="datetime-local" [value]="formPromoStartDate()"
+                      (input)="formPromoStartDate.set($any($event.target).value)" />
+                  </div>
+                  <div class="field-group flex-1">
+                    <label>Fecha y Hora de Expiración:</label>
+                    <input type="datetime-local" [value]="formPromoEndDate()"
+                      (input)="formPromoEndDate.set($any($event.target).value)" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product Selection -->
+            <div class="products-selector-section">
+              <div class="products-selector-header">
+                <div>
+                  <label class="section-label">Productos con Descuento: *</label>
+                  <p class="field-hint">Selecciona qué productos recibirán el {{ formPromoDiscount() }}% de descuento:</p>
+                </div>
+                <div class="products-quick-actions">
+                  <button type="button" class="quick-link-btn" (click)="selectAllProductsInForm()">Seleccionar todos</button>
+                  <span>•</span>
+                  <button type="button" class="quick-link-btn" (click)="deselectAllProductsInForm()">Deseleccionar todos</button>
+                </div>
+              </div>
+
+              <div class="products-pick-grid">
+                <div *ngFor="let prod of productService.products()"
+                  class="product-pick-item"
+                  [class.selected]="isProductInForm(prod.id)"
+                  (click)="toggleProductInForm(prod.id)">
+                  <div class="pick-checkbox">
+                    <input type="checkbox" [checked]="isProductInForm(prod.id)" (click)="$event.stopPropagation()"
+                      (change)="toggleProductInForm(prod.id)" />
+                  </div>
+                  <img [src]="prod.image" [alt]="prod.name" class="pick-img" />
+                  <div class="pick-info">
+                    <strong class="pick-name">{{ prod.name }}</strong>
+                    <span class="pick-weight" *ngIf="prod.weight">{{ prod.weight }}</span>
+                    <div class="pick-prices">
+                      <span class="pick-price-orig">{{ formatCOP(prod.price) }}</span>
+                      <span class="pick-price-calc">➜ {{ formatCOP(prod.price * (1 - formPromoDiscount() / 100)) }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Active Status Toggle -->
+            <div class="active-status-row">
+              <label class="switch-container">
+                <input type="checkbox" [checked]="formPromoIsActive()" (change)="formPromoIsActive.set($any($event.target).checked)" />
+                <span class="switch-slider"></span>
+              </label>
+              <span>Promoción Activa inmediatamente</span>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn-cancel" (click)="closePromoForm()">Cancelar</button>
+            <button type="button" class="btn-save" (click)="savePromoForm()">
+              💾 Guardar Promoción
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Promotions Cards Grid -->
+      <div class="promotions-grid" *ngIf="adminPromotions().length > 0; else noPromotions">
+        <div class="promo-card" *ngFor="let promo of adminPromotions()" [class.is-active]="promo.isActive" [class.is-live-now]="isPromoActive(promo)">
+          <div class="promo-card-header">
+            <div class="promo-status-badges">
+              <span class="status-pill" [class.active]="promo.isActive">
+                {{ promo.isActive ? 'Activa' : 'Pausada' }}
+              </span>
+              <span class="live-pill" *ngIf="isPromoActive(promo)">🔥 APLICANDO HOY</span>
+              <span class="schedule-type-tag">
+                {{ promo.scheduleType === 'weekly_days' ? '📅 Semanal' : '⏳ Duración' }}
+              </span>
+            </div>
+
+            <div class="promo-actions">
+              <button class="icon-btn" (click)="togglePromoActive(promo)" [title]="promo.isActive ? 'Pausar promoción' : 'Activar promoción'">
+                {{ promo.isActive ? '⏸️' : '▶️' }}
+              </button>
+              <button class="icon-btn" (click)="duplicatePromo(promo)" title="Duplicar">
+                📋
+              </button>
+              <button class="icon-btn" (click)="startEditPromotion(promo)" title="Editar">
+                ✏️
+              </button>
+              <button class="icon-btn danger" (click)="deletePromo(promo)" title="Eliminar">
+                🗑️
+              </button>
+            </div>
+          </div>
+
+          <div class="promo-card-body">
+            <div class="promo-title-row">
+              <h3 class="promo-title">{{ promo.name }}</h3>
+              <span class="promo-percentage-pill">-{{ promo.discountPercentage }}% OFF</span>
+            </div>
+
+            <p class="promo-desc" *ngIf="promo.description">{{ promo.description }}</p>
+
+            <div class="promo-meta-box">
+              <div class="meta-item">
+                <span class="meta-label">Programación:</span>
+                <span class="meta-value">{{ getPromoDaysText(promo) }}</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Insignia:</span>
+                <span class="meta-badge">{{ promo.badgeText || (promo.discountPercentage + '% OFF') }}</span>
+              </div>
+            </div>
+
+            <!-- Affected Products Preview -->
+            <div class="promo-products-section">
+              <span class="meta-label">Productos incluidos ({{ promo.productIds.length }}):</span>
+              <div class="promo-product-tags">
+                <span class="prod-tag" *ngFor="let name of getPromoProductNames(promo)">
+                  {{ name }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ng-template #noPromotions>
+        <div class="admin-empty-state">
+          <span class="empty-icon-emoji">🏷️</span>
+          <h2>No hay promociones registradas</h2>
+          <p>Crea promociones con descuentos para días específicos o rangos de tiempo.</p>
+          <button class="btn-action primary" (click)="startNewPromotion()">
+            <img src="assets/icons/plus.svg" alt="Crear Promoción" class="inline-icon" /> Crear Primera Promoción
           </button>
         </div>
       </ng-template>

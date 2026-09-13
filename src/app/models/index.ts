@@ -4,3 +4,4 @@ export * from './cart-item.model';
 export * from './contact-info.model';
 export * from './configuration.model';
 export * from './combo.model';
+export * from './discount-promotion.model';

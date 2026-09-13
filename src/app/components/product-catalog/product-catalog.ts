@@ -1,7 +1,8 @@
 import { Component, input, output, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Product } from '../../models';
+import { Product, ProductDiscountInfo } from '../../models';
 import { CartService } from '../../services/cart.service';
+import { PromotionService } from '../../services/promotion.service';
 import { SearchBoxComponent } from '../search-box/search-box';
 
 @Component({
@@ -13,6 +14,7 @@ import { SearchBoxComponent } from '../search-box/search-box';
 })
 export class ProductCatalogComponent {
   cartService = inject(CartService);
+  promotionService = inject(PromotionService);
 
   products = input<Product[]>([]);
   categories = input<string[]>([]);
@@ -46,5 +48,9 @@ export class ProductCatalogComponent {
 
   formatCOP(amount: number): string {
     return this.cartService.formatCOP(amount);
+  }
+
+  getDiscountInfo(product: Product): ProductDiscountInfo {
+    return this.promotionService.getDiscountForProduct(product);
   }
 }

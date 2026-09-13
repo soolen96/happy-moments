@@ -214,6 +214,56 @@
       "itemsCount": "4 productos"
     }
   ],
+  "promotions": [
+    {
+      "id": "promo_lunes",
+      "name": "Lunes Especial (10% OFF)",
+      "description": "10% de descuento en Gomitas Power y Chocolates Lite",
+      "discountPercentage": 10,
+      "productIds": [
+        "p7",
+        "p_1787523810273"
+      ],
+      "scheduleType": "weekly_days",
+      "scheduledDays": [
+        1
+      ],
+      "badgeText": "10% OFF HOY",
+      "isActive": true
+    },
+    {
+      "id": "promo_miercoles",
+      "name": "Miércoles Dulce (10% OFF)",
+      "description": "10% de descuento en Brownies Fusión x2 y Gomitas Lite",
+      "discountPercentage": 10,
+      "productIds": [
+        "p8",
+        "p1"
+      ],
+      "scheduleType": "weekly_days",
+      "scheduledDays": [
+        3
+      ],
+      "badgeText": "10% OFF HOY",
+      "isActive": true
+    },
+    {
+      "id": "promo_viernes",
+      "name": "Viernes Power (10% OFF)",
+      "description": "10% de descuento en Chocolates Power y Gomitas Mix",
+      "discountPercentage": 10,
+      "productIds": [
+        "p_1787526476972",
+        "p3"
+      ],
+      "scheduleType": "weekly_days",
+      "scheduledDays": [
+        5
+      ],
+      "badgeText": "10% OFF HOY",
+      "isActive": true
+    }
+  ],
   "footer": {
     "contact-info": {
       "location": "Bogotá, Colombia",

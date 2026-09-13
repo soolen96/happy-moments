@@ -19,7 +19,10 @@
     <div class="product-card" *ngFor="let product of products()">
       <div class="card-img-container">
         <img [src]="product.image" [alt]="product.name" loading="lazy" />
-        <span class="card-tag" *ngIf="product.badge">{{ product.badge }}</span>
+        <span class="card-tag discount-tag" *ngIf="getDiscountInfo(product).hasDiscount">
+          🔥 {{ getDiscountInfo(product).badge }}
+        </span>
+        <span class="card-tag" *ngIf="!getDiscountInfo(product).hasDiscount && product.badge">{{ product.badge }}</span>
         <span class="weight-tag" *ngIf="product.weight">{{ product.weight }}</span>
       </div>
 
@@ -45,7 +48,15 @@
         </div>
 
         <div class="card-price-action">
-          <span class="product-price">{{ formatCOP(product.price) }}</span>
+          <div class="card-price-block">
+            <ng-container *ngIf="getDiscountInfo(product).hasDiscount; else regularCatalogPrice">
+              <span class="original-striked-price">{{ formatCOP(product.price) }}</span>
+              <span class="product-price discounted-price">{{ formatCOP(getDiscountInfo(product).discountedPrice) }}</span>
+            </ng-container>
+            <ng-template #regularCatalogPrice>
+              <span class="product-price">{{ formatCOP(product.price) }}</span>
+            </ng-template>
+          </div>
           <button class="add-cart-btn" (click)="addToCart(product)">
             <span><img src="assets/icons/plus.svg" alt="Añadir" class="inline-icon" /> Añadir</span>
           </button>

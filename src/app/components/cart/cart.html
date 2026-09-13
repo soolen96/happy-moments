@@ -15,7 +15,16 @@
             <span class="cart-item-flavor-badge" *ngIf="item.selectedFlavor">
               Sabor: <strong>{{ item.selectedFlavor }}</strong>
             </span>
-            <span class="cart-item-price">{{ cartService.formatCOP(item.product.price) }}</span>
+            <div class="cart-item-pricing">
+              <ng-container *ngIf="cartService.getItemDiscountInfo(item.product).hasDiscount; else regularPrice">
+                <span class="cart-item-price-original">{{ cartService.formatCOP(item.product.price) }}</span>
+                <span class="cart-item-price discounted">{{ cartService.formatCOP(cartService.getItemDiscountInfo(item.product).discountedPrice) }}</span>
+                <span class="cart-discount-badge">-{{ cartService.getItemDiscountInfo(item.product).discountPercentage }}%</span>
+              </ng-container>
+              <ng-template #regularPrice>
+                <span class="cart-item-price">{{ cartService.formatCOP(item.product.price) }}</span>
+              </ng-template>
+            </div>
             <div class="qty-controls">
               <button class="qty-btn" (click)="cartService.updateQuantity(item.product.id, -1, item.selectedFlavor)">-</button>
               <span class="qty-val">{{ item.quantity }}</span>
@@ -58,6 +67,16 @@
 
       <!-- Cost Breakdown -->
       <div class="cart-breakdown">
+        <div class="breakdown-row" *ngIf="cartService.cartTotalSavings() > 0">
+          <span>Subtotal regular:</span>
+          <span class="subtotal-original">{{ cartService.formatCOP(cartService.cartOriginalSubtotalPrice()) }}</span>
+        </div>
+        <div class="breakdown-row discount-row" *ngIf="cartService.cartTotalSavings() > 0">
+          <span class="discount-label">
+            <span class="discount-icon">🔥</span> Descuentos aplicados:
+          </span>
+          <span class="savings-amount">-{{ cartService.formatCOP(cartService.cartTotalSavings()) }}</span>
+        </div>
         <div class="breakdown-row">
           <span>Subtotal productos:</span>
           <span>{{ cartService.formatCOP(cartService.cartSubtotalPrice()) }}</span>

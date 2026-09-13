@@ -1,9 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { CartService } from './cart.service';
 import { CartStorageService } from './cart-storage.service';
+import { PromotionService } from './promotion.service';
+import { ConfigurationService } from './configuration.service';
 import { Product, ProductCategory } from '../models';
+import { of } from 'rxjs';
 
-describe('CartService - Flavor Selection', () => {
+describe('CartService - Flavor Selection & Discounts', () => {
   let service: CartService;
 
   const mockBrownie = new Product({
@@ -20,10 +23,20 @@ describe('CartService - Flavor Selection', () => {
       localStorage.clear();
     }
     TestBed.configureTestingModule({
-      providers: [CartService, CartStorageService],
+      providers: [
+        CartService,
+        CartStorageService,
+        PromotionService,
+        {
+          provide: ConfigurationService,
+          useValue: { getConfig: () => of({}) },
+        },
+      ],
     });
     service = TestBed.inject(CartService);
     service.cart.set([]);
+    // Ensure no discounts active by default during base tests
+    service.promotionService.setSimulatedDay(2); // Martes (no discount)
   });
 
   it('should default to the first flavor if none is specified', () => {
@@ -79,5 +92,35 @@ describe('CartService - Flavor Selection', () => {
     });
 
     expect(url).toContain('Brownies%20fusi%C3%B3n%20x2%20unidades%20(Sabor%3A%20Arequipe)');
+  });
+
+  describe('Discount calculations in Cart', () => {
+    it('should calculate discounted subtotal and total savings on promotional days', () => {
+      // Simulate Wednesday (Miércoles = day 3) where Brownies x2 has 10% OFF
+      service.promotionService.setSimulatedDay(3);
+      service.addToCart(mockBrownie, 'Chocolate');
+
+      expect(service.cartOriginalSubtotalPrice()).toBe(26000);
+      expect(service.cartSubtotalPrice()).toBe(23400); // 10% OFF
+      expect(service.cartTotalSavings()).toBe(2600);
+      expect(service.cartTotalPrice()).toBe(23400 + 10000);
+    });
+
+    it('should include promotional discount details in WhatsApp message', () => {
+      service.promotionService.setSimulatedDay(3); // Wednesday
+      service.addToCart(mockBrownie, 'Chocolate');
+
+      const url = service.getWhatsAppUrl({
+        whatsapp: '+57 314 4882666',
+        phone: '',
+        location: '',
+        email: '',
+        schedule: '',
+        instagram: '',
+      });
+
+      expect(url).toContain('10%25%20OFF');
+      expect(url).toContain('23.400');
+    });
   });
 });

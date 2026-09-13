@@ -1,0 +1,94 @@
+<div class="weekly-banner-wrapper">
+  <!-- Main Banner Bar -->
+  <div class="deals-banner" [class.has-active-promo]="promotionService.activePromotions().length > 0">
+    <div class="banner-content">
+      <div class="banner-badge">
+        <span class="pulse-dot" *ngIf="promotionService.activePromotions().length > 0"></span>
+        <span>{{ promotionService.activePromotions().length > 0 ? '🔥 PROMO ACTIVA' : '✨ DÍAS DE DESCUENTO' }}</span>
+      </div>
+
+      <div class="banner-message" *ngIf="promotionService.activePromotions().length > 0; else noActivePromo">
+        <strong>¡Hoy {{ promotionService.currentDayName() }}!</strong>
+        <span class="promo-names">
+          <ng-container *ngFor="let promo of promotionService.activePromotions(); let last = last">
+            {{ promo.name }}{{ !last ? ' • ' : '' }}
+          </ng-container>
+        </span>
+      </div>
+
+      <ng-template #noActivePromo>
+        <div class="banner-message">
+          <strong>Promos semanales:</strong>
+          <span>Lunes (Gomitas Power & Chocolates Lite) • Miércoles (Brownies x2 & Gomitas Lite) • Viernes (Chocolates Power & Gomitas Mix)</span>
+        </div>
+      </ng-template>
+
+      <div class="banner-actions">
+        <button type="button" class="banner-btn" (click)="toggleSchedule()">
+          <span>📅 Ver Calendario</span>
+        </button>
+        <button type="button" class="banner-btn simulator-toggle" [class.active]="showSimulator()" (click)="toggleSimulator()">
+          <span>🧪 Simular Día</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Simulator Bar (Collapsible) -->
+    <div class="simulator-bar" *ngIf="showSimulator()">
+      <div class="simulator-label">
+        <span class="lab-icon">🔬</span>
+        <strong>Probar promociones por día:</strong>
+        <span class="sim-notice">(Cambia la tienda al día seleccionado para ver y probar los descuentos)</span>
+      </div>
+      <div class="simulator-chips">
+        <button
+          type="button"
+          *ngFor="let opt of dayOptions"
+          class="sim-chip"
+          [class.active]="promotionService.simulatedDay() === opt.value"
+          (click)="setDay(opt.value)"
+        >
+          {{ opt.label }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Weekly Schedule Modal/Dropdown -->
+  <div class="schedule-dropdown-backdrop" *ngIf="showScheduleModal()" (click)="toggleSchedule()">
+    <div class="schedule-card" (click)="$event.stopPropagation()">
+      <div class="schedule-header">
+        <h3>🎉 Calendario de Descuentos Semanales</h3>
+        <button class="close-card-btn" (click)="toggleSchedule()">&times;</button>
+      </div>
+      <p class="schedule-subtitle">Aprovecha nuestras ofertas fijas todos los lunes, miércoles y viernes del año:</p>
+
+      <div class="schedule-days-list">
+        <div
+          class="schedule-day-row"
+          *ngFor="let item of promotionService.weeklySchedule()"
+          [class.today-highlight]="item.isToday"
+        >
+          <div class="day-badge-col">
+            <span class="day-pill" [class.is-today]="item.isToday">{{ item.dayName }}</span>
+            <span class="today-tag" *ngIf="item.isToday">HOY 🔥</span>
+          </div>
+
+          <div class="day-promos-col">
+            <div class="day-promo-item" *ngFor="let p of item.promotions">
+              <div class="day-promo-top">
+                <span class="day-promo-name">{{ p.name }}</span>
+                <span class="day-promo-discount">-{{ p.discountPercentage }}% OFF</span>
+              </div>
+              <p class="day-promo-desc" *ngIf="p.description">{{ p.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="schedule-footer">
+        <button type="button" class="btn-primary-close" (click)="toggleSchedule()">¡Entendido!</button>
+      </div>
+    </div>
+  </div>
+</div>

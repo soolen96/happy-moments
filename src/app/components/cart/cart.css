@@ -368,3 +368,72 @@
   background: #20ba5a;
   transform: translateY(-2px);
 }
+
+/* Discount & Promotions Styles */
+.cart-item-pricing {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.2rem;
+}
+
+.cart-item-price-original {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.cart-item-price.discounted {
+  color: #e83b87;
+  font-weight: 800;
+}
+
+:host-context(.dark-mode) .cart-item-price.discounted {
+  color: #ff60a8;
+}
+
+.cart-discount-badge {
+  background: rgba(232, 59, 135, 0.15);
+  color: #e83b87;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 0.1rem 0.45rem;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(232, 59, 135, 0.3);
+}
+
+:host-context(.dark-mode) .cart-discount-badge {
+  background: rgba(232, 59, 135, 0.25);
+  color: #ff85be;
+  border-color: rgba(232, 59, 135, 0.5);
+}
+
+.breakdown-row.discount-row {
+  color: #e83b87;
+  font-weight: 700;
+}
+
+:host-context(.dark-mode) .breakdown-row.discount-row {
+  color: #ff60a8;
+}
+
+.discount-icon {
+  font-size: 0.95rem;
+  margin-right: 0.2rem;
+}
+
+.subtotal-original {
+  text-decoration: line-through;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.savings-amount {
+  font-weight: 800;
+  color: #e83b87;
+}
+
+:host-context(.dark-mode) .savings-amount {
+  color: #ff60a8;
+}

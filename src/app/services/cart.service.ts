@@ -1,12 +1,14 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
-import { CartItem, Product, ContactInfo } from '../models';
+import { CartItem, Product, ContactInfo, ProductDiscountInfo } from '../models';
 import { CartStorageService } from './cart-storage.service';
+import { PromotionService } from './promotion.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
   private cartStorage = inject(CartStorageService);
+  promotionService = inject(PromotionService);
 
   cart = signal<CartItem[]>([]);
   isCartOpen = signal<boolean>(false);
@@ -15,7 +17,18 @@ export class CartService {
   readonly FREE_GUMMY_THRESHOLD = 20000;
 
   cartTotalCount = computed(() => this.cart().reduce((sum, item) => sum + item.quantity, 0));
-  cartSubtotalPrice = computed(() => this.cart().reduce((sum, item) => sum + (item.product.price * item.quantity), 0));
+  cartOriginalSubtotalPrice = computed(() =>
+    this.cart().reduce((sum, item) => sum + item.product.price * item.quantity, 0)
+  );
+  cartSubtotalPrice = computed(() =>
+    this.cart().reduce(
+      (sum, item) => sum + this.promotionService.getEffectivePrice(item.product) * item.quantity,
+      0
+    )
+  );
+  cartTotalSavings = computed(() =>
+    Math.max(0, this.cartOriginalSubtotalPrice() - this.cartSubtotalPrice())
+  );
   cartDeliveryFee = computed(() => (this.cart().length > 0 ? this.DELIVERY_FEE : 0));
   cartTotalPrice = computed(() => this.cartSubtotalPrice() + this.cartDeliveryFee());
   hasFreeGummyReward = computed(() => this.cartSubtotalPrice() >= this.FREE_GUMMY_THRESHOLD);
@@ -88,6 +101,10 @@ export class CartService {
     }).format(amount);
   }
 
+  getItemDiscountInfo(product: Product): ProductDiscountInfo {
+    return this.promotionService.getDiscountForProduct(product);
+  }
+
   getWhatsAppUrl(contactInfo?: ContactInfo | null): string {
     const rawPhone = contactInfo?.whatsapp || '+573144882666';
     const cleanPhone = rawPhone.replace(/\+/g, '').replace(/\s+/g, '');
@@ -100,9 +117,20 @@ export class CartService {
     let message = '¡Hola! Quisiera realizar el siguiente pedido en Happy Moments:\n\n';
     items.forEach((item) => {
       const flavorTag = item.selectedFlavor ? ` (Sabor: ${item.selectedFlavor})` : '';
-      message += `• ${item.product.name}${flavorTag} x${item.quantity} - ${this.formatCOP(item.product.price * item.quantity)}\n`;
+      const discount = this.promotionService.getDiscountForProduct(item.product);
+      if (discount.hasDiscount) {
+        const itemTotal = discount.discountedPrice * item.quantity;
+        const origTotal = discount.originalPrice * item.quantity;
+        message += `• ${item.product.name}${flavorTag} x${item.quantity} - ${this.formatCOP(itemTotal)} (🔥 ${discount.discountPercentage}% OFF, antes: ${this.formatCOP(origTotal)})\n`;
+      } else {
+        message += `• ${item.product.name}${flavorTag} x${item.quantity} - ${this.formatCOP(item.product.price * item.quantity)}\n`;
+      }
     });
 
+    if (this.cartTotalSavings() > 0) {
+      message += `\n*Subtotal regular:* ${this.formatCOP(this.cartOriginalSubtotalPrice())}`;
+      message += `\n*Descuento especial aplicado:* -${this.formatCOP(this.cartTotalSavings())}`;
+    }
     message += `\n*Subtotal productos:* ${this.formatCOP(this.cartSubtotalPrice())}`;
     message += `\n*Domicilio Bogotá:* ${this.formatCOP(this.cartDeliveryFee())}`;
     if (this.hasFreeGummyReward()) {

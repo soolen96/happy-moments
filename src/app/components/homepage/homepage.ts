@@ -13,6 +13,7 @@ import { ProductInfoComponent } from '../product-info/product-info';
 import { SpotifySectionComponent } from '../spotify-section/spotify-section';
 import { CartComponent } from '../cart/cart';
 import { FooterComponent } from '../footer/footer';
+import { WeeklyDealsBannerComponent } from '../weekly-deals-banner/weekly-deals-banner';
 
 @Component({
   selector: 'app-homepage',
@@ -21,6 +22,7 @@ import { FooterComponent } from '../footer/footer';
     CommonModule,
     HeaderComponent,
     ProductCarouselComponent,
+    WeeklyDealsBannerComponent,
     ProductCatalogComponent,
     CombosComponent,
     DeliveryInfoComponent,

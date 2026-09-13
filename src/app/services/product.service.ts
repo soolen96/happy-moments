@@ -1,6 +1,7 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { Product, ProductCategory, Combo, ContactInfo } from '../models';
 import { ConfigurationService } from './configuration.service';
+import { PromotionService } from './promotion.service';
 
 export interface FooterConfig {
   'contact-info': ContactInfo;
@@ -13,6 +14,7 @@ export interface FooterConfig {
 })
 export class ProductService {
   private configService = inject(ConfigurationService);
+  private promotionService = inject(PromotionService);
   private readonly STORAGE_KEY = 'happy_moments_products_override';
   private readonly COMBOS_STORAGE_KEY = 'happy_moments_combos_override';
   private readonly FOOTER_STORAGE_KEY = 'happy_moments_footer_override';
@@ -235,6 +237,7 @@ export class ProductService {
     const data = {
       products: this.products(),
       combos: this.combos(),
+      promotions: this.promotionService.promotions(),
       footer: this.footer(),
     };
     return JSON.stringify(data, null, 2);
@@ -246,6 +249,7 @@ export class ProductService {
       localStorage.removeItem(this.COMBOS_STORAGE_KEY);
       localStorage.removeItem(this.FOOTER_STORAGE_KEY);
     }
+    this.promotionService.resetToDefault();
     this.loadConfigurationData();
   }
 }

@@ -3,10 +3,18 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ProductService } from '../../services/product.service';
+import { PromotionService, DAY_NAMES } from '../../services/promotion.service';
 import { AuthService } from '../../services/auth.service';
-import { Product, ProductCategory, Combo, ContactInfo } from '../../models';
+import {
+  Product,
+  ProductCategory,
+  Combo,
+  ContactInfo,
+  DiscountPromotion,
+  DiscountScheduleType,
+} from '../../models';
 
-export type AdminTab = 'products' | 'combos' | 'footer';
+export type AdminTab = 'products' | 'combos' | 'promotions' | 'footer';
 
 @Component({
   selector: 'app-admin',
@@ -17,6 +25,7 @@ export type AdminTab = 'products' | 'combos' | 'footer';
 })
 export class AdminComponent {
   productService = inject(ProductService);
+  promotionService = inject(PromotionService);
   authService = inject(AuthService);
 
   // Authentication State
@@ -176,6 +185,197 @@ export class AdminComponent {
   updateContactInfoField(field: keyof ContactInfo, value: string) {
     this.productService.updateContactInfo({ [field]: value });
     this.showToast('💾 Datos de contacto guardados');
+  }
+
+  // --- PROMOTIONS MANAGEMENT ---
+  readonly availableDays = [
+    { day: 1, label: 'Lunes' },
+    { day: 2, label: 'Martes' },
+    { day: 3, label: 'Miércoles' },
+    { day: 4, label: 'Jueves' },
+    { day: 5, label: 'Viernes' },
+    { day: 6, label: 'Sábado' },
+    { day: 0, label: 'Domingo' },
+  ];
+
+  isPromoFormOpen = signal<boolean>(false);
+  editingPromoId = signal<string | null>(null);
+  formPromoName = signal<string>('');
+  formPromoDesc = signal<string>('');
+  formPromoDiscount = signal<number>(10);
+  formPromoScheduleType = signal<DiscountScheduleType>('weekly_days');
+  formPromoSelectedDays = signal<number[]>([1]);
+  formPromoStartDate = signal<string>('');
+  formPromoEndDate = signal<string>('');
+  formPromoBadge = signal<string>('10% OFF HOY');
+  formPromoSelectedProductIds = signal<string[]>([]);
+  formPromoIsActive = signal<boolean>(true);
+
+  adminPromotions = computed(() => {
+    const query = this.searchTerm().toLowerCase().trim();
+    return this.promotionService.promotions().filter((p) => {
+      return (
+        p.name.toLowerCase().includes(query) ||
+        (p.description || '').toLowerCase().includes(query) ||
+        p.id.toLowerCase().includes(query)
+      );
+    });
+  });
+
+  startNewPromotion(): void {
+    this.editingPromoId.set(null);
+    this.formPromoName.set('Nueva Promoción Especial');
+    this.formPromoDesc.set('10% de descuento en productos seleccionados');
+    this.formPromoDiscount.set(10);
+    this.formPromoScheduleType.set('weekly_days');
+    this.formPromoSelectedDays.set([1]); // Default Lunes
+    this.formPromoStartDate.set('');
+    this.formPromoEndDate.set('');
+    this.formPromoBadge.set('10% OFF');
+    this.formPromoSelectedProductIds.set([]);
+    this.formPromoIsActive.set(true);
+    this.isPromoFormOpen.set(true);
+  }
+
+  startEditPromotion(promo: DiscountPromotion): void {
+    this.editingPromoId.set(promo.id);
+    this.formPromoName.set(promo.name);
+    this.formPromoDesc.set(promo.description || '');
+    this.formPromoDiscount.set(promo.discountPercentage);
+    this.formPromoScheduleType.set(promo.scheduleType);
+    this.formPromoSelectedDays.set(promo.scheduledDays ? [...promo.scheduledDays] : [1]);
+    this.formPromoStartDate.set(promo.startDate || '');
+    this.formPromoEndDate.set(promo.endDate || '');
+    this.formPromoBadge.set(promo.badgeText || `${promo.discountPercentage}% OFF`);
+    this.formPromoSelectedProductIds.set([...promo.productIds]);
+    this.formPromoIsActive.set(promo.isActive);
+    this.isPromoFormOpen.set(true);
+  }
+
+  closePromoForm(): void {
+    this.isPromoFormOpen.set(false);
+    this.editingPromoId.set(null);
+  }
+
+  toggleDayInForm(day: number): void {
+    const current = this.formPromoSelectedDays();
+    if (current.includes(day)) {
+      this.formPromoSelectedDays.set(current.filter((d) => d !== day));
+    } else {
+      this.formPromoSelectedDays.set([...current, day]);
+    }
+  }
+
+  isDayInForm(day: number): boolean {
+    return this.formPromoSelectedDays().includes(day);
+  }
+
+  toggleProductInForm(productId: string): void {
+    const current = this.formPromoSelectedProductIds();
+    if (current.includes(productId)) {
+      this.formPromoSelectedProductIds.set(current.filter((id) => id !== productId));
+    } else {
+      this.formPromoSelectedProductIds.set([...current, productId]);
+    }
+  }
+
+  isProductInForm(productId: string): boolean {
+    return this.formPromoSelectedProductIds().includes(productId);
+  }
+
+  selectAllProductsInForm(): void {
+    const allIds = this.productService.products().map((p) => p.id);
+    this.formPromoSelectedProductIds.set(allIds);
+  }
+
+  deselectAllProductsInForm(): void {
+    this.formPromoSelectedProductIds.set([]);
+  }
+
+  savePromoForm(): void {
+    if (!this.formPromoName().trim()) {
+      alert('Por favor ingresa un nombre para la promoción');
+      return;
+    }
+
+    if (this.formPromoSelectedProductIds().length === 0) {
+      alert('Por favor selecciona al menos un producto para la promoción');
+      return;
+    }
+
+    const promoData: Partial<DiscountPromotion> = {
+      name: this.formPromoName().trim(),
+      description: this.formPromoDesc().trim(),
+      discountPercentage: Number(this.formPromoDiscount()) || 10,
+      scheduleType: this.formPromoScheduleType(),
+      scheduledDays: this.formPromoSelectedDays(),
+      startDate: this.formPromoStartDate() || undefined,
+      endDate: this.formPromoEndDate() || undefined,
+      badgeText: this.formPromoBadge().trim() || `${this.formPromoDiscount()}% OFF`,
+      productIds: this.formPromoSelectedProductIds(),
+      isActive: this.formPromoIsActive(),
+    };
+
+    const currentId = this.editingPromoId();
+    if (currentId) {
+      this.promotionService.updatePromotion(currentId, promoData);
+      this.showToast(`💾 Promoción "${promoData.name}" actualizada con éxito`);
+    } else {
+      this.promotionService.addPromotion(promoData);
+      this.showToast(`✨ Promoción "${promoData.name}" creada con éxito`);
+    }
+
+    this.closePromoForm();
+  }
+
+  deletePromo(promo: DiscountPromotion): void {
+    if (confirm(`¿Estás seguro de que deseas eliminar la promoción "${promo.name}"?`)) {
+      this.promotionService.deletePromotion(promo.id);
+      this.showToast(`🗑️ Promoción "${promo.name}" eliminada`);
+    }
+  }
+
+  duplicatePromo(promo: DiscountPromotion): void {
+    this.promotionService.duplicatePromotion(promo.id);
+    this.showToast(`📋 Promoción "${promo.name}" duplicada`);
+  }
+
+  togglePromoActive(promo: DiscountPromotion): void {
+    this.promotionService.togglePromotionActive(promo.id);
+    const updatedState = !promo.isActive;
+    this.showToast(
+      updatedState
+        ? `✅ Promoción "${promo.name}" activada`
+        : `⏸️ Promoción "${promo.name}" pausada`
+    );
+  }
+
+  getPromoProductNames(promo: DiscountPromotion): string[] {
+    const allProducts = this.productService.products();
+    return promo.productIds
+      .map((id) => allProducts.find((p) => p.id === id)?.name)
+      .filter((name): name is string => !!name);
+  }
+
+  getPromoDaysText(promo: DiscountPromotion): string {
+    if (promo.scheduleType === 'date_range') {
+      const start = promo.startDate ? new Date(promo.startDate).toLocaleDateString('es-CO') : 'Inicio';
+      const end = promo.endDate ? new Date(promo.endDate).toLocaleDateString('es-CO') : 'Fin';
+      return `⏳ Vigencia: ${start} - ${end}`;
+    }
+
+    if (!promo.scheduledDays || promo.scheduledDays.length === 0) {
+      return 'Sin días seleccionados';
+    }
+
+    const dayLabels = promo.scheduledDays
+      .map((d) => this.availableDays.find((item) => item.day === d)?.label || DAY_NAMES[d])
+      .join(', ');
+    return `📅 Días: ${dayLabels}`;
+  }
+
+  isPromoActive(promo: DiscountPromotion): boolean {
+    return this.promotionService.isPromotionActiveNow(promo);
   }
 
   // --- COMMON ACTIONS ---

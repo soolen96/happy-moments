@@ -89,6 +89,13 @@
   z-index: 2;
 }
 
+.card-tag.discount-tag {
+  background: linear-gradient(135deg, #e83b87 0%, #ff4b4b 100%);
+  box-shadow: 0 4px 14px rgba(232, 59, 135, 0.45);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
 .weight-tag {
   position: absolute;
   top: 0.75rem;
@@ -225,6 +232,20 @@
   border-top-color: rgba(232, 59, 135, 0.2);
 }
 
+.card-price-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.original-striked-price {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-decoration: line-through;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
 .product-price {
   font-family: var(--font-heading);
   font-size: 1.35rem;
@@ -232,8 +253,17 @@
   color: var(--color-plum);
 }
 
+.product-price.discounted-price {
+  color: #e83b87;
+  font-weight: 900;
+}
+
 :host-context(.dark-mode) .product-price {
   color: #52b737;
+}
+
+:host-context(.dark-mode) .product-price.discounted-price {
+  color: #ff60a8;
 }
 
 .add-cart-btn {
