@@ -187,17 +187,33 @@
   }
 }
 
+.soundwave-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
 .soundwave-label {
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-size: 0.88rem;
+  font-weight: 700;
   color: var(--text-primary);
+}
+
+.soundwave-sublabel {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.25;
 }
 
 :host-context(.dark-mode) .soundwave-label {
   color: #f5d6eb;
 }
 
-/* Mood Tags Chips */
+:host-context(.dark-mode) .soundwave-sublabel {
+  color: #c7a4bc;
+}
+
+/* Mood / Playlist Selector Chips */
 .spotify-mood-tags {
   display: flex;
   flex-wrap: wrap;
@@ -206,19 +222,32 @@
 }
 
 .mood-tag {
+  font-family: inherit;
   font-size: 0.82rem;
   font-weight: 600;
-  padding: 0.4rem 0.95rem;
+  padding: 0.45rem 1.05rem;
   background: rgba(90, 24, 70, 0.06);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-full, 9999px);
   color: var(--text-secondary);
-  transition: all 0.2s ease;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
 }
 
 .mood-tag:hover {
   border-color: var(--color-green);
   color: var(--color-green-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(82, 183, 55, 0.18);
+}
+
+.mood-tag.active {
+  background: var(--color-green);
+  border-color: var(--color-green);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(82, 183, 55, 0.38);
+  transform: translateY(-1px);
 }
 
 :host-context(.dark-mode) .mood-tag {
@@ -230,6 +259,14 @@
 :host-context(.dark-mode) .mood-tag:hover {
   border-color: #6ed652;
   color: #ffffff;
+  box-shadow: 0 4px 12px rgba(82, 183, 55, 0.28);
+}
+
+:host-context(.dark-mode) .mood-tag.active {
+  background: var(--color-green);
+  border-color: var(--color-green);
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(82, 183, 55, 0.55);
 }
 
 /* Spotify External Button */
@@ -265,6 +302,87 @@
   width: 100%;
 }
 
+/* Carousel Header Controls */
+.spotify-carousel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.9rem;
+  padding: 0 0.25rem;
+}
+
+.carousel-counter-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.carousel-counter-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-green);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.carousel-current-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-plum-text);
+  font-family: var(--font-heading);
+}
+
+:host-context(.dark-mode) .carousel-current-title {
+  color: #ffffff;
+}
+
+.carousel-nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.carousel-nav-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--border-glass);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 700;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.carousel-nav-btn:hover {
+  background: var(--color-green);
+  border-color: var(--color-green);
+  color: #ffffff;
+  transform: scale(1.08);
+  box-shadow: 0 6px 16px rgba(82, 183, 55, 0.35);
+}
+
+.carousel-nav-btn:active {
+  transform: scale(0.94);
+}
+
+:host-context(.dark-mode) .carousel-nav-btn {
+  background: rgba(32, 9, 27, 0.9);
+  border-color: rgba(232, 59, 135, 0.3);
+  color: #ffffff;
+}
+
+:host-context(.dark-mode) .carousel-nav-btn:hover {
+  background: var(--color-green);
+  border-color: var(--color-green);
+  color: #ffffff;
+}
+
 .spotify-player-container {
   background: #121212;
   border-radius: 16px;
@@ -295,6 +413,46 @@
   height: 352px;
   border: none;
   display: block;
+}
+
+/* Carousel Indicators (Dots) */
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 1rem;
+}
+
+.indicator-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: var(--radius-full, 9999px);
+  border: none;
+  background: rgba(82, 183, 55, 0.25);
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.indicator-dot:hover {
+  background: rgba(82, 183, 55, 0.55);
+  transform: scale(1.2);
+}
+
+.indicator-dot.active {
+  width: 28px;
+  background: var(--color-green);
+  box-shadow: 0 0 12px rgba(82, 183, 55, 0.6);
+}
+
+:host-context(.dark-mode) .indicator-dot {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+:host-context(.dark-mode) .indicator-dot.active {
+  background: var(--color-green);
+  box-shadow: 0 0 14px rgba(82, 183, 55, 0.7);
 }
 
 /* Responsive Breakpoints */
@@ -330,6 +488,20 @@
   .spotify-desc {
     font-size: 0.95rem;
     margin-bottom: 1.4rem;
+  }
+
+  .carousel-current-title {
+    font-size: 1rem;
+  }
+
+  .carousel-nav-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 0.85rem;
+  }
+
+  .indicator-dot.active {
+    width: 22px;
   }
 
   .soundwave-wrapper {
