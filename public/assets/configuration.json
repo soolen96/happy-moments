@@ -16,46 +16,13 @@
       ]
     },
     {
-      "id": "p_1787526607439",
-      "name": "Chocolates Mix",
-      "category": "Chocolates",
-      "price": 24000,
-      "description": "Precio por unidad $6.000",
-      "badge": "Mix",
-      "image": "assets/products/chocolates-mix.png",
-      "isPopular": false,
-      "weight": "4 unidades"
-    },
-    {
-      "id": "p_1787526476972",
-      "name": "Chocolates Power",
-      "category": "Chocolates",
-      "price": 26000,
-      "description": "Precio por unidad $8.000",
-      "badge": "Power",
-      "image": "assets/products/chocolates-power.png",
-      "isPopular": true,
-      "weight": "4 unidades"
-    },
-    {
-      "id": "p_1787526107002",
-      "name": "Arequipe",
-      "category": "Otros",
-      "price": 50000,
-      "description": "Dulce a base de leche",
-      "badge": "Power",
-      "image": "assets/products/arequipe-power.png",
-      "isPopular": false,
-      "weight": "140g - 10 Porciones"
-    },
-    {
       "id": "p_1787525199025",
       "name": "Sundae Lite",
       "category": "Sundaes",
       "price": 15000,
       "description": "Helado de vainilla con toppings de sabores",
       "badge": "Lite",
-      "image": "assets/products/sundae-power.png",
+      "image": "assets/products/sundae-lite.png",
       "isPopular": false,
       "weight": "1 unidad",
       "flavors": [
@@ -63,6 +30,17 @@
         "Frutos Rojos",
         "Oreo"
       ]
+    },
+    {
+      "id": "p9",
+      "name": "Brownies Fusión",
+      "category": "Brownies",
+      "price": 15000,
+      "description": "Brownie chocolate con galleta de oreo",
+      "badge": "Fusión",
+      "image": "assets/products/brownie-fusion-1.png",
+      "isPopular": false,
+      "weight": "1 unidad"
     },
     {
       "id": "p_1787525199022",
@@ -103,6 +81,17 @@
       "weight": "4 unidades"
     },
     {
+      "id": "p_1787526607439",
+      "name": "Chocolates Mix",
+      "category": "Chocolates",
+      "price": 24000,
+      "description": "Precio por unidad $6.000",
+      "badge": "Mix",
+      "image": "assets/products/chocolates-mix.png",
+      "isPopular": false,
+      "weight": "4 unidades"
+    },
+    {
       "id": "p3",
       "name": "Gomitas Mix",
       "category": "Gomitas",
@@ -110,6 +99,17 @@
       "description": "Este paquete contiene: 2 gomitas Lite y 2 gomitas Power.",
       "badge": "Mix",
       "image": "assets/products/gomitas-mix.png",
+      "isPopular": true,
+      "weight": "4 unidades"
+    },
+    {
+      "id": "p_1787526476972",
+      "name": "Chocolates Power",
+      "category": "Chocolates",
+      "price": 26000,
+      "description": "Precio por unidad $8.000",
+      "badge": "Power",
+      "image": "assets/products/chocolates-power.png",
       "isPopular": true,
       "weight": "4 unidades"
     },
@@ -147,15 +147,15 @@
       "weight": "2 unidades"
     },
     {
-      "id": "p9",
-      "name": "Brownies Fusión",
-      "category": "Brownies",
-      "price": 15000,
-      "description": "Brownie chocolate con galleta de oreo",
-      "badge": "Fusión",
-      "image": "assets/products/brownie-fusion-1.png",
+      "id": "p_1787526107002",
+      "name": "Arequipe",
+      "category": "Otros",
+      "price": 50000,
+      "description": "Dulce a base de leche",
+      "badge": "Power",
+      "image": "assets/products/arequipe-power.png",
       "isPopular": false,
-      "weight": "1 unidad"
+      "weight": "140g - 10 Porciones"
     }
   ],
   "combos": [
@@ -169,6 +169,15 @@
       "itemsCount": "2 productos"
     },
     {
+      "id": "c6",
+      "name": "Combo Lite",
+      "price": 20000,
+      "description": "2 Chocolates - 2 Gomitas Lite",
+      "badge": "Lite",
+      "image": "assets/combos/combo-lite.png",
+      "itemsCount": "4 productos"
+    },
+    {
       "id": "c2",
       "name": "Combo Duo",
       "price": 24000,
@@ -176,6 +185,24 @@
       "badge": "Duo",
       "image": "assets/combos/combo-duo.png",
       "itemsCount": "4 productos"
+    },
+    {
+      "id": "c_1789352343167",
+      "name": "Combo Power",
+      "price": 26000,
+      "description": "2 gomitas Power - 2 Chocolates Power ",
+      "badge": "Personal",
+      "image": "assets/combos/combo-power.png",
+      "itemsCount": "2 productos"
+    },
+    {
+      "id": "c_1789352616664",
+      "name": "Combo Trifásico",
+      "price": 32000,
+      "description": "1 Sunday Lite - 1 Brownie Fusión - 1 Chocolate Power",
+      "badge": "Personal",
+      "image": "assets/combos/combo-trifasico.png",
+      "itemsCount": "3 productos"
     },
     {
       "id": "c3",
@@ -189,7 +216,7 @@
     {
       "id": "c4",
       "name": "Combo Pequeño",
-      "price": 34000,
+      "price": 35000,
       "description": "1 Chocolate Power - 2 Galletas Fusión - 1 Brownie Fusión - 1 Gomita Lite",
       "badge": "Favorito",
       "image": "assets/combos/combo-pequeno.png",
@@ -201,64 +228,41 @@
       "price": 65000,
       "description": "2 Chocolates Power - 2 Chocolates Lite - 2 Galletas Fusión - 2 Brownies Fusión - 2 Gomitas Power - 2 Gomitas Lite",
       "badge": "Fiesta",
-      "image": "assets/combos/combo-especial.png",
+      "image": "assets/combos/combo-grande.png",
       "itemsCount": "12 productos"
-    },
-    {
-      "id": "c6",
-      "name": "Combo Lite",
-      "price": 20000,
-      "description": "2 Chocolates - 2 Gomitas Lite",
-      "badge": "Lite",
-      "image": "assets/combos/combo-lite.png",
-      "itemsCount": "4 productos"
     }
   ],
   "promotions": [
     {
-      "id": "promo_lunes",
-      "name": "Lunes Especial (10% OFF)",
-      "description": "10% de descuento en Gomitas Power y Chocolates Lite",
+      "id": "promo_martes",
+      "name": "Martes Especial (10% OFF)",
+      "description": "10% de descuento en gomitas power, chocolates Lite y brownies",
       "discountPercentage": 10,
       "productIds": [
         "p7",
-        "p_1787523810273"
+        "p_1787523810273",
+        "p9"
       ],
       "scheduleType": "weekly_days",
       "scheduledDays": [
-        1
+        2
       ],
       "badgeText": "10% OFF HOY",
       "isActive": true
     },
     {
-      "id": "promo_miercoles",
-      "name": "Miércoles Dulce (10% OFF)",
-      "description": "10% de descuento en Brownies Fusión x2 y Gomitas Lite",
-      "discountPercentage": 10,
-      "productIds": [
-        "p8",
-        "p1"
-      ],
-      "scheduleType": "weekly_days",
-      "scheduledDays": [
-        3
-      ],
-      "badgeText": "10% OFF HOY",
-      "isActive": true
-    },
-    {
-      "id": "promo_viernes",
-      "name": "Viernes Power (10% OFF)",
-      "description": "10% de descuento en Chocolates Power y Gomitas Mix",
+      "id": "promo_jueves",
+      "name": "Jueves Dulce (10% OFF)",
+      "description": "10% de descuento en gomitas Lite, chocolates power y galletas",
       "discountPercentage": 10,
       "productIds": [
         "p_1787526476972",
-        "p3"
+        "p1",
+        "p6"
       ],
       "scheduleType": "weekly_days",
       "scheduledDays": [
-        5
+        4
       ],
       "badgeText": "10% OFF HOY",
       "isActive": true
@@ -271,7 +275,7 @@
       "instagram": "@happymomentsbyfio",
       "email": "happymoments420@gmail.com",
       "whatsapp": "+57 314 4882666",
-      "schedule": "Lunes a Domingo de 10:00 am a 8:00 pm"
+      "schedule": "Lunes a Sabado de 09:00 am a 09:00 pm. Domingos de 09:00 am a 06:00 pm"
     },
     "text": "© 2026 Happy Moments - Edibles Ancestrales. Todos los derechos reservados",
     "description": "Edibles Ancestrales & Comida Artesanal. Gomitas, brownies y galletas creados para elevar tus mejores momentos con sabor y bienestar natural."

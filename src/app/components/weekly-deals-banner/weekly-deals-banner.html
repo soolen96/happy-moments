@@ -11,7 +11,7 @@
         <strong>¡Hoy {{ promotionService.currentDayName() }}!</strong>
         <span class="promo-names">
           <ng-container *ngFor="let promo of promotionService.activePromotions(); let last = last">
-            {{ promo.name }}{{ !last ? ' • ' : '' }}
+            {{ promo.name }}<span *ngIf="promo.description"> ({{ promo.description }})</span>{{ !last ? ' • ' : '' }}
           </ng-container>
         </span>
       </div>
@@ -19,7 +19,7 @@
       <ng-template #noActivePromo>
         <div class="banner-message">
           <strong>Promos semanales:</strong>
-          <span>Lunes (Gomitas Power & Chocolates Lite) • Miércoles (Brownies x2 & Gomitas Lite) • Viernes (Chocolates Power & Gomitas Mix)</span>
+          <span>{{ weeklyPromosSummary() }}</span>
         </div>
       </ng-template>
 
@@ -43,7 +43,7 @@
       <div class="simulator-chips">
         <button
           type="button"
-          *ngFor="let opt of dayOptions"
+          *ngFor="let opt of dayOptions()"
           class="sim-chip"
           [class.active]="promotionService.simulatedDay() === opt.value"
           (click)="setDay(opt.value)"
@@ -61,7 +61,7 @@
         <h3>🎉 Calendario de Descuentos Semanales</h3>
         <button class="close-card-btn" (click)="toggleSchedule()">&times;</button>
       </div>
-      <p class="schedule-subtitle">Aprovecha nuestras ofertas fijas todos los lunes, miércoles y viernes del año:</p>
+      <p class="schedule-subtitle">{{ scheduleSubtitleText() }}</p>
 
       <div class="schedule-days-list">
         <div

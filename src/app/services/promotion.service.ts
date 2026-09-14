@@ -14,35 +14,24 @@ export const DAY_NAMES = [
 
 export const DEFAULT_PROMOTIONS: DiscountPromotion[] = [
   new DiscountPromotion({
-    id: 'promo_lunes',
-    name: 'Lunes Especial (10% OFF)',
-    description: '10% de descuento en Gomitas Power y Chocolates Lite',
+    id: 'promo_martes',
+    name: 'Martes Especial (10% OFF)',
+    description: '10% de descuento en gomitas power, chocolates Lite y brownies',
     discountPercentage: 10,
-    productIds: ['p7', 'p_1787523810273'],
+    productIds: ['p7', 'p_1787523810273', 'p9', 'p8'],
     scheduleType: 'weekly_days',
-    scheduledDays: [1], // 1 = Lunes
+    scheduledDays: [2], // 2 = Martes
     badgeText: '10% OFF HOY',
     isActive: true,
   }),
   new DiscountPromotion({
-    id: 'promo_miercoles',
-    name: 'Miércoles Dulce (10% OFF)',
-    description: '10% de descuento en Brownies Fusión x2 y Gomitas Lite',
+    id: 'promo_jueves',
+    name: 'Jueves Dulce (10% OFF)',
+    description: '10% de descuento en gomitas Lite, chocolates power y galletas',
     discountPercentage: 10,
-    productIds: ['p8', 'p1'],
+    productIds: ['p_1787526476972', 'p1', 'p6'],
     scheduleType: 'weekly_days',
-    scheduledDays: [3], // 3 = Miércoles
-    badgeText: '10% OFF HOY',
-    isActive: true,
-  }),
-  new DiscountPromotion({
-    id: 'promo_viernes',
-    name: 'Viernes Power (10% OFF)',
-    description: '10% de descuento en Chocolates Power y Gomitas Mix',
-    discountPercentage: 10,
-    productIds: ['p_1787526476972', 'p3'],
-    scheduleType: 'weekly_days',
-    scheduledDays: [5], // 5 = Viernes
+    scheduledDays: [4], // 4 = Jueves
     badgeText: '10% OFF HOY',
     isActive: true,
   }),
@@ -186,7 +175,18 @@ export class PromotionService {
     if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
       localStorage.removeItem(this.STORAGE_KEY);
     }
-    this.promotions.set([...DEFAULT_PROMOTIONS]);
+    this.configService.getConfig().subscribe({
+      next: (config: any) => {
+        if (config?.promotions && Array.isArray(config.promotions) && config.promotions.length > 0) {
+          this.promotions.set(config.promotions.map((p: any) => new DiscountPromotion(p)));
+        } else {
+          this.promotions.set([...DEFAULT_PROMOTIONS]);
+        }
+      },
+      error: () => {
+        this.promotions.set([...DEFAULT_PROMOTIONS]);
+      },
+    });
   }
 
   // --- DAY SIMULATION & TIME EVALUATION ---
@@ -252,11 +252,10 @@ export class PromotionService {
       if (pid === 'p_1787523810273' && lowerName.includes('chocolate') && (lowerName.includes('lite') || lowerBadge.includes('lite'))) {
         return true;
       }
-      // Brownies Fusión x2
+      // Brownies Fusión (1 unidad o 2 unidades)
       if (
-        pid === 'p8' &&
-        lowerName.includes('brownie') &&
-        (lowerWeight.includes('2') || lowerName.includes('x2') || lowerName.includes('2 unidades'))
+        (pid === 'p8' || pid === 'p9') &&
+        lowerName.includes('brownie')
       ) {
         return true;
       }
@@ -266,6 +265,10 @@ export class PromotionService {
       }
       // Chocolates Power
       if (pid === 'p_1787526476972' && lowerName.includes('chocolate') && (lowerName.includes('power') || lowerBadge.includes('power'))) {
+        return true;
+      }
+      // Galletas Fusión
+      if (pid === 'p6' && lowerName.includes('galleta')) {
         return true;
       }
       // Gomitas Mix
