@@ -11,10 +11,12 @@ describe('CartService - Flavor Selection & Discounts', () => {
 
   const mockBrownie = new Product({
     id: 'p8',
-    name: 'Brownies fusión x2 unidades',
+    name: 'Brownies Fusión',
     category: ProductCategory.Brownies,
     price: 26000,
-    description: 'precio por unidad $ 15.000',
+    unitPrice: 15000,
+    weight: '2 unidades',
+    description: 'Brownie artesanal de chocolate con galleta Oreo',
     flavors: ['Chocolate', 'Arequipe', 'Mixto'],
   });
 
@@ -35,16 +37,45 @@ describe('CartService - Flavor Selection & Discounts', () => {
     });
     service = TestBed.inject(CartService);
     service.cart.set([]);
-    // Ensure no discounts active by default during base tests
-    service.promotionService.setSimulatedDay(2); // Martes (no discount)
+    // Ensure no discounts active by default during base tests (Sunday = 0)
+    service.promotionService.setSimulatedDay(0);
   });
 
-  it('should default to the first flavor if none is specified', () => {
+  it('should default to the first flavor and combo presentation if none is specified', () => {
     service.addToCart(mockBrownie);
     const items = service.cart();
     expect(items.length).toBe(1);
     expect(items[0].selectedFlavor).toBe('Chocolate');
+    expect(items[0].selectedPresentation).toBe('combo');
     expect(items[0].quantity).toBe(1);
+    expect(service.getItemBasePrice(items[0])).toBe(26000);
+  });
+
+  it('should support buying by unit at unitPrice', () => {
+    service.addToCart(mockBrownie, 'Arequipe', 'unit');
+    const items = service.cart();
+    expect(items.length).toBe(1);
+    expect(items[0].selectedFlavor).toBe('Arequipe');
+    expect(items[0].selectedPresentation).toBe('unit');
+    expect(service.getItemBasePrice(items[0])).toBe(15000);
+    expect(service.cartSubtotalPrice()).toBe(15000);
+  });
+
+  it('should allow unit and combo of the same product as separate cart items', () => {
+    service.addToCart(mockBrownie, 'Chocolate', 'unit');
+    service.addToCart(mockBrownie, 'Chocolate', 'combo');
+
+    const items = service.cart();
+    expect(items.length).toBe(2);
+
+    const unitItem = items.find((i) => i.selectedPresentation === 'unit');
+    const comboItem = items.find((i) => i.selectedPresentation === 'combo');
+
+    expect(unitItem).toBeDefined();
+    expect(comboItem).toBeDefined();
+    expect(service.getItemBasePrice(unitItem!)).toBe(15000);
+    expect(service.getItemBasePrice(comboItem!)).toBe(26000);
+    expect(service.cartSubtotalPrice()).toBe(15000 + 26000);
   });
 
   it('should add specific flavor and treat different flavors as separate items', () => {
@@ -67,21 +98,24 @@ describe('CartService - Flavor Selection & Discounts', () => {
     expect(service.hasFreeGummyReward()).toBe(true);
   });
 
-  it('should update quantity for a specific flavor', () => {
-    service.addToCart(mockBrownie, 'Arequipe');
-    service.addToCart(mockBrownie, 'Chocolate');
+  it('should update quantity for a specific flavor and presentation', () => {
+    service.addToCart(mockBrownie, 'Arequipe', 'unit');
+    service.addToCart(mockBrownie, 'Arequipe', 'combo');
 
-    service.updateQuantity('p8', 1, 'Arequipe');
-    const arequipeItem = service.cart().find((i) => i.selectedFlavor === 'Arequipe');
-    expect(arequipeItem?.quantity).toBe(2);
+    service.updateQuantity('p8', 1, 'Arequipe', 'unit');
+    const unitItem = service.cart().find((i) => i.selectedPresentation === 'unit');
+    const comboItem = service.cart().find((i) => i.selectedPresentation === 'combo');
 
-    service.removeFromCart('p8', 'Arequipe');
+    expect(unitItem?.quantity).toBe(2);
+    expect(comboItem?.quantity).toBe(1);
+
+    service.removeFromCart('p8', 'Arequipe', 'unit');
     expect(service.cart().length).toBe(1);
-    expect(service.cart()[0].selectedFlavor).toBe('Chocolate');
+    expect(service.cart()[0].selectedPresentation).toBe('combo');
   });
 
-  it('should include selected flavor in WhatsApp checkout message', () => {
-    service.addToCart(mockBrownie, 'Arequipe');
+  it('should include selected presentation and flavor in WhatsApp checkout message', () => {
+    service.addToCart(mockBrownie, 'Arequipe', 'unit');
     const url = service.getWhatsAppUrl({
       whatsapp: '+57 314 4882666',
       phone: '',
@@ -91,14 +125,17 @@ describe('CartService - Flavor Selection & Discounts', () => {
       instagram: '',
     });
 
-    expect(url).toContain('Brownies%20fusi%C3%B3n%20x2%20unidades%20(Sabor%3A%20Arequipe)');
+    expect(url).toContain('Brownies%20Fusi%C3%B3n');
+    expect(url).toContain('Unidad');
+    expect(url).toContain('Arequipe');
+    expect(url).toContain('15.000');
   });
 
   describe('Discount calculations in Cart', () => {
-    it('should calculate discounted subtotal and total savings on promotional days', () => {
-      // Simulate Wednesday (Miércoles = day 3) where Brownies x2 has 10% OFF
-      service.promotionService.setSimulatedDay(3);
-      service.addToCart(mockBrownie, 'Chocolate');
+    it('should calculate discounted subtotal and total savings on promotional days (Martes = 2)', () => {
+      // Simulate Tuesday (Martes = day 2) where Brownies has 10% OFF
+      service.promotionService.setSimulatedDay(2);
+      service.addToCart(mockBrownie, 'Chocolate', 'combo');
 
       expect(service.cartOriginalSubtotalPrice()).toBe(26000);
       expect(service.cartSubtotalPrice()).toBe(23400); // 10% OFF
@@ -106,9 +143,18 @@ describe('CartService - Flavor Selection & Discounts', () => {
       expect(service.cartTotalPrice()).toBe(23400 + 10000);
     });
 
+    it('should apply discount on unit presentation as well on promotional days', () => {
+      service.promotionService.setSimulatedDay(2);
+      service.addToCart(mockBrownie, 'Chocolate', 'unit');
+
+      expect(service.cartOriginalSubtotalPrice()).toBe(15000);
+      expect(service.cartSubtotalPrice()).toBe(13500); // 10% OFF on $15.000
+      expect(service.cartTotalSavings()).toBe(1500);
+    });
+
     it('should include promotional discount details in WhatsApp message', () => {
-      service.promotionService.setSimulatedDay(3); // Wednesday
-      service.addToCart(mockBrownie, 'Chocolate');
+      service.promotionService.setSimulatedDay(2); // Tuesday
+      service.addToCart(mockBrownie, 'Chocolate', 'combo');
 
       const url = service.getWhatsAppUrl({
         whatsapp: '+57 314 4882666',

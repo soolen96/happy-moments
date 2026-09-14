@@ -7,7 +7,7 @@
       "price": 15000,
       "description": "Delicioso yogurt griego con toppings a elección",
       "badge": "Fusión",
-      "image": "assets/products/yogurt-griego.png",
+      "image": "assets/products/happy-greek.png",
       "isPopular": false,
       "weight": "1 unidad",
       "flavors": [
@@ -32,17 +32,6 @@
       ]
     },
     {
-      "id": "p9",
-      "name": "Brownies Fusión",
-      "category": "Brownies",
-      "price": 15000,
-      "description": "Brownie chocolate con galleta de oreo",
-      "badge": "Fusión",
-      "image": "assets/products/brownie-fusion-1.png",
-      "isPopular": false,
-      "weight": "1 unidad"
-    },
-    {
       "id": "p_1787525199022",
       "name": "Sundae Power",
       "category": "Sundaes",
@@ -63,7 +52,8 @@
       "name": "Chocolates Lite",
       "category": "Chocolates",
       "price": 20000,
-      "description": "Precio por unidad $6.000",
+      "unitPrice": 6000,
+      "description": "Chocolates suaves ideales para relajarte",
       "badge": "Lite",
       "image": "assets/products/chocolates-lite.png",
       "isPopular": false,
@@ -74,7 +64,8 @@
       "name": "Gomitas Lite",
       "category": "Gomitas",
       "price": 20000,
-      "description": "Precio por unidad $ 6.000",
+      "unitPrice": 6000,
+      "description": "Gomitas frutales suaves de efecto ligero",
       "badge": "Lite",
       "image": "assets/products/gomitas-lite.png",
       "isPopular": false,
@@ -85,7 +76,8 @@
       "name": "Chocolates Mix",
       "category": "Chocolates",
       "price": 24000,
-      "description": "Precio por unidad $6.000",
+      "unitPrice": 6000,
+      "description": "Delicioso mix de chocolates artesanales",
       "badge": "Mix",
       "image": "assets/products/chocolates-mix.png",
       "isPopular": false,
@@ -96,6 +88,7 @@
       "name": "Gomitas Mix",
       "category": "Gomitas",
       "price": 24000,
+      "unitPrice": 6000,
       "description": "Este paquete contiene: 2 gomitas Lite y 2 gomitas Power.",
       "badge": "Mix",
       "image": "assets/products/gomitas-mix.png",
@@ -107,7 +100,8 @@
       "name": "Chocolates Power",
       "category": "Chocolates",
       "price": 26000,
-      "description": "Precio por unidad $8.000",
+      "unitPrice": 8000,
+      "description": "Chocolates intensos con extracto ancestral",
       "badge": "Power",
       "image": "assets/products/chocolates-power.png",
       "isPopular": true,
@@ -118,7 +112,8 @@
       "name": "Galletas Fusión",
       "category": "Galletas",
       "price": 26000,
-      "description": "Precio por unidad $ 8.000",
+      "unitPrice": 8000,
+      "description": "Galletas artesanales horneadas con chispas de chocolate",
       "badge": "Fusión",
       "image": "assets/products/galletas-fusion.png",
       "isPopular": false,
@@ -129,7 +124,8 @@
       "name": "Gomitas Power",
       "category": "Gomitas",
       "price": 26000,
-      "description": "Precio por unidad $ 6.000",
+      "unitPrice": 6000,
+      "description": "Gomitas concentradas para una experiencia potente",
       "badge": "Power",
       "image": "assets/products/gomitas-power.png",
       "isPopular": false,
@@ -140,7 +136,8 @@
       "name": "Brownies Fusión",
       "category": "Brownies",
       "price": 26000,
-      "description": "Precio por unidad $ 15.000",
+      "unitPrice": 15000,
+      "description": "Brownie artesanal de chocolate con galleta Oreo",
       "badge": "Fusión",
       "image": "assets/products/brownies-fusion.png",
       "isPopular": true,
@@ -241,7 +238,7 @@
       "productIds": [
         "p7",
         "p_1787523810273",
-        "p9"
+        "p8"
       ],
       "scheduleType": "weekly_days",
       "scheduledDays": [
@@ -275,7 +272,7 @@
       "instagram": "@happymomentsbyfio",
       "email": "happymoments420@gmail.com",
       "whatsapp": "+57 314 4882666",
-      "schedule": "Lunes a Sabado de 09:00 am a 09:00 pm. Domingos de 09:00 am a 06:00 pm"
+      "schedule": "Lunes a Sabado de 09:00 am a 09:00 pm. \n Domingos de 09:00 am a 06:00 pm"
     },
     "text": "© 2026 Happy Moments - Edibles Ancestrales. Todos los derechos reservados",
     "description": "Edibles Ancestrales & Comida Artesanal. Gomitas, brownies y galletas creados para elevar tus mejores momentos con sabor y bienestar natural."

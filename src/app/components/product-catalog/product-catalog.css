@@ -154,6 +154,89 @@
   flex-grow: 1;
 }
 
+/* Presentation Selector (Unidad vs Combo) */
+.card-presentation-selector {
+  margin-bottom: 0.8rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed rgba(90, 24, 70, 0.12);
+}
+
+:host-context(.dark-mode) .card-presentation-selector {
+  border-top-color: rgba(232, 59, 135, 0.25);
+}
+
+.presentation-selector-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+}
+
+:host-context(.dark-mode) .presentation-selector-label {
+  color: #a6849b;
+}
+
+.presentation-toggle-group {
+  display: flex;
+  gap: 0.45rem;
+  background: rgba(90, 24, 70, 0.04);
+  padding: 0.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(90, 24, 70, 0.08);
+}
+
+:host-context(.dark-mode) .presentation-toggle-group {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.pres-toggle-btn {
+  flex: 1;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.5rem;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: var(--font-body);
+}
+
+.pres-title {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.pres-meta {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.pres-toggle-btn:hover {
+  background: rgba(232, 59, 135, 0.08);
+  border-color: rgba(232, 59, 135, 0.2);
+}
+
+.pres-toggle-btn.active {
+  background: var(--magenta-gradient);
+  border-color: transparent;
+  box-shadow: 0 2px 8px rgba(232, 59, 135, 0.35);
+}
+
+.pres-toggle-btn.active .pres-title,
+.pres-toggle-btn.active .pres-meta {
+  color: #ffffff;
+}
+
 /* Flavor Selector Chips */
 .card-flavor-selector {
   margin-bottom: 1.1rem;

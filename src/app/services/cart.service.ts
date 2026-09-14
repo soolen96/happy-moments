@@ -1,5 +1,5 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
-import { CartItem, Product, ContactInfo, ProductDiscountInfo } from '../models';
+import { CartItem, Product, ContactInfo, ProductDiscountInfo, ProductPresentation } from '../models';
 import { CartStorageService } from './cart-storage.service';
 import { PromotionService } from './promotion.service';
 
@@ -16,15 +16,24 @@ export class CartService {
   readonly DELIVERY_FEE = 10000;
   readonly FREE_GUMMY_THRESHOLD = 20000;
 
+  getItemBasePrice(item: CartItem): number {
+    if (item.selectedPresentation === 'unit' && item.product.unitPrice !== undefined) {
+      return item.product.unitPrice;
+    }
+    return item.product.price;
+  }
+
+  getItemEffectivePrice(item: CartItem): number {
+    const basePrice = this.getItemBasePrice(item);
+    return this.promotionService.getEffectivePrice(item.product, basePrice);
+  }
+
   cartTotalCount = computed(() => this.cart().reduce((sum, item) => sum + item.quantity, 0));
   cartOriginalSubtotalPrice = computed(() =>
-    this.cart().reduce((sum, item) => sum + item.product.price * item.quantity, 0)
+    this.cart().reduce((sum, item) => sum + this.getItemBasePrice(item) * item.quantity, 0)
   );
   cartSubtotalPrice = computed(() =>
-    this.cart().reduce(
-      (sum, item) => sum + this.promotionService.getEffectivePrice(item.product) * item.quantity,
-      0
-    )
+    this.cart().reduce((sum, item) => sum + this.getItemEffectivePrice(item) * item.quantity, 0)
   );
   cartTotalSavings = computed(() =>
     Math.max(0, this.cartOriginalSubtotalPrice() - this.cartSubtotalPrice())
@@ -39,44 +48,74 @@ export class CartService {
     this.cart.set(savedCart);
   }
 
-  addToCart(product: Product, selectedFlavor?: string): void {
+  addToCart(
+    product: Product,
+    selectedFlavor?: string,
+    selectedPresentation: ProductPresentation = 'combo'
+  ): void {
     const flavor = selectedFlavor || (product.flavors && product.flavors.length > 0 ? product.flavors[0] : undefined);
+    const presentation: ProductPresentation = product.unitPrice ? selectedPresentation : 'combo';
 
     this.cart.update((currentItems) => {
       const existing = currentItems.find(
-        (item) => item.product.id === product.id && item.selectedFlavor === flavor
+        (item) =>
+          item.product.id === product.id &&
+          item.selectedFlavor === flavor &&
+          item.selectedPresentation === presentation
       );
       let updated: CartItem[];
       if (existing) {
         updated = currentItems.map((item) =>
-          item.product.id === product.id && item.selectedFlavor === flavor
-            ? new CartItem(item.product, item.quantity + 1, item.selectedFlavor)
+          item.product.id === product.id &&
+          item.selectedFlavor === flavor &&
+          item.selectedPresentation === presentation
+            ? new CartItem(item.product, item.quantity + 1, item.selectedFlavor, item.selectedPresentation)
             : item
         );
       } else {
-        updated = [...currentItems, new CartItem(product, 1, flavor)];
+        updated = [...currentItems, new CartItem(product, 1, flavor, presentation)];
       }
       this.cartStorage.saveCart(updated);
       return updated;
     });
   }
 
-  removeFromCart(productId: string, selectedFlavor?: string): void {
+  removeFromCart(
+    productId: string,
+    selectedFlavor?: string,
+    selectedPresentation?: ProductPresentation
+  ): void {
     this.cart.update((items) => {
       const updated = items.filter(
-        (i) => !(i.product.id === productId && (selectedFlavor === undefined || i.selectedFlavor === selectedFlavor))
+        (i) =>
+          !(
+            i.product.id === productId &&
+            (selectedFlavor === undefined || i.selectedFlavor === selectedFlavor) &&
+            (selectedPresentation === undefined || i.selectedPresentation === selectedPresentation)
+          )
       );
       this.cartStorage.saveCart(updated);
       return updated;
     });
   }
 
-  updateQuantity(productId: string, change: number, selectedFlavor?: string): void {
+  updateQuantity(
+    productId: string,
+    change: number,
+    selectedFlavor?: string,
+    selectedPresentation?: ProductPresentation
+  ): void {
     this.cart.update((items) => {
       const updated = items.map((item) => {
-        if (item.product.id === productId && (selectedFlavor === undefined || item.selectedFlavor === selectedFlavor)) {
+        if (
+          item.product.id === productId &&
+          (selectedFlavor === undefined || item.selectedFlavor === selectedFlavor) &&
+          (selectedPresentation === undefined || item.selectedPresentation === selectedPresentation)
+        ) {
           const newQty = item.quantity + change;
-          return newQty > 0 ? new CartItem(item.product, newQty, item.selectedFlavor) : item;
+          return newQty > 0
+            ? new CartItem(item.product, newQty, item.selectedFlavor, item.selectedPresentation)
+            : item;
         }
         return item;
       });
@@ -101,8 +140,15 @@ export class CartService {
     }).format(amount);
   }
 
-  getItemDiscountInfo(product: Product): ProductDiscountInfo {
-    return this.promotionService.getDiscountForProduct(product);
+  getItemDiscountInfo(itemOrProduct: CartItem | Product, presentation?: ProductPresentation): ProductDiscountInfo {
+    if (itemOrProduct instanceof CartItem || 'selectedPresentation' in itemOrProduct) {
+      const cartItem = itemOrProduct as CartItem;
+      const basePrice = this.getItemBasePrice(cartItem);
+      return this.promotionService.getDiscountForProduct(cartItem.product, basePrice);
+    }
+    const product = itemOrProduct as Product;
+    const basePrice = presentation === 'unit' && product.unitPrice !== undefined ? product.unitPrice : product.price;
+    return this.promotionService.getDiscountForProduct(product, basePrice);
   }
 
   getWhatsAppUrl(contactInfo?: ContactInfo | null): string {
@@ -117,13 +163,19 @@ export class CartService {
     let message = '¡Hola! Quisiera realizar el siguiente pedido en Happy Moments:\n\n';
     items.forEach((item) => {
       const flavorTag = item.selectedFlavor ? ` (Sabor: ${item.selectedFlavor})` : '';
-      const discount = this.promotionService.getDiscountForProduct(item.product);
+      const presTag = item.product.unitPrice
+        ? item.selectedPresentation === 'unit'
+          ? ' [Unidad]'
+          : ` [Combo (${item.product.weight || 'Pack'})]`
+        : '';
+      const basePrice = this.getItemBasePrice(item);
+      const discount = this.promotionService.getDiscountForProduct(item.product, basePrice);
       if (discount.hasDiscount) {
         const itemTotal = discount.discountedPrice * item.quantity;
         const origTotal = discount.originalPrice * item.quantity;
-        message += `• ${item.product.name}${flavorTag} x${item.quantity} - ${this.formatCOP(itemTotal)} (🔥 ${discount.discountPercentage}% OFF, antes: ${this.formatCOP(origTotal)})\n`;
+        message += `• ${item.product.name}${presTag}${flavorTag} x${item.quantity} - ${this.formatCOP(itemTotal)} (🔥 ${discount.discountPercentage}% OFF, antes: ${this.formatCOP(origTotal)})\n`;
       } else {
-        message += `• ${item.product.name}${flavorTag} x${item.quantity} - ${this.formatCOP(item.product.price * item.quantity)}\n`;
+        message += `• ${item.product.name}${presTag}${flavorTag} x${item.quantity} - ${this.formatCOP(basePrice * item.quantity)}\n`;
       }
     });
 

@@ -1,6 +1,6 @@
 import { Component, input, output, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Product, ProductDiscountInfo } from '../../models';
+import { Product, ProductDiscountInfo, ProductPresentation } from '../../models';
 import { CartService } from '../../services/cart.service';
 import { PromotionService } from '../../services/promotion.service';
 import { SearchBoxComponent } from '../search-box/search-box';
@@ -27,6 +27,9 @@ export class ProductCatalogComponent {
   // Flavor selection state per product
   selectedFlavors = signal<Record<string, string>>({});
 
+  // Presentation selection state per product ('unit' | 'combo')
+  selectedPresentations = signal<Record<string, ProductPresentation>>({});
+
   getSelectedFlavor(product: Product): string {
     return (
       this.selectedFlavors()[product.id] ||
@@ -38,12 +41,31 @@ export class ProductCatalogComponent {
     this.selectedFlavors.update((map) => ({ ...map, [productId]: flavor }));
   }
 
+  getSelectedPresentation(product: Product): ProductPresentation {
+    if (!product.unitPrice) {
+      return 'combo';
+    }
+    return this.selectedPresentations()[product.id] || 'combo';
+  }
+
+  selectPresentation(productId: string, presentation: ProductPresentation): void {
+    this.selectedPresentations.update((map) => ({ ...map, [productId]: presentation }));
+  }
+
+  getCurrentPrice(product: Product): number {
+    if (this.getSelectedPresentation(product) === 'unit' && product.unitPrice !== undefined) {
+      return product.unitPrice;
+    }
+    return product.price;
+  }
+
   addToCart(product: Product): void {
     const flavor =
       product.flavors && product.flavors.length > 0
         ? this.getSelectedFlavor(product)
         : undefined;
-    this.cartService.addToCart(product, flavor);
+    const presentation = this.getSelectedPresentation(product);
+    this.cartService.addToCart(product, flavor, presentation);
   }
 
   formatCOP(amount: number): string {
@@ -51,6 +73,6 @@ export class ProductCatalogComponent {
   }
 
   getDiscountInfo(product: Product): ProductDiscountInfo {
-    return this.promotionService.getDiscountForProduct(product);
+    return this.promotionService.getDiscountForProduct(product, this.getCurrentPrice(product));
   }
 }

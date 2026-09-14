@@ -18,7 +18,7 @@ export const DEFAULT_PROMOTIONS: DiscountPromotion[] = [
     name: 'Martes Especial (10% OFF)',
     description: '10% de descuento en gomitas power, chocolates Lite y brownies',
     discountPercentage: 10,
-    productIds: ['p7', 'p_1787523810273', 'p9', 'p8'],
+    productIds: ['p7', 'p_1787523810273', 'p8'],
     scheduleType: 'weekly_days',
     scheduledDays: [2], // 2 = Martes
     badgeText: '10% OFF HOY',
@@ -85,8 +85,29 @@ export class PromotionService {
   }
 
   loadPromotions(): void {
-    let loadedFromLocal = false;
+    this.configService.getConfig().subscribe({
+      next: (config: any) => {
+        if (config?.promotions && Array.isArray(config.promotions) && config.promotions.length > 0) {
+          this.promotions.set(config.promotions.map((p: any) => new DiscountPromotion(p)));
+          if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+            try {
+              localStorage.setItem(this.STORAGE_KEY, JSON.stringify(config.promotions));
+            } catch (e) {
+              console.error('Error syncing promotions override:', e);
+            }
+          }
+        } else {
+          this.loadFromLocalStorageOrDefaults();
+        }
+      },
+      error: (err) => {
+        console.warn('Could not load configuration.json for promotions, falling back:', err);
+        this.loadFromLocalStorageOrDefaults();
+      },
+    });
+  }
 
+  private loadFromLocalStorageOrDefaults(): void {
     if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
       const stored = localStorage.getItem(this.STORAGE_KEY);
       if (stored) {
@@ -94,28 +115,14 @@ export class PromotionService {
           const parsed = JSON.parse(stored);
           if (Array.isArray(parsed) && parsed.length > 0) {
             this.promotions.set(parsed.map((item) => new DiscountPromotion(item)));
-            loadedFromLocal = true;
+            return;
           }
         } catch (e) {
           console.error('Error parsing local promotions override:', e);
         }
       }
     }
-
-    if (!loadedFromLocal) {
-      this.configService.getConfig().subscribe({
-        next: (config: any) => {
-          if (config?.promotions && Array.isArray(config.promotions) && config.promotions.length > 0) {
-            this.promotions.set(config.promotions.map((p: any) => new DiscountPromotion(p)));
-          } else {
-            this.promotions.set([...DEFAULT_PROMOTIONS]);
-          }
-        },
-        error: () => {
-          this.promotions.set([...DEFAULT_PROMOTIONS]);
-        },
-      });
-    }
+    this.promotions.set([...DEFAULT_PROMOTIONS]);
   }
 
   savePromotionsToStorage(items: DiscountPromotion[]): void {
@@ -280,7 +287,7 @@ export class PromotionService {
     return false;
   }
 
-  getDiscountForProduct(product: Product): ProductDiscountInfo {
+  getDiscountForProduct(product: Product, customBasePrice?: number): ProductDiscountInfo {
     const active = this.activePromotions();
 
     // Find the highest applicable discount
@@ -296,17 +303,19 @@ export class PromotionService {
       }
     }
 
+    const basePrice = customBasePrice !== undefined ? customBasePrice : product.price;
+
     if (!bestDiscountPromo || highestDiscount <= 0) {
       return {
         hasDiscount: false,
         discountPercentage: 0,
-        originalPrice: product.price,
-        discountedPrice: product.price,
+        originalPrice: basePrice,
+        discountedPrice: basePrice,
         savings: 0,
       };
     }
 
-    const originalPrice = product.price;
+    const originalPrice = basePrice;
     const discountedPrice = Math.round(originalPrice * (1 - highestDiscount / 100));
     const savings = originalPrice - discountedPrice;
     const badge = bestDiscountPromo.badgeText || `${highestDiscount}% OFF`;
@@ -323,7 +332,7 @@ export class PromotionService {
     };
   }
 
-  getEffectivePrice(product: Product): number {
-    return this.getDiscountForProduct(product).discountedPrice;
+  getEffectivePrice(product: Product, customBasePrice?: number): number {
+    return this.getDiscountForProduct(product, customBasePrice).discountedPrice;
   }
 }

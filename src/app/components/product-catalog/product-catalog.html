@@ -23,7 +23,7 @@
           🔥 {{ getDiscountInfo(product).badge }}
         </span>
         <span class="card-tag" *ngIf="!getDiscountInfo(product).hasDiscount && product.badge">{{ product.badge }}</span>
-        <span class="weight-tag" *ngIf="product.weight">{{ product.weight }}</span>
+        <span class="weight-tag" *ngIf="product.weight">{{ getSelectedPresentation(product) === 'unit' ? '1 unidad' : product.weight }}</span>
       </div>
 
       <div class="card-body">
@@ -33,6 +33,27 @@
 
         <h3 class="card-title">{{ product.name }}</h3>
         <p class="card-desc">{{ product.description }}</p>
+
+        <!-- Presentation Selector (Unidad vs Combo) -->
+        <div class="card-presentation-selector" *ngIf="product.unitPrice">
+          <span class="presentation-selector-label">Comprar:</span>
+          <div class="presentation-toggle-group">
+            <button type="button" class="pres-toggle-btn"
+              [class.active]="getSelectedPresentation(product) === 'unit'"
+              (click)="selectPresentation(product.id, 'unit')"
+              [attr.aria-label]="'Comprar ' + product.name + ' por unidad'">
+              <span class="pres-title">Por Unidad</span>
+              <span class="pres-meta">(1 ud)</span>
+            </button>
+            <button type="button" class="pres-toggle-btn"
+              [class.active]="getSelectedPresentation(product) === 'combo'"
+              (click)="selectPresentation(product.id, 'combo')"
+              [attr.aria-label]="'Comprar ' + product.name + ' en combo'">
+              <span class="pres-title">En Combo</span>
+              <span class="pres-meta">({{ product.weight || 'Pack' }})</span>
+            </button>
+          </div>
+        </div>
 
         <!-- Flavor Selection Chips -->
         <div class="card-flavor-selector" *ngIf="product.flavors && product.flavors.length > 0">
@@ -50,11 +71,11 @@
         <div class="card-price-action">
           <div class="card-price-block">
             <ng-container *ngIf="getDiscountInfo(product).hasDiscount; else regularCatalogPrice">
-              <span class="original-striked-price">{{ formatCOP(product.price) }}</span>
+              <span class="original-striked-price">{{ formatCOP(getCurrentPrice(product)) }}</span>
               <span class="product-price discounted-price">{{ formatCOP(getDiscountInfo(product).discountedPrice) }}</span>
             </ng-container>
             <ng-template #regularCatalogPrice>
-              <span class="product-price">{{ formatCOP(product.price) }}</span>
+              <span class="product-price">{{ formatCOP(getCurrentPrice(product)) }}</span>
             </ng-template>
           </div>
           <button class="add-cart-btn" (click)="addToCart(product)">

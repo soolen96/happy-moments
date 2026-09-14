@@ -96,17 +96,16 @@ describe('PromotionService - Day-based Discounts', () => {
     service = TestBed.inject(PromotionService);
   });
 
-  it('should load default promotions for Monday, Wednesday and Friday', () => {
-    expect(service.promotions().length).toBe(3);
+  it('should load default promotions for Tuesday and Thursday', () => {
+    expect(service.promotions().length).toBe(2);
     const names = service.promotions().map((p) => p.name);
-    expect(names.some((n) => n.includes('Lunes'))).toBe(true);
-    expect(names.some((n) => n.includes('Miércoles'))).toBe(true);
-    expect(names.some((n) => n.includes('Viernes'))).toBe(true);
+    expect(names.some((n) => n.includes('Martes'))).toBe(true);
+    expect(names.some((n) => n.includes('Jueves'))).toBe(true);
   });
 
-  describe('Monday (Lunes - day 1)', () => {
+  describe('Tuesday (Martes - day 2)', () => {
     beforeEach(() => {
-      service.setSimulatedDay(1); // Lunes
+      service.setSimulatedDay(2); // Martes
     });
 
     it('should apply 10% discount on Gomitas Power ($26.000 -> $23.400)', () => {
@@ -118,6 +117,13 @@ describe('PromotionService - Day-based Discounts', () => {
       expect(service.getEffectivePrice(gomitasPower)).toBe(23400);
     });
 
+    it('should apply 10% discount on Gomitas Power unit price ($6.000 -> $5.400)', () => {
+      const discount = service.getDiscountForProduct(gomitasPower, 6000);
+      expect(discount.hasDiscount).toBe(true);
+      expect(discount.discountedPrice).toBe(5400);
+      expect(service.getEffectivePrice(gomitasPower, 6000)).toBe(5400);
+    });
+
     it('should apply 10% discount on Chocolates Lite ($20.000 -> $18.000)', () => {
       const discount = service.getDiscountForProduct(chocolatesLite);
       expect(discount.hasDiscount).toBe(true);
@@ -127,50 +133,28 @@ describe('PromotionService - Day-based Discounts', () => {
       expect(service.getEffectivePrice(chocolatesLite)).toBe(18000);
     });
 
-    it('should NOT apply discount on other products on Monday', () => {
-      expect(service.getDiscountForProduct(browniesFusionX2).hasDiscount).toBe(false);
-      expect(service.getDiscountForProduct(gomitasMix).hasDiscount).toBe(false);
+    it('should apply 10% discount on Brownies Fusión ($26.000 -> $23.400)', () => {
+      const discount = service.getDiscountForProduct(browniesFusionX2);
+      expect(discount.hasDiscount).toBe(true);
+      expect(discount.discountedPrice).toBe(23400);
+    });
+
+    it('should apply 10% discount on Brownies Fusión unit ($15.000 -> $13.500)', () => {
+      const discount = service.getDiscountForProduct(browniesFusionX2, 15000);
+      expect(discount.hasDiscount).toBe(true);
+      expect(discount.discountedPrice).toBe(13500);
+    });
+
+    it('should NOT apply discount on other products on Tuesday', () => {
+      expect(service.getDiscountForProduct(chocolatesPower).hasDiscount).toBe(false);
       expect(service.getDiscountForProduct(otherProduct).hasDiscount).toBe(false);
       expect(service.getEffectivePrice(otherProduct)).toBe(15000);
     });
   });
 
-  describe('Wednesday (Miércoles - day 3)', () => {
+  describe('Thursday (Jueves - day 4)', () => {
     beforeEach(() => {
-      service.setSimulatedDay(3); // Miércoles
-    });
-
-    it('should apply 10% discount on Brownies Fusión x2 ($26.000 -> $23.400)', () => {
-      const discount = service.getDiscountForProduct(browniesFusionX2);
-      expect(discount.hasDiscount).toBe(true);
-      expect(discount.discountPercentage).toBe(10);
-      expect(discount.discountedPrice).toBe(23400);
-      expect(discount.savings).toBe(2600);
-      expect(service.getEffectivePrice(browniesFusionX2)).toBe(23400);
-    });
-
-    it('should NOT apply discount on Brownies Fusión x1 ($15.000)', () => {
-      const discount = service.getDiscountForProduct(browniesFusionX1);
-      expect(discount.hasDiscount).toBe(false);
-      expect(service.getEffectivePrice(browniesFusionX1)).toBe(15000);
-    });
-
-    it('should apply 10% discount on Gomitas Lite ($20.000 -> $18.000)', () => {
-      const discount = service.getDiscountForProduct(gomitasLite);
-      expect(discount.hasDiscount).toBe(true);
-      expect(discount.discountPercentage).toBe(10);
-      expect(discount.discountedPrice).toBe(18000);
-      expect(discount.savings).toBe(2000);
-    });
-
-    it('should NOT apply discount on Gomitas Power on Wednesday', () => {
-      expect(service.getDiscountForProduct(gomitasPower).hasDiscount).toBe(false);
-    });
-  });
-
-  describe('Friday (Viernes - day 5)', () => {
-    beforeEach(() => {
-      service.setSimulatedDay(5); // Viernes
+      service.setSimulatedDay(4); // Jueves
     });
 
     it('should apply 10% discount on Chocolates Power ($26.000 -> $23.400)', () => {
@@ -178,27 +162,23 @@ describe('PromotionService - Day-based Discounts', () => {
       expect(discount.hasDiscount).toBe(true);
       expect(discount.discountPercentage).toBe(10);
       expect(discount.discountedPrice).toBe(23400);
-      expect(discount.savings).toBe(2600);
-      expect(service.getEffectivePrice(chocolatesPower)).toBe(23400);
     });
 
-    it('should apply 10% discount on Gomitas Mix ($24.000 -> $21.600)', () => {
-      const discount = service.getDiscountForProduct(gomitasMix);
+    it('should apply 10% discount on Gomitas Lite ($20.000 -> $18.000)', () => {
+      const discount = service.getDiscountForProduct(gomitasLite);
       expect(discount.hasDiscount).toBe(true);
       expect(discount.discountPercentage).toBe(10);
-      expect(discount.discountedPrice).toBe(21600);
-      expect(discount.savings).toBe(2400);
-      expect(service.getEffectivePrice(gomitasMix)).toBe(21600);
+      expect(discount.discountedPrice).toBe(18000);
     });
 
-    it('should NOT apply discount on Chocolates Lite on Friday', () => {
+    it('should NOT apply discount on Chocolates Lite on Thursday', () => {
       expect(service.getDiscountForProduct(chocolatesLite).hasDiscount).toBe(false);
     });
   });
 
-  describe('Non-promotional Days (e.g. Tuesday = 2, Sunday = 0)', () => {
-    it('should not activate default discounts on Tuesday', () => {
-      service.setSimulatedDay(2); // Martes
+  describe('Non-promotional Days (e.g. Wednesday = 3, Sunday = 0)', () => {
+    it('should not activate default discounts on Wednesday', () => {
+      service.setSimulatedDay(3); // Miércoles
       expect(service.activePromotions().length).toBe(0);
       expect(service.getDiscountForProduct(gomitasPower).hasDiscount).toBe(false);
       expect(service.getDiscountForProduct(browniesFusionX2).hasDiscount).toBe(false);

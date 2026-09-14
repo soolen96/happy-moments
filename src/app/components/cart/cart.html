@@ -12,26 +12,31 @@
           <img [src]="item.product.image" [alt]="item.product.name" class="cart-item-img" />
           <div class="cart-item-info">
             <h4 class="cart-item-title">{{ item.product.name }}</h4>
-            <span class="cart-item-flavor-badge" *ngIf="item.selectedFlavor">
-              Sabor: <strong>{{ item.selectedFlavor }}</strong>
-            </span>
+            <div class="cart-item-meta-badges">
+              <span class="cart-item-presentation-badge" *ngIf="item.product.unitPrice">
+                {{ item.selectedPresentation === 'unit' ? '🍬 1 Unidad' : '🎁 Combo (' + (item.product.weight || 'Pack') + ')' }}
+              </span>
+              <span class="cart-item-flavor-badge" *ngIf="item.selectedFlavor">
+                Sabor: <strong>{{ item.selectedFlavor }}</strong>
+              </span>
+            </div>
             <div class="cart-item-pricing">
-              <ng-container *ngIf="cartService.getItemDiscountInfo(item.product).hasDiscount; else regularPrice">
-                <span class="cart-item-price-original">{{ cartService.formatCOP(item.product.price) }}</span>
-                <span class="cart-item-price discounted">{{ cartService.formatCOP(cartService.getItemDiscountInfo(item.product).discountedPrice) }}</span>
-                <span class="cart-discount-badge">-{{ cartService.getItemDiscountInfo(item.product).discountPercentage }}%</span>
+              <ng-container *ngIf="cartService.getItemDiscountInfo(item).hasDiscount; else regularPrice">
+                <span class="cart-item-price-original">{{ cartService.formatCOP(cartService.getItemBasePrice(item)) }}</span>
+                <span class="cart-item-price discounted">{{ cartService.formatCOP(cartService.getItemDiscountInfo(item).discountedPrice) }}</span>
+                <span class="cart-discount-badge">-{{ cartService.getItemDiscountInfo(item).discountPercentage }}%</span>
               </ng-container>
               <ng-template #regularPrice>
-                <span class="cart-item-price">{{ cartService.formatCOP(item.product.price) }}</span>
+                <span class="cart-item-price">{{ cartService.formatCOP(cartService.getItemBasePrice(item)) }}</span>
               </ng-template>
             </div>
             <div class="qty-controls">
-              <button class="qty-btn" (click)="cartService.updateQuantity(item.product.id, -1, item.selectedFlavor)">-</button>
+              <button class="qty-btn" (click)="cartService.updateQuantity(item.product.id, -1, item.selectedFlavor, item.selectedPresentation)">-</button>
               <span class="qty-val">{{ item.quantity }}</span>
-              <button class="qty-btn" (click)="cartService.updateQuantity(item.product.id, 1, item.selectedFlavor)">+</button>
+              <button class="qty-btn" (click)="cartService.updateQuantity(item.product.id, 1, item.selectedFlavor, item.selectedPresentation)">+</button>
             </div>
           </div>
-          <button class="remove-item-btn" (click)="cartService.removeFromCart(item.product.id, item.selectedFlavor)" title="Eliminar"><img src="assets/icons/trash.svg" alt="Eliminar" class="menu-icon" /></button>
+          <button class="remove-item-btn" (click)="cartService.removeFromCart(item.product.id, item.selectedFlavor, item.selectedPresentation)" title="Eliminar"><img src="assets/icons/trash.svg" alt="Eliminar" class="menu-icon" /></button>
         </div>
       </div>
 

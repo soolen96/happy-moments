@@ -133,10 +133,18 @@
 
               <div class="field-row">
                 <div class="field-group flex-1">
-                  <label>Precio (COP $):</label>
+                  <label>Precio Combo / Paquete (COP $):</label>
                   <input type="number" [value]="p.price"
                     (change)="updateProductField(p.id, 'price', +$any($event.target).value)" />
                   <span class="price-formatted">{{ formatCOP(p.price) }}</span>
+                </div>
+
+                <div class="field-group flex-1">
+                  <label>Precio por Unidad (COP $ - opcional):</label>
+                  <input type="number" [value]="p.unitPrice || ''"
+                    (change)="updateProductUnitPrice(p.id, $any($event.target).value)"
+                    placeholder="Ej: 6000 (vacío si no aplica)" />
+                  <span class="price-formatted" *ngIf="p.unitPrice">{{ formatCOP(p.unitPrice) }} / ud</span>
                 </div>
 
                 <div class="field-group flex-1">
@@ -147,9 +155,9 @@
                 </div>
 
                 <div class="field-group flex-1">
-                  <label>Peso / Cantidad:</label>
+                  <label>Cantidad / Peso Combo:</label>
                   <input type="text" [value]="p.weight || ''"
-                    (change)="updateProductField(p.id, 'weight', $any($event.target).value)" placeholder="Ej: 150g" />
+                    (change)="updateProductField(p.id, 'weight', $any($event.target).value)" placeholder="Ej: 4 unidades" />
                 </div>
               </div>
 

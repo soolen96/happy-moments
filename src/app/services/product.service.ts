@@ -44,7 +44,10 @@ export class ProductService {
         try {
           const parsed = JSON.parse(localProducts);
           if (Array.isArray(parsed) && parsed.length > 0) {
-            this.products.set(parsed.map((p: any) => new Product(p)));
+            const cleaned = parsed
+              .filter((p: any) => p.id !== 'p9')
+              .map((p: any) => new Product(p));
+            this.products.set(cleaned);
             productsLoadedFromLocal = true;
           }
         } catch (e) {
@@ -130,6 +133,7 @@ export class ProductService {
       name: newProduct.name || 'Nuevo Producto',
       category: newProduct.category || ProductCategory.Brownies,
       price: newProduct.price || 10000,
+      unitPrice: newProduct.unitPrice,
       description: newProduct.description || 'Descripción del producto artesanal.',
       badge: newProduct.badge || 'Nuevo 🌟',
       image: newProduct.image || 'assets/products/chocolates-mix.png',

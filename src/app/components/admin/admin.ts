@@ -112,6 +112,11 @@ export class AdminComponent {
     this.showToast('💾 Cambios guardados automáticamente');
   }
 
+  updateProductUnitPrice(id: string, value: string) {
+    const parsed = value ? parseFloat(value) : undefined;
+    this.updateProductField(id, 'unitPrice', parsed && !isNaN(parsed) ? parsed : undefined);
+  }
+
   getFlavorsString(flavors?: string[]): string {
     return flavors ? flavors.join(', ') : '';
   }
