@@ -18,32 +18,38 @@ export interface CarouselInfoSlide {
 export class ProductCarouselComponent implements OnInit, OnDestroy {
   readonly defaultSlides: CarouselInfoSlide[] = [
     {
-      image: 'assets/info/entregas-nocturnas.jpg',
-      alt: 'Entregas todos los días en horas de la noche',
-      fit: 'cover',
-      position: 'top left',
-    },
-    {
-      image: 'assets/info/happy-greek-yogurt.jpg',
-      alt: 'Nuevo Producto Happy Greek Yogurt Griego',
+      image: 'assets/info/entregas-nocturnas.webp',
+      alt: 'Hacemos entregas todos los días en horas de la noche',
       fit: 'contain',
       position: 'center',
     },
     {
-      image: 'assets/info/arequipe-fusion.jpg',
-      alt: 'Nuevo Producto Arequipe Fusión',
-      fit: 'cover',
-      position: 'center',
-    },
-    {
-      image: 'assets/info/happy-sundae-info.jpg',
-      alt: 'Sabores Happy Sundae',
+      image: 'assets/info/descuentos-martes-jueves.webp',
+      alt: 'Promociones Martes y Jueves - 10% de descuento',
       fit: 'contain',
       position: 'center',
     },
     {
       image: 'assets/info/lineas-efectos-info.webp',
       alt: 'Guía de líneas Lite, Fusión y Power',
+      fit: 'contain',
+      position: 'center',
+    },
+    {
+      image: 'assets/info/arequipe-fusion.webp',
+      alt: 'Nuevo Producto Arequipe Fusión',
+      fit: 'contain',
+      position: 'center',
+    },
+    {
+      image: 'assets/info/happy-greek-yogurt.webp',
+      alt: 'Nuevo Producto Happy Greek Yogurt Griego',
+      fit: 'contain',
+      position: 'center',
+    },
+    {
+      image: 'assets/info/happy-sundae-info.webp',
+      alt: 'Sabores Happy Sundae',
       fit: 'contain',
       position: 'center',
     },

@@ -2,7 +2,8 @@
 <div class="cart-overlay" *ngIf="cartService.isCartOpen()" (click)="cartService.toggleCart()">
   <aside class="cart-drawer" (click)="$event.stopPropagation()">
     <div class="cart-drawer-header">
-      <h2><img src="assets/icons/cart.svg" alt="Carrito" class="menu-icon" /> Tu Carrito ({{ cartService.cartTotalCount() }})</h2>
+      <h2><img src="assets/icons/cart.svg" alt="Carrito" class="menu-icon" /> Tu Carrito ({{
+        cartService.cartTotalCount() }})</h2>
       <button class="close-btn" (click)="cartService.toggleCart()">&times;</button>
     </div>
 
@@ -14,7 +15,8 @@
             <h4 class="cart-item-title">{{ item.product.name }}</h4>
             <div class="cart-item-meta-badges">
               <span class="cart-item-presentation-badge" *ngIf="item.product.unitPrice">
-                {{ item.selectedPresentation === 'unit' ? '🍬 1 Unidad' : '🎁 Combo (' + (item.product.weight || 'Pack') + ')' }}
+                {{ item.selectedPresentation === 'unit' ? '🍬 1 Unidad' : '🎁 Combo (' + (item.product.weight || 'Pack')
+                + ')' }}
               </span>
               <span class="cart-item-flavor-badge" *ngIf="item.selectedFlavor">
                 Sabor: <strong>{{ item.selectedFlavor }}</strong>
@@ -22,30 +24,34 @@
             </div>
             <div class="cart-item-pricing">
               <ng-container *ngIf="cartService.getItemDiscountInfo(item).hasDiscount; else regularPrice">
-                <span class="cart-item-price-original">{{ cartService.formatCOP(cartService.getItemBasePrice(item)) }}</span>
-                <span class="cart-item-price discounted">{{ cartService.formatCOP(cartService.getItemDiscountInfo(item).discountedPrice) }}</span>
-                <span class="cart-discount-badge">-{{ cartService.getItemDiscountInfo(item).discountPercentage }}%</span>
+                <span class="cart-item-price-original">{{ cartService.formatCOP(cartService.getItemBasePrice(item))
+                  }}</span>
+                <span class="cart-item-price discounted">{{
+                  cartService.formatCOP(cartService.getItemDiscountInfo(item).discountedPrice) }}</span>
+                <span class="cart-discount-badge">-{{ cartService.getItemDiscountInfo(item).discountPercentage
+                  }}%</span>
               </ng-container>
               <ng-template #regularPrice>
                 <span class="cart-item-price">{{ cartService.formatCOP(cartService.getItemBasePrice(item)) }}</span>
               </ng-template>
             </div>
             <div class="qty-controls">
-              <button class="qty-btn" (click)="cartService.updateQuantity(item.product.id, -1, item.selectedFlavor, item.selectedPresentation)">-</button>
+              <button class="qty-btn"
+                (click)="cartService.updateQuantity(item.product.id, -1, item.selectedFlavor, item.selectedPresentation)">-</button>
               <span class="qty-val">{{ item.quantity }}</span>
-              <button class="qty-btn" (click)="cartService.updateQuantity(item.product.id, 1, item.selectedFlavor, item.selectedPresentation)">+</button>
+              <button class="qty-btn"
+                (click)="cartService.updateQuantity(item.product.id, 1, item.selectedFlavor, item.selectedPresentation)">+</button>
             </div>
           </div>
-          <button class="remove-item-btn" (click)="cartService.removeFromCart(item.product.id, item.selectedFlavor, item.selectedPresentation)" title="Eliminar"><img src="assets/icons/trash.svg" alt="Eliminar" class="menu-icon" /></button>
+          <button class="remove-item-btn"
+            (click)="cartService.removeFromCart(item.product.id, item.selectedFlavor, item.selectedPresentation)"
+            title="Eliminar"><img src="assets/icons/trash.svg" alt="Eliminar" class="menu-icon" /></button>
         </div>
       </div>
 
       <!-- Mascot Illustration Banner -->
       <div class="cart-mascot-container">
         <img src="assets/mascot-cart.webp" alt="Mascota Happy Moments" class="cart-mascot-img" />
-        <div class="cart-mascot-bubble">
-          <span><img src="assets/icons/sparkles.svg" alt="Sparkles" class="inline-icon" /> ¡Tus edibles preferidos están listos para acompañar tus mejores momentos! <img src="assets/icons/leaf.svg" alt="Natural" class="inline-icon" /></span>
-        </div>
       </div>
     </div>
 
@@ -63,10 +69,11 @@
       <div class="cart-promo-pill" [class.unlocked]="cartService.hasFreeGummyReward()">
         <span class="promo-pill-icon">{{ cartService.hasFreeGummyReward() ? '🎉' : '🍬' }}</span>
         <span class="promo-pill-text" *ngIf="cartService.hasFreeGummyReward()">
-          <strong>¡Gomita de regalo incluida!</strong> En compras ≥ $20.000
+          <strong>¡Gomita de regalo incluida!</strong> En compras mayores a $20.000
         </span>
         <span class="promo-pill-text" *ngIf="!cartService.hasFreeGummyReward()">
-          Agrega <strong>{{ cartService.formatCOP(cartService.amountForFreeGummy()) }}</strong> más y recibe <strong>1 gomita gratis</strong>
+          Agrega <strong>{{ cartService.formatCOP(cartService.amountForFreeGummy()) }}</strong> más y recibe <strong>1
+            gomita gratis</strong>
         </span>
       </div>
 
@@ -99,8 +106,10 @@
         <span>Total a pagar:</span>
         <span class="total-amount">{{ cartService.formatCOP(cartService.cartTotalPrice()) }}</span>
       </div>
-      <a [href]="cartService.getWhatsAppUrl(contactInfo)" target="_blank" rel="noopener noreferrer" class="checkout-btn">
-        <span><img src="assets/icons/whatsapp.svg" alt="WhatsApp" class="inline-icon" /> Realizar Pedido por WhatsApp</span>
+      <a [href]="cartService.getWhatsAppUrl(contactInfo)" target="_blank" rel="noopener noreferrer"
+        class="checkout-btn">
+        <span><img src="assets/icons/whatsapp.svg" alt="WhatsApp" class="inline-icon" /> Realizar Pedido por
+          WhatsApp</span>
       </a>
     </div>
   </aside>
