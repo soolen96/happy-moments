@@ -5,10 +5,7 @@
   <div class="bg-orb orb-plum"></div>
 
   <!-- Header & Navigation -->
-  <app-header
-    [contactInfo]="contactInfo()"
-    [isDarkMode]="isDarkMode()"
-    (categorySelected)="selectCategory($event)"
+  <app-header [contactInfo]="contactInfo()" [isDarkMode]="isDarkMode()" (categorySelected)="selectCategory($event)"
     (themeToggled)="toggleTheme()">
   </app-header>
 
@@ -19,12 +16,8 @@
   <app-weekly-deals-banner></app-weekly-deals-banner>
 
   <!-- Product Catalog & Search Section -->
-  <app-product-catalog
-    [products]="filteredProducts()"
-    [categories]="categories"
-    [selectedCategory]="selectedCategory()"
-    [searchQuery]="searchQuery()"
-    (searchQueryChange)="searchQuery.set($event)"
+  <app-product-catalog [products]="filteredProducts()" [categories]="categories" [selectedCategory]="selectedCategory()"
+    [searchQuery]="searchQuery()" (searchQueryChange)="searchQuery.set($event)"
     (categoryChange)="selectCategory($event)">
   </app-product-catalog>
 
@@ -34,9 +27,6 @@
   <!-- Delivery Information Section -->
   <app-delivery-info></app-delivery-info>
 
-  <!-- Product Information Section (Mockup / Infographics) -->
-  <app-product-info></app-product-info>
-
   <!-- Spotify Playlist Section ("La Frecuencia Ancestral") -->
   <app-spotify-section></app-spotify-section>
 
@@ -44,10 +34,7 @@
   <app-cart [contactInfo]="contactInfo()"></app-cart>
 
   <!-- Footer with Contact Info -->
-  <app-footer
-    [contactInfo]="contactInfo()"
-    [footerDescription]="footerDescription()"
-    [footerText]="footerText()"
+  <app-footer [contactInfo]="contactInfo()" [footerDescription]="footerDescription()" [footerText]="footerText()"
     [isDarkMode]="isDarkMode()">
   </app-footer>
 </div>

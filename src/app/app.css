@@ -5,7 +5,7 @@
   width: 100vw;
   height: 100vh;
   height: 100dvh;
-  background-color: #ffffff;
+  background-color: var(--bg-dark, #ffffff);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,6 +14,11 @@
   visibility: visible;
   transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.5s ease;
   pointer-events: auto;
+}
+
+:host-context(body.dark-mode) .app-splash-screen,
+:host-context(html.dark-mode) .app-splash-screen {
+  background-color: #12030f;
 }
 
 .app-splash-screen.fade-out {

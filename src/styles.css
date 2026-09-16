@@ -82,6 +82,10 @@ body.dark-mode .main-header {
   border-color: rgba(232, 59, 135, 0.3) !important;
 }
 
+body.dark-mode .app-splash-screen {
+  background-color: #12030f;
+}
+
 * {
   margin: 0;
   padding: 0;

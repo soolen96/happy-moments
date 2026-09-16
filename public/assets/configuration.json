@@ -108,18 +108,6 @@
       "weight": "4 unidades"
     },
     {
-      "id": "p6",
-      "name": "Galletas Fusión",
-      "category": "Galletas",
-      "price": 26000,
-      "unitPrice": 8000,
-      "description": "Galletas artesanales horneadas con chispas de chocolate",
-      "badge": "Fusión",
-      "image": "assets/products/galletas-fusion.png",
-      "isPopular": false,
-      "weight": "4 unidades"
-    },
-    {
       "id": "p7",
       "name": "Gomitas Power",
       "category": "Gomitas",
@@ -250,7 +238,7 @@
     {
       "id": "promo_jueves",
       "name": "Jueves Dulce (10% OFF)",
-      "description": "10% de descuento en gomitas Lite, chocolates power y galletas",
+      "description": "10% de descuento en gomitas Lite, chocolates power",
       "discountPercentage": 10,
       "productIds": [
         "p_1787526476972",
@@ -275,6 +263,6 @@
       "schedule": "Lunes a Sabado de 09:00 am a 09:00 pm. \n Domingos de 09:00 am a 06:00 pm"
     },
     "text": "© 2026 Happy Moments - Edibles Ancestrales. Todos los derechos reservados",
-    "description": "Edibles Ancestrales & Comida Artesanal. Gomitas, brownies y galletas creados para elevar tus mejores momentos con sabor y bienestar natural."
+    "description": "Edibles Ancestrales & Comida Artesanal. Gomitas y brownies creados para elevar tus mejores momentos con sabor y bienestar natural."
   }
 }

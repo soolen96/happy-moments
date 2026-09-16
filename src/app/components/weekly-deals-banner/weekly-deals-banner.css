@@ -73,8 +73,8 @@
   font-size: 0.92rem;
   color: var(--color-plum);
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  align-items: flex-start;
+  gap: 0.6rem;
   flex-wrap: wrap;
 }
 
@@ -82,22 +82,42 @@
   color: #fce8f3;
 }
 
-.banner-message strong {
+.banner-title {
   font-weight: 800;
   color: var(--color-plum);
+  white-space: nowrap;
+  padding-top: 0.1rem;
 }
 
-:host-context(.dark-mode) .banner-message strong {
+:host-context(.dark-mode) .banner-title {
   color: #ffffff;
+}
+
+.promo-items-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex-grow: 1;
 }
 
 .promo-names {
   color: #e83b87;
   font-weight: 700;
+  line-height: 1.4;
 }
 
 :host-context(.dark-mode) .promo-names {
   color: #ff75b5;
+}
+
+.promo-line {
+  color: var(--color-plum);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+:host-context(.dark-mode) .promo-line {
+  color: #fce8f3;
 }
 
 .banner-actions {

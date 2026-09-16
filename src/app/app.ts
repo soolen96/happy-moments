@@ -16,6 +16,15 @@ export class App implements OnInit {
   isFadingOut = signal<boolean>(false);
 
   ngOnInit() {
+    if (typeof localStorage !== 'undefined') {
+      const savedTheme = localStorage.getItem('happy_moments_theme');
+      if (savedTheme === 'dark' && typeof document !== 'undefined') {
+        document.body.classList.remove('light-mode');
+        document.body.classList.add('dark-mode');
+        document.documentElement.classList.add('dark-mode');
+      }
+    }
+
     const startTime = Date.now();
     const minDisplayTime = 800;
 

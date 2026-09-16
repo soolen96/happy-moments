@@ -9,7 +9,6 @@ import { ProductCarouselComponent } from '../product-carousel/product-carousel';
 import { ProductCatalogComponent } from '../product-catalog/product-catalog';
 import { CombosComponent } from '../combos/combos';
 import { DeliveryInfoComponent } from '../delivery-info/delivery-info';
-import { ProductInfoComponent } from '../product-info/product-info';
 import { SpotifySectionComponent } from '../spotify-section/spotify-section';
 import { CartComponent } from '../cart/cart';
 import { FooterComponent } from '../footer/footer';
@@ -26,7 +25,6 @@ import { WeeklyDealsBannerComponent } from '../weekly-deals-banner/weekly-deals-
     ProductCatalogComponent,
     CombosComponent,
     DeliveryInfoComponent,
-    ProductInfoComponent,
     SpotifySectionComponent,
     CartComponent,
     FooterComponent,
@@ -113,9 +111,11 @@ export class Homepage implements OnInit {
       if (isDark) {
         document.body.classList.remove('light-mode');
         document.body.classList.add('dark-mode');
+        document.documentElement.classList.add('dark-mode');
       } else {
         document.body.classList.remove('dark-mode');
         document.body.classList.add('light-mode');
+        document.documentElement.classList.remove('dark-mode');
       }
     }
     if (typeof localStorage !== 'undefined') {

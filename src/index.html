@@ -9,7 +9,30 @@
   <meta name="description" content="Happy Moments comida artesanal para acompañar tus mejores momentos" />
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="shortcut icon" href="favicon.ico" />
+  <script>
+    (function() {
+      try {
+        const savedTheme = localStorage.getItem('happy_moments_theme');
+        if (savedTheme === 'dark') {
+          document.documentElement.classList.add('dark-mode');
+          if (document.body) {
+            document.body.classList.add('dark-mode');
+          } else {
+            document.addEventListener('DOMContentLoaded', function() {
+              document.body.classList.add('dark-mode');
+            });
+          }
+        }
+      } catch (e) {}
+    })();
+  </script>
   <style>
+    html.dark-mode,
+    html.dark-mode body,
+    body.dark-mode {
+      background-color: #12030f;
+    }
+
     .initial-splash-container {
       position: fixed;
       top: 0;
@@ -24,6 +47,11 @@
       z-index: 999999;
       margin: 0;
       padding: 0;
+    }
+
+    html.dark-mode .initial-splash-container,
+    body.dark-mode .initial-splash-container {
+      background-color: #12030f;
     }
 
     .initial-splash-content {
