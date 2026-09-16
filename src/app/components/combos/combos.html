@@ -21,7 +21,7 @@
         </div>
 
         <h3 class="combo-name">{{ combo.name }}</h3>
-        <p class="combo-desc">{{ combo.description }}</p>
+        <p class="combo-desc" [innerHTML]="combo.description"></p>
 
         <div class="combo-footer">
           <div class="combo-price-box">

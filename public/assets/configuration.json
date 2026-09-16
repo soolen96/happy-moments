@@ -157,7 +157,7 @@
       "id": "c6",
       "name": "Combo Lite",
       "price": 20000,
-      "description": "2 Chocolates - 2 Gomitas Lite </br> incluye una gomita power",
+      "description": "2 Chocolates - 2 Gomitas Lite </br> Incluye una gomita power",
       "badge": "Lite",
       "image": "assets/combos/combo-lite.png",
       "itemsCount": "4 productos"
@@ -166,7 +166,7 @@
       "id": "c2",
       "name": "Combo Duo",
       "price": 24000,
-      "description": "2 Chocolates Lite - 2 Gomitas Power </br> incluye una gomita lite",
+      "description": "2 Chocolates Lite - 2 Gomitas Power </br> Incluye una gomita lite",
       "badge": "Duo",
       "image": "assets/combos/combo-duo.png",
       "itemsCount": "4 productos"
@@ -175,7 +175,7 @@
       "id": "c_1789352343167",
       "name": "Combo Power",
       "price": 26000,
-      "description": "2 gomitas Power - 2 Chocolates Power </br> incluye una gomita lite",
+      "description": "2 gomitas Power - 2 Chocolates Power </br> Incluye una gomita lite",
       "badge": "Personal",
       "image": "assets/combos/combo-power.png",
       "itemsCount": "2 productos"
@@ -184,7 +184,7 @@
       "id": "c_1789352616664",
       "name": "Combo Trifásico",
       "price": 32000,
-      "description": "1 Sunday Lite - 1 Brownie Fusión - 1 Chocolate Power</br> incluye una gomita power",
+      "description": "1 Sunday Lite - 1 Brownie Fusión - 1 Chocolate Power</br> Incluye una gomita power",
       "badge": "Personal",
       "image": "assets/combos/combo-trifasico.png",
       "itemsCount": "3 productos"
@@ -193,7 +193,7 @@
       "id": "c3",
       "name": "Happy Bowl",
       "price": 32000,
-      "description": "2 Galletas Fusión - 3 Chocolates Lite - 3 Gomitas Lite </br> incluye una gomita power",
+      "description": "2 Galletas Fusión - 3 Chocolates Lite - 3 Gomitas Lite </br> Incluye una gomita power",
       "badge": "Bowl",
       "image": "assets/combos/happy-bowl.png",
       "itemsCount": "8 productos"
@@ -202,7 +202,7 @@
       "id": "c4",
       "name": "Combo Pequeño",
       "price": 35000,
-      "description": "1 Chocolate Power - 2 Galletas Fusión - 1 Brownie Fusión - 1 Gomita Lite </br> incluye una gomita lite",
+      "description": "1 Chocolate Power - 2 Galletas Fusión - 1 Brownie Fusión - 1 Gomita Lite </br> Incluye una gomita lite",
       "badge": "Favorito",
       "image": "assets/combos/combo-pequeno.png",
       "itemsCount": "5 productos"
@@ -211,7 +211,7 @@
       "id": "c5",
       "name": "Combo Grande",
       "price": 65000,
-      "description": "2 Chocolates Power - 2 Chocolates Lite - 2 Galletas Fusión - 2 Brownies Fusión - 2 Gomitas Power - 2 Gomitas Lite </br> incluye una gomita power",
+      "description": "2 Chocolates Power - 2 Chocolates Lite - 2 Galletas Fusión - 2 Brownies Fusión - 2 Gomitas Power - 2 Gomitas Lite </br> Incluye una gomita power",
       "badge": "Fiesta",
       "image": "assets/combos/combo-grande.png",
       "itemsCount": "12 productos"
