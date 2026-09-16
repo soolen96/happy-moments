@@ -101,6 +101,7 @@
       "name": "Arequipe Fusión",
       "category": "Otros",
       "price": 50000,
+      "unitPrice": 15000,
       "description": "Dulce a base de leche",
       "badge": "Fusión",
       "image": "assets/products/arequipe-power.webp",
