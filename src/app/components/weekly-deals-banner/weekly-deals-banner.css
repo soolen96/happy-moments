@@ -32,10 +32,12 @@
 
 .banner-content {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+  gap: 0.5rem;
+  width: 100%;
 }
 
 .banner-badge {
@@ -69,11 +71,11 @@
 }
 
 .banner-message {
-  flex-grow: 1;
   font-size: 0.92rem;
   color: var(--color-plum);
   display: flex;
   align-items: flex-start;
+  justify-content: center;
   gap: 0.6rem;
   flex-wrap: wrap;
 }
@@ -426,7 +428,7 @@
 @media (max-width: 768px) {
   .banner-content {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
   .banner-actions {
     width: 100%;

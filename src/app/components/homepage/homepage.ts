@@ -52,7 +52,6 @@ export class Homepage implements OnInit {
     'Todos',
     ProductCategory.Brownies,
     ProductCategory.Gomitas,
-    ProductCategory.Galletas,
     ProductCategory.Chocolates,
     ProductCategory.Sundaes,
     ProductCategory.Otros,

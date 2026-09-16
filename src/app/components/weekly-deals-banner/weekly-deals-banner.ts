@@ -69,7 +69,7 @@ export class WeeklyDealsBannerComponent {
           .join(' / ');
         return `${item.dayName} (${promoDetails})`;
       })
-      .join(' • ');
+      .join('<br>');
   });
 
   scheduleSubtitleText = computed(() => {

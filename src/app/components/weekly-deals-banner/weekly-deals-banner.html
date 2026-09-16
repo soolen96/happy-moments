@@ -19,7 +19,7 @@
       <ng-template #noActivePromo>
         <div class="banner-message">
           <strong>Promos semanales:</strong>
-          <span>{{ weeklyPromosSummary() }}</span>
+          <span [innerHTML]="weeklyPromosSummary()"></span>
         </div>
       </ng-template>
     </div>

@@ -27,7 +27,7 @@ export const DEFAULT_PROMOTIONS: DiscountPromotion[] = [
   new DiscountPromotion({
     id: 'promo_jueves',
     name: 'Jueves Dulce (10% OFF)',
-    description: '10% de descuento en gomitas Lite, chocolates power y galletas',
+    description: '10% de descuento en gomitas Lite y chocolates power',
     discountPercentage: 10,
     productIds: ['p_1787526476972', 'p1', 'p6'],
     scheduleType: 'weekly_days',
@@ -272,10 +272,6 @@ export class PromotionService {
       }
       // Chocolates Power
       if (pid === 'p_1787526476972' && lowerName.includes('chocolate') && (lowerName.includes('power') || lowerBadge.includes('power'))) {
-        return true;
-      }
-      // Galletas Fusión
-      if (pid === 'p6' && lowerName.includes('galleta')) {
         return true;
       }
       // Gomitas Mix
