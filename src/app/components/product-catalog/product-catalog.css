@@ -424,3 +424,22 @@
     padding-right: 1rem;
   }
 }
+
+@media (max-width: 400px) {
+  .pres-title {
+    font-size: 0.74rem;
+  }
+
+  .pres-meta {
+    font-size: 0.64rem;
+  }
+
+  .presentation-toggle-group {
+    gap: 0.3rem;
+    padding: 0.2rem;
+  }
+
+  .pres-toggle-btn {
+    padding: 0.3rem 0.35rem;
+  }
+}

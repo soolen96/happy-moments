@@ -226,29 +226,31 @@
 @media (max-width: 768px) {
   .hero-carousel-section {
     margin-bottom: 3.5rem;
+    padding: 0 1rem;
   }
 
   .carousel-container {
     max-width: 460px;
-    width: 90%;
+    width: 100%;
   }
 
   .carousel-arrow {
     width: 40px;
     height: 40px;
     font-size: 1rem;
+    background: rgba(255, 255, 255, 0.85);
   }
 
   .carousel-arrow.prev {
-    left: -12px;
+    left: 8px;
   }
 
   .carousel-arrow.next {
-    right: -12px;
+    right: 8px;
   }
 
   .slide-image-box {
-    height: 560px;
+    height: clamp(420px, 55vh, 540px);
     border-radius: var(--radius-md, 18px);
   }
 
@@ -260,27 +262,29 @@
 @media (max-width: 480px) {
   .hero-carousel-section {
     margin-bottom: 2.5rem;
+    padding: 0 0.75rem;
   }
 
   .carousel-container {
-    max-width: 92%;
+    max-width: 100%;
   }
 
   .carousel-arrow {
     width: 36px;
     height: 36px;
     font-size: 0.9rem;
+    background: rgba(255, 255, 255, 0.9);
   }
 
   .carousel-arrow.prev {
-    left: 4px;
+    left: 6px;
   }
 
   .carousel-arrow.next {
-    right: 4px;
+    right: 6px;
   }
 
   .slide-image-box {
-    height: 440px;
+    height: clamp(340px, 50vh, 440px);
   }
 }

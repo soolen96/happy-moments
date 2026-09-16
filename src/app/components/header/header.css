@@ -438,4 +438,9 @@ button.drawer-link {
   .cart-btn {
     padding: 0.5rem 0.65rem;
   }
+
+  .menu-drawer {
+    width: min(300px, 85vw);
+    padding: 1.5rem 1.15rem;
+  }
 }

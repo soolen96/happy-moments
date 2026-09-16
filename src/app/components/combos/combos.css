@@ -36,7 +36,7 @@
 
 .combos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 2rem;
 }
 
@@ -167,4 +167,11 @@
 .btn-add-combo:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(82, 183, 55, 0.4);
+}
+
+@media (max-width: 900px) {
+  .combos-section {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
