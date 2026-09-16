@@ -99,7 +99,7 @@ export class AdminComponent {
       price: 12000,
       description: 'Descripción del nuevo producto artesanal.',
       badge: 'Nuevo 🌟',
-      image: 'assets/products/chocolates-mix.png',
+      image: 'assets/products/chocolates-mix.webp',
       isPopular: true,
       weight: '150g',
     });
@@ -151,7 +151,7 @@ export class AdminComponent {
       price: 30000,
       description: 'Descripción de los productos incluidos en el combo.',
       badge: 'Combo 🎁',
-      image: 'assets/combos/combo-personal.png',
+      image: 'assets/combos/combo-personal.webp',
       itemsCount: '3 productos',
     });
 

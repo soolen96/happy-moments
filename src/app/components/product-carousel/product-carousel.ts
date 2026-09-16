@@ -42,7 +42,7 @@ export class ProductCarouselComponent implements OnInit, OnDestroy {
       position: 'center',
     },
     {
-      image: 'assets/info/lineas-efectos-info.png',
+      image: 'assets/info/lineas-efectos-info.webp',
       alt: 'Guía de líneas Lite, Fusión y Power',
       fit: 'contain',
       position: 'center',

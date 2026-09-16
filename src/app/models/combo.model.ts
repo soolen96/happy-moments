@@ -13,7 +13,7 @@ export class Combo {
     this.price = init?.price ?? 0;
     this.description = init?.description ?? '';
     this.badge = init?.badge ?? 'Combo 🎁';
-    this.image = init?.image ?? 'assets/products/combo-box.png';
+    this.image = init?.image ?? 'assets/combos/combo-personal.webp';
     this.itemsCount = init?.itemsCount ?? '';
   }
 }

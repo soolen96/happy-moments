@@ -136,7 +136,7 @@ export class ProductService {
       unitPrice: newProduct.unitPrice,
       description: newProduct.description || 'Descripción del producto artesanal.',
       badge: newProduct.badge || 'Nuevo 🌟',
-      image: newProduct.image || 'assets/products/chocolates-mix.png',
+      image: newProduct.image || 'assets/products/chocolates-mix.webp',
       isPopular: newProduct.isPopular ?? true,
       weight: newProduct.weight || '150g',
       flavors: newProduct.flavors,
@@ -180,7 +180,7 @@ export class ProductService {
       price: newCombo.price || 30000,
       description: newCombo.description || 'Descripción de los productos incluidos en el combo.',
       badge: newCombo.badge || 'Combo 🎁',
-      image: newCombo.image || 'assets/combos/combo-personal.png',
+      image: newCombo.image || 'assets/combos/combo-personal.webp',
       itemsCount: newCombo.itemsCount || '3 productos',
     });
 

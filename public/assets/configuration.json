@@ -7,7 +7,7 @@
       "price": 15000,
       "description": "Delicioso yogurt griego con toppings a elección",
       "badge": "Fusión",
-      "image": "assets/products/happy-greek.png",
+      "image": "assets/products/happy-greek.webp",
       "isPopular": false,
       "weight": "1 unidad",
       "flavors": [
@@ -22,7 +22,7 @@
       "price": 15000,
       "description": "Helado de vainilla con toppings de sabores",
       "badge": "Lite",
-      "image": "assets/products/sundae-lite.png",
+      "image": "assets/products/sundae-lite.webp",
       "isPopular": false,
       "weight": "1 unidad",
       "flavors": [
@@ -38,7 +38,7 @@
       "price": 20000,
       "description": "Helado de vainilla con toppings de sabores",
       "badge": "Power",
-      "image": "assets/products/sundae-power.png",
+      "image": "assets/products/sundae-power.webp",
       "isPopular": false,
       "weight": "1 unidad",
       "flavors": [
@@ -55,7 +55,7 @@
       "unitPrice": 6000,
       "description": "Chocolates suaves ideales para relajarte",
       "badge": "Lite",
-      "image": "assets/products/chocolates-lite.png",
+      "image": "assets/products/chocolates-lite.webp",
       "isPopular": false,
       "weight": "4 unidades"
     },
@@ -67,7 +67,7 @@
       "unitPrice": 6000,
       "description": "Gomitas frutales suaves de efecto ligero",
       "badge": "Lite",
-      "image": "assets/products/gomitas-lite.png",
+      "image": "assets/products/gomitas-lite.webp",
       "isPopular": false,
       "weight": "4 unidades"
     },
@@ -79,7 +79,7 @@
       "unitPrice": 6000,
       "description": "Delicioso mix de chocolates artesanales",
       "badge": "Mix",
-      "image": "assets/products/chocolates-mix.png",
+      "image": "assets/products/chocolates-mix.webp",
       "isPopular": false,
       "weight": "4 unidades"
     },
@@ -91,7 +91,7 @@
       "unitPrice": 6000,
       "description": "Este paquete contiene: 2 gomitas Lite y 2 gomitas Power.",
       "badge": "Mix",
-      "image": "assets/products/gomitas-mix.png",
+      "image": "assets/products/gomitas-mix.webp",
       "isPopular": true,
       "weight": "4 unidades"
     },
@@ -103,7 +103,7 @@
       "unitPrice": 8000,
       "description": "Chocolates intensos con extracto ancestral",
       "badge": "Power",
-      "image": "assets/products/chocolates-power.png",
+      "image": "assets/products/chocolates-power.webp",
       "isPopular": true,
       "weight": "4 unidades"
     },
@@ -115,7 +115,7 @@
       "unitPrice": 6000,
       "description": "Gomitas concentradas para una experiencia potente",
       "badge": "Power",
-      "image": "assets/products/gomitas-power.png",
+      "image": "assets/products/gomitas-power.webp",
       "isPopular": false,
       "weight": "4 unidades"
     },
@@ -127,7 +127,7 @@
       "unitPrice": 15000,
       "description": "Brownie artesanal de chocolate con galleta Oreo",
       "badge": "Fusión",
-      "image": "assets/products/brownies-fusion.png",
+      "image": "assets/products/brownies-fusion.webp",
       "isPopular": true,
       "weight": "2 unidades"
     },
@@ -138,7 +138,7 @@
       "price": 50000,
       "description": "Dulce a base de leche",
       "badge": "Power",
-      "image": "assets/products/arequipe-power.png",
+      "image": "assets/products/arequipe-power.webp",
       "isPopular": false,
       "weight": "140g - 10 Porciones"
     }
@@ -150,7 +150,7 @@
       "price": 14000,
       "description": "1 Chocolate Lite - 1 Gomita Power",
       "badge": "Personal",
-      "image": "assets/combos/combo-personal.png",
+      "image": "assets/combos/combo-personal.webp",
       "itemsCount": "2 productos"
     },
     {
@@ -159,7 +159,7 @@
       "price": 20000,
       "description": "2 Chocolates - 2 Gomitas Lite </br> Incluye una gomita power",
       "badge": "Lite",
-      "image": "assets/combos/combo-lite.png",
+      "image": "assets/combos/combo-lite.webp",
       "itemsCount": "4 productos"
     },
     {
@@ -168,7 +168,7 @@
       "price": 24000,
       "description": "2 Chocolates Lite - 2 Gomitas Power </br> Incluye una gomita lite",
       "badge": "Duo",
-      "image": "assets/combos/combo-duo.png",
+      "image": "assets/combos/combo-duo.webp",
       "itemsCount": "4 productos"
     },
     {
@@ -177,7 +177,7 @@
       "price": 26000,
       "description": "2 gomitas Power - 2 Chocolates Power </br> Incluye una gomita lite",
       "badge": "Personal",
-      "image": "assets/combos/combo-power.png",
+      "image": "assets/combos/combo-power.webp",
       "itemsCount": "2 productos"
     },
     {
@@ -186,7 +186,7 @@
       "price": 32000,
       "description": "1 Sunday Lite - 1 Brownie Fusión - 1 Chocolate Power</br> Incluye una gomita power",
       "badge": "Personal",
-      "image": "assets/combos/combo-trifasico.png",
+      "image": "assets/combos/combo-trifasico.webp",
       "itemsCount": "3 productos"
     },
     {
@@ -195,7 +195,7 @@
       "price": 32000,
       "description": "2 Galletas Fusión - 3 Chocolates Lite - 3 Gomitas Lite </br> Incluye una gomita power",
       "badge": "Bowl",
-      "image": "assets/combos/happy-bowl.png",
+      "image": "assets/combos/happy-bowl.webp",
       "itemsCount": "8 productos"
     },
     {
@@ -204,7 +204,7 @@
       "price": 35000,
       "description": "1 Chocolate Power - 2 Galletas Fusión - 1 Brownie Fusión - 1 Gomita Lite </br> Incluye una gomita lite",
       "badge": "Favorito",
-      "image": "assets/combos/combo-pequeno.png",
+      "image": "assets/combos/combo-pequeno.webp",
       "itemsCount": "5 productos"
     },
     {
@@ -213,7 +213,7 @@
       "price": 65000,
       "description": "2 Chocolates Power - 2 Chocolates Lite - 2 Galletas Fusión - 2 Brownies Fusión - 2 Gomitas Power - 2 Gomitas Lite </br> Incluye una gomita power",
       "badge": "Fiesta",
-      "image": "assets/combos/combo-grande.png",
+      "image": "assets/combos/combo-grande.webp",
       "itemsCount": "12 productos"
     }
   ],
