@@ -32,7 +32,7 @@ jobs:
         run: npm ci
 
       - name: Build Angular app
-        run: npx ng build --base-href=/happy-moments/
+        run: npm run build -- --base-href=/
 
       - name: Copy index.html to 404.html for SPA routing
         run: cp dist/happy-moments/browser/index.html dist/happy-moments/browser/404.html
