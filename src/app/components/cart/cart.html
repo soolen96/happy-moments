@@ -15,8 +15,7 @@
             <h4 class="cart-item-title">{{ item.product.name }}</h4>
             <div class="cart-item-meta-badges">
               <span class="cart-item-presentation-badge" *ngIf="item.product.unitPrice">
-                {{ item.selectedPresentation === 'unit' ? '🍬 1 Unidad' : '🎁 Combo (' + (item.product.weight || 'Pack')
-                + ')' }}
+                {{ cartService.getPresentationBadge(item.product, item.selectedPresentation) }}
               </span>
               <span class="cart-item-flavor-badge" *ngIf="item.selectedFlavor">
                 Sabor: <strong>{{ item.selectedFlavor }}</strong>

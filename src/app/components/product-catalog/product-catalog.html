@@ -23,7 +23,7 @@
           🔥 {{ getDiscountInfo(product).badge }}
         </span>
         <span class="card-tag" *ngIf="!getDiscountInfo(product).hasDiscount && product.badge">{{ product.badge }}</span>
-        <span class="weight-tag" *ngIf="product.weight">{{ getSelectedPresentation(product) === 'unit' ? '1 unidad' : product.weight }}</span>
+        <span class="weight-tag" *ngIf="product.weight">{{ getWeightTag(product) }}</span>
       </div>
 
       <div class="card-body">
@@ -34,23 +34,23 @@
         <h3 class="card-title">{{ product.name }}</h3>
         <p class="card-desc">{{ product.description }}</p>
 
-        <!-- Presentation Selector (Unidad vs Combo) -->
+        <!-- Presentation Selector (Unidad vs Combo / Personal vs Grande) -->
         <div class="card-presentation-selector" *ngIf="product.unitPrice">
           <span class="presentation-selector-label">Comprar:</span>
           <div class="presentation-toggle-group">
             <button type="button" class="pres-toggle-btn"
               [class.active]="getSelectedPresentation(product) === 'unit'"
               (click)="selectPresentation(product.id, 'unit')"
-              [attr.aria-label]="'Comprar ' + product.name + ' por unidad'">
-              <span class="pres-title">Por Unidad</span>
-              <span class="pres-meta">(1 ud)</span>
+              [attr.aria-label]="'Comprar ' + product.name + ' ' + getUnitTitle(product)">
+              <span class="pres-title">{{ getUnitTitle(product) }}</span>
+              <span class="pres-meta">{{ getUnitMeta(product) }}</span>
             </button>
             <button type="button" class="pres-toggle-btn"
               [class.active]="getSelectedPresentation(product) === 'combo'"
               (click)="selectPresentation(product.id, 'combo')"
-              [attr.aria-label]="'Comprar ' + product.name + ' en combo'">
-              <span class="pres-title">En Combo</span>
-              <span class="pres-meta">({{ product.weight || 'Pack' }})</span>
+              [attr.aria-label]="'Comprar ' + product.name + ' ' + getComboTitle(product)">
+              <span class="pres-title">{{ getComboTitle(product) }}</span>
+              <span class="pres-meta">{{ getComboMeta(product) }}</span>
             </button>
           </div>
         </div>

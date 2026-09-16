@@ -52,6 +52,39 @@ export class ProductCatalogComponent {
     this.selectedPresentations.update((map) => ({ ...map, [productId]: presentation }));
   }
 
+  getUnitTitle(product: Product): string {
+    if (product.unitTitle) return product.unitTitle;
+    if (product.name.toLowerCase().includes('arequipe')) return 'Personal';
+    return 'Por Unidad';
+  }
+
+  getUnitMeta(product: Product): string {
+    if (product.unitMeta) return product.unitMeta;
+    if (product.name.toLowerCase().includes('arequipe')) return '(20g - 1 porción)';
+    return '(1 ud)';
+  }
+
+  getComboTitle(product: Product): string {
+    if (product.comboTitle) return product.comboTitle;
+    if (product.name.toLowerCase().includes('arequipe')) return 'Grande';
+    return 'En Combo';
+  }
+
+  getComboMeta(product: Product): string {
+    if (product.comboMeta) return product.comboMeta;
+    if (product.name.toLowerCase().includes('arequipe')) return '(140g - 10 porciones)';
+    return `(${product.weight || 'Pack'})`;
+  }
+
+  getWeightTag(product: Product): string {
+    if (this.getSelectedPresentation(product) === 'unit') {
+      if (product.unitMeta) return product.unitMeta.replace(/[()]/g, '');
+      if (product.name.toLowerCase().includes('arequipe')) return '20g - 1 porción';
+      return '1 unidad';
+    }
+    return product.weight || 'Combo';
+  }
+
   getCurrentPrice(product: Product): number {
     if (this.getSelectedPresentation(product) === 'unit' && product.unitPrice !== undefined) {
       return product.unitPrice;

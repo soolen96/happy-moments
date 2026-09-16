@@ -12,6 +12,10 @@ export class Product {
   weight?: string;
   flavors?: string[];
   unitPrice?: number;
+  unitTitle?: string;
+  unitMeta?: string;
+  comboTitle?: string;
+  comboMeta?: string;
 
   constructor(init?: Partial<Product>) {
     this.id = init?.id ?? '';
@@ -25,5 +29,9 @@ export class Product {
     this.weight = init?.weight;
     this.flavors = init?.flavors ? [...init.flavors] : undefined;
     this.unitPrice = init?.unitPrice;
+    this.unitTitle = init?.unitTitle;
+    this.unitMeta = init?.unitMeta;
+    this.comboTitle = init?.comboTitle;
+    this.comboMeta = init?.comboMeta;
   }
 }

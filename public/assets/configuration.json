@@ -102,11 +102,15 @@
       "category": "Otros",
       "price": 50000,
       "unitPrice": 15000,
+      "unitTitle": "Personal",
+      "unitMeta": "(20g - 1 porción)",
+      "comboTitle": "Grande",
+      "comboMeta": "(140g - 10 porciones)",
       "description": "Dulce a base de leche",
       "badge": "Fusión",
       "image": "assets/products/arequipe-power.webp",
       "isPopular": false,
-      "weight": "30g - 1 Porción"
+      "weight": "140g - 10 Porciones"
     },
     {
       "id": "p_1787799317901",

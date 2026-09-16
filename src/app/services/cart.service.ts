@@ -151,6 +151,19 @@ export class CartService {
     return this.promotionService.getDiscountForProduct(product, basePrice);
   }
 
+  getPresentationBadge(product: Product, presentation?: ProductPresentation): string {
+    const isUnit = presentation === 'unit';
+    if (product.name.toLowerCase().includes('arequipe')) {
+      return isUnit ? '🍯 Personal (20g - 1 porción)' : '🍯 Grande (140g - 10 porciones)';
+    }
+    if (product.unitTitle || product.comboTitle) {
+      return isUnit
+        ? `🍬 ${product.unitTitle || 'Unidad'} ${product.unitMeta || ''}`.trim()
+        : `🎁 ${product.comboTitle || 'Combo'} ${product.comboMeta || '(' + (product.weight || 'Pack') + ')'}`.trim();
+    }
+    return isUnit ? '🍬 1 Unidad' : `🎁 Combo (${product.weight || 'Pack'})`;
+  }
+
   getWhatsAppUrl(contactInfo?: ContactInfo | null): string {
     const rawPhone = contactInfo?.whatsapp || '+573144882666';
     const cleanPhone = rawPhone.replace(/\+/g, '').replace(/\s+/g, '');
@@ -164,9 +177,13 @@ export class CartService {
     items.forEach((item) => {
       const flavorTag = item.selectedFlavor ? ` (Sabor: ${item.selectedFlavor})` : '';
       const presTag = item.product.unitPrice
-        ? item.selectedPresentation === 'unit'
-          ? ' [Unidad]'
-          : ` [Combo (${item.product.weight || 'Pack'})]`
+        ? item.product.name.toLowerCase().includes('arequipe')
+          ? item.selectedPresentation === 'unit'
+            ? ' [Personal (20g - 1 porción)]'
+            : ' [Grande (140g - 10 porciones)]'
+          : item.selectedPresentation === 'unit'
+            ? ` [${item.product.unitTitle || 'Unidad'}]`
+            : ` [${item.product.comboTitle || 'Combo'} (${item.product.weight || 'Pack'})]`
         : '';
       const basePrice = this.getItemBasePrice(item);
       const discount = this.promotionService.getDiscountForProduct(item.product, basePrice);

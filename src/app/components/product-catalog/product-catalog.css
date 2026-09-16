@@ -213,12 +213,16 @@
   font-weight: 800;
   color: var(--text-primary);
   line-height: 1.2;
+  text-align: center;
 }
 
 .pres-meta {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 600;
   color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.15;
+  margin-top: 2px;
 }
 
 .pres-toggle-btn:hover {
