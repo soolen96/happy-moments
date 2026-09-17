@@ -20,7 +20,7 @@ export class ProductCarouselComponent implements OnInit, OnDestroy {
     {
       image: 'assets/info/entregas-nocturnas.webp',
       alt: 'Hacemos entregas todos los días en horas de la noche',
-      fit: 'contain',
+      fit: 'cover',
       position: 'center',
     },
     {
