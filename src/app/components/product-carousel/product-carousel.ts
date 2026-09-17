@@ -26,31 +26,31 @@ export class ProductCarouselComponent implements OnInit, OnDestroy {
     {
       image: 'assets/info/descuentos-martes-jueves.webp',
       alt: 'Promociones Martes y Jueves - 10% de descuento',
-      fit: 'contain',
+      fit: 'cover',
       position: 'center',
     },
     {
       image: 'assets/info/lineas-efectos-info.webp',
       alt: 'Guía de líneas Lite, Fusión y Power',
-      fit: 'contain',
+      fit: 'cover',
       position: 'center',
     },
     {
       image: 'assets/info/arequipe-fusion.webp',
       alt: 'Nuevo Producto Arequipe Fusión',
-      fit: 'contain',
+      fit: 'cover',
       position: 'center',
     },
     {
       image: 'assets/info/happy-greek-yogurt.webp',
       alt: 'Nuevo Producto Happy Greek Yogurt Griego',
-      fit: 'contain',
+      fit: 'cover',
       position: 'center',
     },
     {
       image: 'assets/info/happy-sundae-info.webp',
       alt: 'Sabores Happy Sundae',
-      fit: 'contain',
+      fit: 'cover',
       position: 'center',
     },
   ];
