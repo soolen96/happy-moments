@@ -240,7 +240,7 @@
   }
 
   .carousel-container {
-    max-width: 520px;
+    max-width: 460px;
     width: 100%;
   }
 
@@ -260,12 +260,12 @@
   }
 
   .slide-image-box {
-    height: 640px;
-    border-radius: var(--radius-lg, 28px);
+    height: clamp(420px, 55vh, 540px);
+    border-radius: var(--radius-md, 18px);
   }
 
   .carousel-track-wrapper {
-    border-radius: var(--radius-lg, 28px);
+    border-radius: var(--radius-md, 18px);
   }
 }
 
@@ -276,8 +276,7 @@
   }
 
   .carousel-container {
-    max-width: 520px;
-    width: 100%;
+    max-width: 100%;
   }
 
   .carousel-arrow {
@@ -296,11 +295,6 @@
   }
 
   .slide-image-box {
-    height: 640px;
-    border-radius: var(--radius-lg, 28px);
-  }
-
-  .carousel-track-wrapper {
-    border-radius: var(--radius-lg, 28px);
+    height: clamp(340px, 50vh, 440px);
   }
 }
