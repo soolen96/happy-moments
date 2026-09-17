@@ -39,4 +39,16 @@ describe('ProductCarouselComponent', () => {
     component.setSlide(2);
     expect(component.carouselIndex()).toBe(2);
   });
+
+  it('should not automatically change slides over time', () => {
+    vi.useFakeTimers();
+    try {
+      const initialIndex = component.carouselIndex();
+      vi.advanceTimersByTime(15000);
+      expect(component.carouselIndex()).toBe(initialIndex);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
 });
+

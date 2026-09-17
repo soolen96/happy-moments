@@ -12,10 +12,6 @@
   <div
     class="carousel-container"
     *ngIf="slides().length > 0"
-    (mouseenter)="pauseCarousel()"
-    (mouseleave)="resumeCarousel()"
-    (touchstart)="onTouchStart($event)"
-    (touchend)="onTouchEnd($event)"
   >
     <button class="carousel-arrow prev" (click)="prevSlide()" aria-label="Imagen anterior">❮</button>
 
