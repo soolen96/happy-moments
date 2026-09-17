@@ -6,12 +6,8 @@
   </div>
 
   <!-- Search Box Component -->
-  <app-search-box
-    [searchQuery]="searchQuery()"
-    (searchQueryChange)="searchQueryChange.emit($event)"
-    [categories]="categories()"
-    [selectedCategory]="selectedCategory()"
-    (categoryChange)="categoryChange.emit($event)">
+  <app-search-box [searchQuery]="searchQuery()" (searchQueryChange)="searchQueryChange.emit($event)"
+    [categories]="categories()" [selectedCategory]="selectedCategory()" (categoryChange)="categoryChange.emit($event)">
   </app-search-box>
 
   <!-- Products Grid -->
@@ -23,7 +19,6 @@
           🔥 {{ getDiscountInfo(product).badge }}
         </span>
         <span class="card-tag" *ngIf="!getDiscountInfo(product).hasDiscount && product.badge">{{ product.badge }}</span>
-        <span class="weight-tag" *ngIf="product.weight">{{ getWeightTag(product) }}</span>
       </div>
 
       <div class="card-body">
@@ -38,15 +33,13 @@
         <div class="card-presentation-selector" *ngIf="product.unitPrice">
           <span class="presentation-selector-label">Comprar:</span>
           <div class="presentation-toggle-group">
-            <button type="button" class="pres-toggle-btn"
-              [class.active]="getSelectedPresentation(product) === 'unit'"
+            <button type="button" class="pres-toggle-btn" [class.active]="getSelectedPresentation(product) === 'unit'"
               (click)="selectPresentation(product.id, 'unit')"
               [attr.aria-label]="'Comprar ' + product.name + ' ' + getUnitTitle(product)">
               <span class="pres-title">{{ getUnitTitle(product) }}</span>
               <span class="pres-meta">{{ getUnitMeta(product) }}</span>
             </button>
-            <button type="button" class="pres-toggle-btn"
-              [class.active]="getSelectedPresentation(product) === 'combo'"
+            <button type="button" class="pres-toggle-btn" [class.active]="getSelectedPresentation(product) === 'combo'"
               (click)="selectPresentation(product.id, 'combo')"
               [attr.aria-label]="'Comprar ' + product.name + ' ' + getComboTitle(product)">
               <span class="pres-title">{{ getComboTitle(product) }}</span>
@@ -72,7 +65,8 @@
           <div class="card-price-block">
             <ng-container *ngIf="getDiscountInfo(product).hasDiscount; else regularCatalogPrice">
               <span class="original-striked-price">{{ formatCOP(getCurrentPrice(product)) }}</span>
-              <span class="product-price discounted-price">{{ formatCOP(getDiscountInfo(product).discountedPrice) }}</span>
+              <span class="product-price discounted-price">{{ formatCOP(getDiscountInfo(product).discountedPrice)
+                }}</span>
             </ng-container>
             <ng-template #regularCatalogPrice>
               <span class="product-price">{{ formatCOP(getCurrentPrice(product)) }}</span>

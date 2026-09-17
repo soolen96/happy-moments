@@ -96,20 +96,6 @@
   text-transform: uppercase;
 }
 
-.weight-tag {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  background: rgba(55, 10, 42, 0.85);
-  color: #ffffff;
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 0.25rem 0.65rem;
-  border-radius: var(--radius-full);
-  backdrop-filter: blur(4px);
-  z-index: 2;
-}
-
 .card-body {
   padding: 1.5rem;
   display: flex;
