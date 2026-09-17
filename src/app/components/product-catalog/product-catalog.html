@@ -15,10 +15,10 @@
     <div class="product-card" *ngFor="let product of products()">
       <div class="card-img-container">
         <img [src]="product.image" [alt]="product.name" loading="lazy" />
+        <span class="card-tag" *ngIf="product.badge">{{ product.badge }}</span>
         <span class="card-tag discount-tag" *ngIf="getDiscountInfo(product).hasDiscount">
           🔥 {{ getDiscountInfo(product).badge }}
         </span>
-        <span class="card-tag" *ngIf="!getDiscountInfo(product).hasDiscount && product.badge">{{ product.badge }}</span>
       </div>
 
       <div class="card-body">

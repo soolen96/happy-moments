@@ -87,13 +87,24 @@
   border-radius: var(--radius-full);
   box-shadow: 0 4px 10px rgba(232, 59, 135, 0.3);
   z-index: 2;
+  white-space: nowrap;
+  max-width: calc(100% - 1.5rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-tag.discount-tag {
+  left: auto;
+  right: 0.75rem;
   background: linear-gradient(135deg, #e83b87 0%, #ff4b4b 100%);
   box-shadow: 0 4px 14px rgba(232, 59, 135, 0.45);
   letter-spacing: 0.5px;
   text-transform: uppercase;
+  max-width: calc(50% - 0.75rem);
+}
+
+.card-img-container:has(.discount-tag) .card-tag:not(.discount-tag) {
+  max-width: calc(50% - 0.75rem);
 }
 
 .card-body {
