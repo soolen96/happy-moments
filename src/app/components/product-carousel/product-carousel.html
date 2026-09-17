@@ -9,16 +9,23 @@
   </h1>
 
   <!-- Carousel Container -->
-  <div class="carousel-container" *ngIf="slides().length > 0">
+  <div
+    class="carousel-container"
+    *ngIf="slides().length > 0"
+    (mouseenter)="pauseCarousel()"
+    (mouseleave)="resumeCarousel()"
+    (touchstart)="onTouchStart($event)"
+    (touchend)="onTouchEnd($event)"
+  >
     <button class="carousel-arrow prev" (click)="prevSlide()" aria-label="Imagen anterior">❮</button>
 
     <div class="carousel-track-wrapper">
       <div
         class="carousel-slide"
         *ngFor="let item of slides(); let i = index"
-        [class.active]="i === carouselIndex"
+        [class.active]="i === carouselIndex()"
       >
-        <div class="slide-content" *ngIf="i === carouselIndex">
+        <div class="slide-content" *ngIf="i === carouselIndex()">
           <div class="slide-image-box">
             <img
               [src]="item.image"
@@ -40,7 +47,7 @@
       <button
         *ngFor="let item of slides(); let i = index"
         class="indicator-dot"
-        [class.active]="i === carouselIndex"
+        [class.active]="i === carouselIndex()"
         (click)="setSlide(i)"
         [attr.aria-label]="'Ir a ' + item.alt"
       ></button>

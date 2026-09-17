@@ -20,18 +20,23 @@ describe('ProductCarouselComponent', () => {
   });
 
   it('should have default info slides loaded', () => {
-    expect(component.slides().length).toBe(5);
+    expect(component.slides().length).toBe(6);
   });
 
   it('should navigate to next slide on nextSlide()', () => {
-    const initialIndex = component.carouselIndex;
+    const initialIndex = component.carouselIndex();
     component.nextSlide();
-    expect(component.carouselIndex).toBe((initialIndex + 1) % component.slides().length);
+    expect(component.carouselIndex()).toBe((initialIndex + 1) % component.slides().length);
   });
 
   it('should navigate to previous slide on prevSlide()', () => {
-    component.carouselIndex = 0;
+    component.carouselIndex.set(0);
     component.prevSlide();
-    expect(component.carouselIndex).toBe(component.slides().length - 1);
+    expect(component.carouselIndex()).toBe(component.slides().length - 1);
+  });
+
+  it('should navigate to specific slide on setSlide()', () => {
+    component.setSlide(2);
+    expect(component.carouselIndex()).toBe(2);
   });
 });

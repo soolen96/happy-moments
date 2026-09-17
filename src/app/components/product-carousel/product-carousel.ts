@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, input } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export interface CarouselInfoSlide {
@@ -57,8 +57,13 @@ export class ProductCarouselComponent implements OnInit, OnDestroy {
 
   slides = input<CarouselInfoSlide[]>(this.defaultSlides);
 
-  carouselIndex = 0;
+  readonly carouselIndex = signal<number>(0);
   private carouselInterval: ReturnType<typeof setInterval> | null = null;
+  private isHovered = false;
+
+  // Touch swipe support
+  private touchStartX = 0;
+  private touchEndX = 0;
 
   ngOnInit(): void {
     this.startCarouselAutoPlay();
@@ -68,10 +73,22 @@ export class ProductCarouselComponent implements OnInit, OnDestroy {
     this.stopCarouselAutoPlay();
   }
 
+  @HostListener('document:visibilitychange')
+  onVisibilityChange(): void {
+    if (typeof document !== 'undefined' && document.hidden) {
+      this.stopCarouselAutoPlay();
+    } else {
+      this.startCarouselAutoPlay();
+    }
+  }
+
   startCarouselAutoPlay(): void {
     this.stopCarouselAutoPlay();
+    if (this.isHovered || (typeof document !== 'undefined' && document.hidden)) {
+      return;
+    }
     this.carouselInterval = setInterval(() => {
-      this.nextSlide();
+      this.advanceSlide(1);
     }, 5000);
   }
 
@@ -82,22 +99,66 @@ export class ProductCarouselComponent implements OnInit, OnDestroy {
     }
   }
 
-  nextSlide(): void {
+  pauseCarousel(): void {
+    this.isHovered = true;
+    this.stopCarouselAutoPlay();
+  }
+
+  resumeCarousel(): void {
+    this.isHovered = false;
+    this.startCarouselAutoPlay();
+  }
+
+  private advanceSlide(step: number): void {
     const list = this.slides();
     if (list.length > 0) {
-      this.carouselIndex = (this.carouselIndex + 1) % list.length;
+      this.carouselIndex.update((current) => {
+        const next = (current + step) % list.length;
+        return next < 0 ? next + list.length : next;
+      });
     }
+  }
+
+  nextSlide(): void {
+    this.advanceSlide(1);
+    this.startCarouselAutoPlay();
   }
 
   prevSlide(): void {
-    const list = this.slides();
-    if (list.length > 0) {
-      this.carouselIndex = (this.carouselIndex - 1 + list.length) % list.length;
-    }
+    this.advanceSlide(-1);
+    this.startCarouselAutoPlay();
   }
 
   setSlide(index: number): void {
-    this.carouselIndex = index;
+    const list = this.slides();
+    if (index >= 0 && index < list.length) {
+      this.carouselIndex.set(index);
+    }
     this.startCarouselAutoPlay();
+  }
+
+  onTouchStart(event: TouchEvent): void {
+    this.pauseCarousel();
+    if (event.changedTouches && event.changedTouches.length > 0) {
+      this.touchStartX = event.changedTouches[0].screenX;
+    }
+  }
+
+  onTouchEnd(event: TouchEvent): void {
+    if (event.changedTouches && event.changedTouches.length > 0) {
+      this.touchEndX = event.changedTouches[0].screenX;
+      this.handleSwipe();
+    }
+    this.resumeCarousel();
+  }
+
+  private handleSwipe(): void {
+    const swipeThreshold = 45;
+    const diff = this.touchEndX - this.touchStartX;
+    if (diff > swipeThreshold) {
+      this.prevSlide();
+    } else if (diff < -swipeThreshold) {
+      this.nextSlide();
+    }
   }
 }

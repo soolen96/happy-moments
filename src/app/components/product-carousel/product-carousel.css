@@ -133,6 +133,16 @@
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7), 0 0 25px rgba(82, 183, 55, 0.15);
 }
 
+/* Slide Element */
+.carousel-slide {
+  display: block;
+  width: 100%;
+}
+
+.carousel-slide:not(.active) {
+  display: none;
+}
+
 /* Slide Content */
 .slide-content {
   display: flex;
