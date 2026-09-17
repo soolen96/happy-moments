@@ -91,7 +91,7 @@
       "price": 24000,
       "unitPrice": 6000,
       "description": "Delicioso mix de chocolates artesanales",
-      "badge": "Indica y Sativa",
+      "badge": "Sativa - Indica",
       "image": "assets/products/chocolates-mix.webp",
       "isPopular": false,
       "weight": "4 unidades"
@@ -211,7 +211,7 @@
       "name": "Happy Bowl",
       "price": 32000,
       "description": "3 Chocolates Lite - 2 Gomitas Fusión - 3 Gomitas Lite",
-      "badge": "Sativa - Híbrida - Indica",
+      "badge": "Híbrida - Indica",
       "image": "assets/combos/happy-bowl.webp",
       "itemsCount": "8 productos"
     },
