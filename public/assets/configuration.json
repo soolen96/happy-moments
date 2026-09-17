@@ -7,7 +7,7 @@
       "price": 26000,
       "unitPrice": 15000,
       "description": "Brownie artesanal de chocolate con galleta Oreo",
-      "badge": "Fusión",
+      "badge": "Híbrida",
       "image": "assets/products/brownies-fusion.webp",
       "isPopular": true,
       "weight": "2 unidades"
@@ -19,7 +19,7 @@
       "price": 20000,
       "unitPrice": 6000,
       "description": "Gomitas frutales suaves de efecto ligero",
-      "badge": "Lite",
+      "badge": "Indica",
       "image": "assets/products/gomitas-lite.webp",
       "isPopular": false,
       "weight": "4 unidades"
@@ -31,7 +31,7 @@
       "price": 26000,
       "unitPrice": 8000,
       "description": "Gomitas concentradas para una experiencia potente",
-      "badge": "Power",
+      "badge": "Sativa",
       "image": "assets/products/gomitas-power.webp",
       "isPopular": false,
       "weight": "4 unidades"
@@ -43,7 +43,7 @@
       "price": 24000,
       "unitPrice": 7000,
       "description": "Gomitas concentradas para una experiencia potente",
-      "badge": "Fusión",
+      "badge": "Híbrida",
       "image": "assets/products/gomitas-fusion.webp",
       "isPopular": false,
       "weight": "4 unidades"
@@ -55,7 +55,7 @@
       "price": 30000,
       "unitPrice": 6000,
       "description": "Este paquete contiene: 2 gomitas Lite, 2 gomitas Power y 2 gomitas fusión.",
-      "badge": "Súper Mix",
+      "badge": "Varias genéticas",
       "image": "assets/products/gomitas-mix.webp",
       "isPopular": true,
       "weight": "6 unidades"
@@ -67,7 +67,7 @@
       "price": 20000,
       "unitPrice": 6000,
       "description": "Chocolates suaves ideales para relajarte",
-      "badge": "Lite",
+      "badge": "Indica",
       "image": "assets/products/chocolates-lite.webp",
       "isPopular": false,
       "weight": "4 unidades"
