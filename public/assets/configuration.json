@@ -29,7 +29,7 @@
       "name": "Gomitas Power",
       "category": "Gomitas",
       "price": 26000,
-      "unitPrice": 6000,
+      "unitPrice": 8000,
       "description": "Gomitas concentradas para una experiencia potente",
       "badge": "Power",
       "image": "assets/products/gomitas-power.webp",
@@ -50,12 +50,12 @@
     },
     {
       "id": "p3",
-      "name": "Gomitas Mix",
+      "name": "Gomitas Súper Mix",
       "category": "Gomitas",
       "price": 30000,
       "unitPrice": 6000,
       "description": "Este paquete contiene: 2 gomitas Lite, 2 gomitas Power y 2 gomitas fusión.",
-      "badge": "Mix",
+      "badge": "Súper Mix",
       "image": "assets/products/gomitas-mix.webp",
       "isPopular": true,
       "weight": "6 unidades"
