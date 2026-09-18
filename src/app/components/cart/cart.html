@@ -107,8 +107,27 @@
         <span>Total a pagar:</span>
         <span class="total-amount">{{ cartService.formatCOP(cartService.cartTotalPrice()) }}</span>
       </div>
-      <a [href]="cartService.getWhatsAppUrl(contactInfo)" target="_blank" rel="noopener noreferrer"
-        class="checkout-btn">
+
+      <!-- Minimum Order Alert -->
+      <div class="cart-min-order-alert" *ngIf="!cartService.isMinimumOrderMet()">
+        <span class="min-order-icon">ℹ️</span>
+        <div class="min-order-details">
+          <span class="min-order-title">La compra mínima debe ser 14.000</span>
+          <span class="min-order-sub">
+            Agrega <strong>{{ cartService.formatCOP(cartService.amountForMinimumOrder()) }}</strong> más en productos para realizar tu pedido
+          </span>
+        </div>
+      </div>
+
+      <!-- Checkout Button: Disabled if below minimum order -->
+      <button *ngIf="!cartService.isMinimumOrderMet()" type="button" class="checkout-btn disabled" disabled
+        title="La compra mínima debe ser 14.000">
+        <span><img src="assets/icons/whatsapp.svg" alt="WhatsApp" class="inline-icon" /> Realizar Pedido por
+          WhatsApp</span>
+      </button>
+
+      <a *ngIf="cartService.isMinimumOrderMet()" [href]="cartService.getWhatsAppUrl(contactInfo)" target="_blank"
+        rel="noopener noreferrer" class="checkout-btn">
         <span><img src="assets/icons/whatsapp.svg" alt="WhatsApp" class="inline-icon" /> Realizar Pedido por
           WhatsApp</span>
       </a>

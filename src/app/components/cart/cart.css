@@ -478,6 +478,91 @@
   transform: translateY(-2px);
 }
 
+.checkout-btn.disabled,
+.checkout-btn:disabled {
+  background: #94a3b8;
+  color: #f8fafc;
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none !important;
+  opacity: 0.75;
+}
+
+.checkout-btn.disabled:hover,
+.checkout-btn:disabled:hover {
+  background: #94a3b8;
+  transform: none !important;
+}
+
+:host-context(.dark-mode) .checkout-btn.disabled,
+:host-context(.dark-mode) .checkout-btn:disabled {
+  background: #475569;
+  color: #cbd5e1;
+}
+
+/* Minimum Order Alert */
+.cart-min-order-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.7rem 0.85rem;
+  border-radius: var(--radius-sm, 10px);
+  background: rgba(237, 137, 54, 0.12);
+  border: 1px dashed rgba(237, 137, 54, 0.45);
+  color: #9c4221;
+  animation: fadeInMinOrder 0.3s ease-out;
+}
+
+:host-context(.dark-mode) .cart-min-order-alert {
+  background: rgba(237, 137, 54, 0.18);
+  border-color: rgba(246, 173, 85, 0.5);
+  color: #fbd38d;
+}
+
+.min-order-icon {
+  font-size: 1.15rem;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.min-order-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.min-order-title {
+  font-weight: 800;
+  font-size: 0.84rem;
+  color: #8c2e0b;
+}
+
+:host-context(.dark-mode) .min-order-title {
+  color: #feebc8;
+}
+
+.min-order-sub {
+  font-size: 0.76rem;
+  line-height: 1.35;
+  opacity: 0.95;
+}
+
+.min-order-sub strong {
+  font-weight: 800;
+}
+
+@keyframes fadeInMinOrder {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Discount & Promotions Styles */
 .cart-item-pricing {
   display: flex;

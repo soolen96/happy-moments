@@ -169,4 +169,51 @@ describe('CartService - Flavor Selection & Discounts', () => {
       expect(url).toContain('23.400');
     });
   });
+
+  describe('Minimum order validation (14.000 COP)', () => {
+    const mockGummy = new Product({
+      id: 'p1',
+      name: 'Gomitas Lite',
+      category: ProductCategory.Gomitas,
+      price: 20000,
+      unitPrice: 6000,
+      weight: '4 unidades',
+      description: 'Gomitas frutales suaves de efecto ligero',
+    });
+
+    it('should not meet minimum order when cart subtotal is less than 14000', () => {
+      service.addToCart(mockGummy, undefined, 'unit'); // 1 unit = 6000
+      expect(service.cartSubtotalPrice()).toBe(6000);
+      expect(service.isMinimumOrderMet()).toBe(false);
+      expect(service.amountForMinimumOrder()).toBe(8000);
+
+      // Even with 2 units (12000)
+      service.updateQuantity('p1', 1, undefined, 'unit');
+      expect(service.cartSubtotalPrice()).toBe(12000);
+      expect(service.isMinimumOrderMet()).toBe(false);
+      expect(service.amountForMinimumOrder()).toBe(2000);
+    });
+
+    it('should meet minimum order when cart subtotal is 14000 or more', () => {
+      service.addToCart(mockGummy, undefined, 'unit'); // 6000
+      service.updateQuantity('p1', 2, undefined, 'unit'); // 3 units = 18000
+      expect(service.cartSubtotalPrice()).toBe(18000);
+      expect(service.isMinimumOrderMet()).toBe(true);
+      expect(service.amountForMinimumOrder()).toBe(0);
+    });
+
+    it('should not include order details in WhatsApp URL when minimum order is not met', () => {
+      service.addToCart(mockGummy, undefined, 'unit'); // 6000 < 14000
+      const url = service.getWhatsAppUrl({
+        whatsapp: '+57 314 4882666',
+        phone: '',
+        location: '',
+        email: '',
+        schedule: '',
+        instagram: '',
+      });
+      expect(url).toBe('https://wa.me/573144882666');
+      expect(url).not.toContain('Gomitas%20Lite');
+    });
+  });
 });

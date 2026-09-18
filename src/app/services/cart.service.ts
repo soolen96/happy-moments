@@ -15,6 +15,7 @@ export class CartService {
 
   readonly DELIVERY_FEE = 10000;
   readonly FREE_GUMMY_THRESHOLD = 20000;
+  readonly MINIMUM_ORDER_AMOUNT = 14000;
 
   getItemBasePrice(item: CartItem): number {
     if (item.selectedPresentation === 'unit' && item.product.unitPrice !== undefined) {
@@ -42,6 +43,8 @@ export class CartService {
   cartTotalPrice = computed(() => this.cartSubtotalPrice() + this.cartDeliveryFee());
   hasFreeGummyReward = computed(() => this.cartSubtotalPrice() >= this.FREE_GUMMY_THRESHOLD);
   amountForFreeGummy = computed(() => Math.max(0, this.FREE_GUMMY_THRESHOLD - this.cartSubtotalPrice()));
+  isMinimumOrderMet = computed(() => this.cartSubtotalPrice() >= this.MINIMUM_ORDER_AMOUNT);
+  amountForMinimumOrder = computed(() => Math.max(0, this.MINIMUM_ORDER_AMOUNT - this.cartSubtotalPrice()));
 
   constructor() {
     const savedCart = this.cartStorage.getCart();
@@ -169,7 +172,7 @@ export class CartService {
     const cleanPhone = rawPhone.replace(/\+/g, '').replace(/\s+/g, '');
 
     const items = this.cart();
-    if (items.length === 0) {
+    if (items.length === 0 || !this.isMinimumOrderMet()) {
       return `https://wa.me/${cleanPhone}`;
     }
 
