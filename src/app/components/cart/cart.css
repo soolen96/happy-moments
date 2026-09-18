@@ -219,7 +219,7 @@
   transition: max-height 0.3s ease, max-width 0.3s ease;
 }
 
-/* Compact version when 2 products are present to strictly avoid scrollbars */
+/* Compact version when 2 products are present */
 .cart-mascot-container.compact {
   padding: 0.25rem;
 }
@@ -228,6 +228,29 @@
   max-width: min(130px, 42%);
   max-height: min(150px, 19vh);
   filter: drop-shadow(0 4px 12px rgba(90, 24, 70, 0.12));
+}
+
+/* Mini version when 3 products are present to strictly avoid scrollbars */
+.cart-mascot-container.mini {
+  padding: 0.15rem;
+}
+
+.cart-mascot-container.mini .cart-mascot-img {
+  max-width: min(90px, 28%);
+  max-height: min(95px, 12vh);
+  filter: drop-shadow(0 3px 8px rgba(90, 24, 70, 0.1));
+}
+
+/* Hide 3-products mascot on mobile screens (maximum 2 products on mobile) */
+@media (max-width: 768px) {
+  .cart-mascot-container.mini {
+    display: none !important;
+  }
+
+  .cart-mascot-container.compact .cart-mascot-img {
+    max-height: min(120px, 16vh);
+    max-width: min(110px, 35%);
+  }
 }
 
 @media (max-height: 760px) {
@@ -240,9 +263,18 @@
     max-height: min(120px, 16vh);
     max-width: min(105px, 35%);
   }
+
+  .cart-mascot-container.mini .cart-mascot-img {
+    max-height: min(80px, 10vh);
+    max-width: min(75px, 24%);
+  }
 }
 
-@media (max-height: 620px) {
+@media (max-height: 640px) {
+  .cart-mascot-container.mini {
+    display: none !important;
+  }
+
   .cart-mascot-img {
     max-height: min(130px, 20vh);
   }

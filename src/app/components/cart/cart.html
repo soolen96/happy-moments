@@ -48,9 +48,10 @@
         </div>
       </div>
 
-      <!-- Mascot Banner: visible with at most 2 products, sized to prevent scrollbars -->
-      <div class="cart-mascot-container" *ngIf="cartService.cart().length <= 2"
-        [class.compact]="cartService.cart().length === 2">
+      <!-- Mascot Banner: visible with at most 3 products, sized to prevent scrollbars -->
+      <div class="cart-mascot-container" *ngIf="cartService.cart().length <= 3"
+        [class.compact]="cartService.cart().length === 2"
+        [class.mini]="cartService.cart().length === 3">
         <img src="assets/mascot-cart.webp" alt="Mascota Happy Moments" class="cart-mascot-img" />
       </div>
     </div>
