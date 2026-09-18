@@ -48,6 +48,11 @@
         </div>
       </div>
 
+      <!-- Mascot Banner: visible with at most 2 products, sized to prevent scrollbars -->
+      <div class="cart-mascot-container" *ngIf="cartService.cart().length <= 2"
+        [class.compact]="cartService.cart().length === 2">
+        <img src="assets/mascot-cart.webp" alt="Mascota Happy Moments" class="cart-mascot-img" />
+      </div>
     </div>
 
     <ng-template #emptyCart>
