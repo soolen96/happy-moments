@@ -135,14 +135,13 @@
 </div>
 
 <!-- Modal: Customer Delivery Information -->
-<div class="customer-modal-overlay" *ngIf="isCustomerModalOpen()" (click)="closeCustomerModal()">
-  <div class="customer-modal-dialog" (click)="$event.stopPropagation()">
+<div class="customer-modal-overlay" *ngIf="isCustomerModalOpen()">
+  <div class="customer-modal-dialog">
     <div class="customer-modal-header">
       <div class="modal-title-wrap">
         <span class="modal-header-icon">🛵</span>
         <div>
           <h3 class="modal-title">Datos para tu entrega</h3>
-          <p class="modal-subtitle">Completa tu información para enviar el pedido por WhatsApp</p>
         </div>
       </div>
       <button class="modal-close-btn" (click)="closeCustomerModal()" aria-label="Cerrar">&times;</button>
@@ -182,7 +181,7 @@
             <span class="valid-indicator" *ngIf="isNameValid()" title="Válido">✓</span>
           </div>
           <span class="field-error" *ngIf="nameTouched() && !isNameValid()">
-            Ingresa tu nombre completo (mínimo 2 letras)
+            Ingresa tu nombre
           </span>
         </div>
 
@@ -190,7 +189,7 @@
         <div class="form-field" [class.field-invalid]="phoneTouched() && !isPhoneValid()"
           [class.field-valid]="isPhoneValid()">
           <label for="customer-phone" class="field-label">
-            <span>Celular / WhatsApp</span>
+            <span>Celular</span>
             <span class="required-tag">*</span>
           </label>
           <div class="input-container">
@@ -201,7 +200,7 @@
             <span class="valid-indicator" *ngIf="isPhoneValid()" title="Válido">✓</span>
           </div>
           <span class="field-error" *ngIf="phoneTouched() && !isPhoneValid()">
-            Ingresa un celular válido (al menos 7 dígitos)
+            Ingresa un celular válido
           </span>
         </div>
 
@@ -232,7 +231,7 @@
         (click)="focusFirstInvalidField()" [title]="getDisabledTooltip()">
         <span>
           <img src="assets/icons/whatsapp.svg" alt="WhatsApp" class="inline-icon" />
-          Completar Pedido Whatsapp
+          Enviar Pedido a WhatsApp
         </span>
       </button>
 
@@ -240,7 +239,7 @@
         class="checkout-btn enabled modal-submit-btn" (click)="onCompleteOrder()">
         <span>
           <img src="assets/icons/whatsapp.svg" alt="WhatsApp" class="inline-icon" />
-          Completar Pedido Whatsapp
+          Enviar Pedido a WhatsApp
         </span>
       </a>
     </div>
