@@ -8,6 +8,7 @@
     </div>
 
     <div class="cart-drawer-body" *ngIf="cartService.cart().length > 0; else emptyCart">
+      <!-- Cart Items List -->
       <div class="cart-items-list">
         <div class="cart-item" *ngFor="let item of cartService.cart()">
           <img [src]="item.product.image" [alt]="item.product.name" class="cart-item-img" />
@@ -50,8 +51,7 @@
 
       <!-- Mascot Banner: visible with at most 3 products, sized to prevent scrollbars -->
       <div class="cart-mascot-container" *ngIf="cartService.cart().length <= 3"
-        [class.compact]="cartService.cart().length === 2"
-        [class.mini]="cartService.cart().length === 3">
+        [class.compact]="cartService.cart().length === 2" [class.mini]="cartService.cart().length === 3">
         <img src="assets/mascot-cart.webp" alt="Mascota Happy Moments" class="cart-mascot-img" />
       </div>
     </div>
@@ -114,23 +114,135 @@
         <div class="min-order-details">
           <span class="min-order-title">La compra mínima debe ser 14.000</span>
           <span class="min-order-sub">
-            Agrega <strong>{{ cartService.formatCOP(cartService.amountForMinimumOrder()) }}</strong> más en productos para realizar tu pedido
+            Agrega <strong>{{ cartService.formatCOP(cartService.amountForMinimumOrder()) }}</strong> más en productos
+            para realizar tu pedido
           </span>
         </div>
       </div>
 
-      <!-- Checkout Button: Disabled if below minimum order -->
+      <!-- Checkout Button: "Realizar Pedido" -->
       <button *ngIf="!cartService.isMinimumOrderMet()" type="button" class="checkout-btn disabled" disabled
         title="La compra mínima debe ser 14.000">
-        <span><img src="assets/icons/whatsapp.svg" alt="WhatsApp" class="inline-icon" /> Realizar Pedido por
-          WhatsApp</span>
+        <span>Realizar Pedido</span>
       </button>
 
-      <a *ngIf="cartService.isMinimumOrderMet()" [href]="cartService.getWhatsAppUrl(contactInfo)" target="_blank"
-        rel="noopener noreferrer" class="checkout-btn">
-        <span><img src="assets/icons/whatsapp.svg" alt="WhatsApp" class="inline-icon" /> Realizar Pedido por
-          WhatsApp</span>
-      </a>
+      <button *ngIf="cartService.isMinimumOrderMet()" type="button" class="checkout-btn primary active-checkout-btn"
+        (click)="openCustomerModal()">
+        <span>Realizar Pedido</span>
+      </button>
     </div>
   </aside>
+</div>
+
+<!-- Modal: Customer Delivery Information -->
+<div class="customer-modal-overlay" *ngIf="isCustomerModalOpen()" (click)="closeCustomerModal()">
+  <div class="customer-modal-dialog" (click)="$event.stopPropagation()">
+    <div class="customer-modal-header">
+      <div class="modal-title-wrap">
+        <span class="modal-header-icon">🛵</span>
+        <div>
+          <h3 class="modal-title">Datos para tu entrega</h3>
+          <p class="modal-subtitle">Completa tu información para enviar el pedido por WhatsApp</p>
+        </div>
+      </div>
+      <button class="modal-close-btn" (click)="closeCustomerModal()" aria-label="Cerrar">&times;</button>
+    </div>
+
+    <div class="customer-modal-body">
+      <!-- Order Quick Recap -->
+      <div class="modal-order-recap">
+        <div class="recap-item">
+          <span class="recap-label">Productos ({{ cartService.cartTotalCount() }}):</span>
+          <span class="recap-value">{{ cartService.formatCOP(cartService.cartSubtotalPrice()) }}</span>
+        </div>
+        <div class="recap-item">
+          <span class="recap-label">Domicilio (Bogotá):</span>
+          <span class="recap-value">{{ cartService.formatCOP(cartService.cartDeliveryFee()) }}</span>
+        </div>
+        <div class="recap-item total">
+          <span class="recap-label">Total a pagar:</span>
+          <span class="recap-value highlight">{{ cartService.formatCOP(cartService.cartTotalPrice()) }}</span>
+        </div>
+      </div>
+
+      <!-- Customer Form Fields -->
+      <div class="customer-form">
+        <!-- Nombre -->
+        <div class="form-field" [class.field-invalid]="nameTouched() && !isNameValid()"
+          [class.field-valid]="isNameValid()">
+          <label for="customer-name" class="field-label">
+            <span>Nombre completo</span>
+            <span class="required-tag">*</span>
+          </label>
+          <div class="input-container">
+            <span class="input-icon">👤</span>
+            <input id="customer-name" type="text" class="customer-input" placeholder="Ej: Lucas Smith"
+              [value]="customerName()" (input)="onNameChange($any($event.target).value)" (blur)="onBlur('name')"
+              autocomplete="name" />
+            <span class="valid-indicator" *ngIf="isNameValid()" title="Válido">✓</span>
+          </div>
+          <span class="field-error" *ngIf="nameTouched() && !isNameValid()">
+            Ingresa tu nombre completo (mínimo 2 letras)
+          </span>
+        </div>
+
+        <!-- Celular -->
+        <div class="form-field" [class.field-invalid]="phoneTouched() && !isPhoneValid()"
+          [class.field-valid]="isPhoneValid()">
+          <label for="customer-phone" class="field-label">
+            <span>Celular / WhatsApp</span>
+            <span class="required-tag">*</span>
+          </label>
+          <div class="input-container">
+            <span class="input-icon">📱</span>
+            <input id="customer-phone" type="tel" class="customer-input" placeholder="Ej: 314 488 2666"
+              [value]="customerPhone()" (input)="onPhoneChange($any($event.target).value)" (blur)="onBlur('phone')"
+              autocomplete="tel" />
+            <span class="valid-indicator" *ngIf="isPhoneValid()" title="Válido">✓</span>
+          </div>
+          <span class="field-error" *ngIf="phoneTouched() && !isPhoneValid()">
+            Ingresa un celular válido (al menos 7 dígitos)
+          </span>
+        </div>
+
+        <!-- Dirección de envío -->
+        <div class="form-field" [class.field-invalid]="addressTouched() && !isAddressValid()"
+          [class.field-valid]="isAddressValid()">
+          <label for="customer-address" class="field-label">
+            <span>Dirección de envío (Bogotá)</span>
+            <span class="required-tag">*</span>
+          </label>
+          <div class="input-container">
+            <span class="input-icon">📍</span>
+            <input id="customer-address" type="text" class="customer-input" placeholder="Ej: Calle 123 #45-67, Apto 201"
+              [value]="customerAddress()" (input)="onAddressChange($any($event.target).value)"
+              (blur)="onBlur('address')" autocomplete="street-address" />
+            <span class="valid-indicator" *ngIf="isAddressValid()" title="Válido">✓</span>
+          </div>
+          <span class="field-error" *ngIf="addressTouched() && !isAddressValid()">
+            Ingresa tu dirección completa de entrega
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Footer with "Completar Pedido Whatsapp" Button -->
+    <div class="customer-modal-footer">
+      <button *ngIf="!isFormValid()" type="button" class="checkout-btn disabled modal-submit-btn"
+        (click)="focusFirstInvalidField()" [title]="getDisabledTooltip()">
+        <span>
+          <img src="assets/icons/whatsapp.svg" alt="WhatsApp" class="inline-icon" />
+          Completar Pedido Whatsapp
+        </span>
+      </button>
+
+      <a *ngIf="isFormValid()" [href]="getWhatsAppCheckoutUrl()" target="_blank" rel="noopener noreferrer"
+        class="checkout-btn enabled modal-submit-btn" (click)="onCompleteOrder()">
+        <span>
+          <img src="assets/icons/whatsapp.svg" alt="WhatsApp" class="inline-icon" />
+          Completar Pedido Whatsapp
+        </span>
+      </a>
+    </div>
+  </div>
 </div>

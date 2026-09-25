@@ -1,5 +1,5 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
-import { CartItem, Product, ContactInfo, ProductDiscountInfo, ProductPresentation } from '../models';
+import { CartItem, Product, ContactInfo, ProductDiscountInfo, ProductPresentation, CustomerOrderInfo } from '../models';
 import { CartStorageService } from './cart-storage.service';
 import { PromotionService } from './promotion.service';
 
@@ -70,8 +70,8 @@ export class CartService {
       if (existing) {
         updated = currentItems.map((item) =>
           item.product.id === product.id &&
-          item.selectedFlavor === flavor &&
-          item.selectedPresentation === presentation
+            item.selectedFlavor === flavor &&
+            item.selectedPresentation === presentation
             ? new CartItem(item.product, item.quantity + 1, item.selectedFlavor, item.selectedPresentation)
             : item
         );
@@ -167,7 +167,10 @@ export class CartService {
     return isUnit ? '🍬 1 Unidad' : `🎁 Combo (${product.weight || 'Pack'})`;
   }
 
-  getWhatsAppUrl(contactInfo?: ContactInfo | null): string {
+  getWhatsAppUrl(
+    contactInfo?: ContactInfo | null,
+    customerInfo?: CustomerOrderInfo | null
+  ): string {
     const rawPhone = contactInfo?.whatsapp || '+573144882666';
     const cleanPhone = rawPhone.replace(/\+/g, '').replace(/\s+/g, '');
 
@@ -206,10 +209,24 @@ export class CartService {
     message += `\n*Subtotal productos:* ${this.formatCOP(this.cartSubtotalPrice())}`;
     message += `\n*Domicilio Bogotá:* ${this.formatCOP(this.cartDeliveryFee())}`;
     if (this.hasFreeGummyReward()) {
-      message += `\n*Promoción:* 🎁 1 Gomita de cortesía incluida (compras ≥ $20.000)`;
+      message += `\n*Promoción:* 1 Gomita de cortesía incluida (compras ≥ $20.000)`;
     }
     message += `\n*Total a pagar:* ${this.formatCOP(this.cartTotalPrice())}`;
+
+    if (customerInfo && (customerInfo.name?.trim() || customerInfo.phone?.trim() || customerInfo.address?.trim())) {
+      message += '\n\n*Datos para la entrega:*';
+      if (customerInfo.name?.trim()) {
+        message += `\n - *Nombre:* ${customerInfo.name.trim()}`;
+      }
+      if (customerInfo.phone?.trim()) {
+        message += `\n - *Celular:* ${customerInfo.phone.trim()}`;
+      }
+      if (customerInfo.address?.trim()) {
+        message += `\n - *Dirección de envío:* ${customerInfo.address.trim()}`;
+      }
+    }
 
     return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
   }
 }
+

@@ -216,4 +216,32 @@ describe('CartService - Flavor Selection & Discounts', () => {
       expect(url).not.toContain('Gomitas%20Lite');
     });
   });
+
+  describe('Customer Delivery Details in WhatsApp URL', () => {
+    it('should include customer name, phone, and address in WhatsApp message when provided', () => {
+      service.addToCart(mockBrownie, 'Arequipe', 'unit'); // 15.000 >= 14.000
+      const url = service.getWhatsAppUrl(
+        {
+          whatsapp: '+57 314 4882666',
+          phone: '',
+          location: '',
+          email: '',
+          schedule: '',
+          instagram: '',
+        },
+        {
+          name: 'Nicolas Castro',
+          phone: '314 488 2666',
+          address: 'Calle 123 #45-67, Apto 201',
+        }
+      );
+
+      const decodedUrl = decodeURIComponent(url);
+      expect(decodedUrl).toContain('Datos para la entrega:');
+      expect(decodedUrl).toContain('Nicolas Castro');
+      expect(decodedUrl).toContain('314 488 2666');
+      expect(decodedUrl).toContain('Calle 123 #45-67, Apto 201');
+    });
+  });
 });
+

@@ -5,3 +5,4 @@ export * from './contact-info.model';
 export * from './configuration.model';
 export * from './combo.model';
 export * from './discount-promotion.model';
+export * from './customer-order-info.model';
