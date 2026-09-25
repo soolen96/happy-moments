@@ -68,7 +68,10 @@
     <div class="cart-drawer-footer" *ngIf="cartService.cart().length > 0">
       <!-- Free Gummy Promo Banner -->
       <div class="cart-promo-pill" [class.unlocked]="cartService.hasFreeGummyReward()">
-        <span class="promo-pill-icon">{{ cartService.hasFreeGummyReward() ? '🎉' : '🍬' }}</span>
+        <span class="promo-pill-icon">
+          <img [src]="cartService.hasFreeGummyReward() ? 'assets/icons/party.svg' : 'assets/icons/candy.svg'"
+            [alt]="cartService.hasFreeGummyReward() ? 'Celebración' : 'Gomita'" class="inline-icon" />
+        </span>
         <span class="promo-pill-text" *ngIf="cartService.hasFreeGummyReward()">
           <strong>¡Gomita de regalo incluida!</strong> En compras mayores a $20.000
         </span>
@@ -86,7 +89,7 @@
         </div>
         <div class="breakdown-row discount-row" *ngIf="cartService.cartTotalSavings() > 0">
           <span class="discount-label">
-            <span class="discount-icon">🔥</span> Descuentos aplicados:
+            <img src="assets/icons/fire.svg" alt="Descuento" class="inline-icon" /> Descuentos aplicados:
           </span>
           <span class="savings-amount">-{{ cartService.formatCOP(cartService.cartTotalSavings()) }}</span>
         </div>
@@ -110,7 +113,7 @@
 
       <!-- Minimum Order Alert -->
       <div class="cart-min-order-alert" *ngIf="!cartService.isMinimumOrderMet()">
-        <span class="min-order-icon">ℹ️</span>
+        <span class="min-order-icon"><img src="assets/icons/info.svg" alt="Información" class="inline-icon" /></span>
         <div class="min-order-details">
           <span class="min-order-title">La compra mínima debe ser 14.000</span>
           <span class="min-order-sub">
@@ -139,7 +142,9 @@
   <div class="customer-modal-dialog">
     <div class="customer-modal-header">
       <div class="modal-title-wrap">
-        <span class="modal-header-icon">🛵</span>
+        <span class="modal-header-icon">
+          <img src="assets/icons/scooter.svg" alt="Domicilio" class="modal-scooter-icon" />
+        </span>
         <div>
           <h3 class="modal-title">Datos para tu entrega</h3>
         </div>
@@ -174,11 +179,15 @@
             <span class="required-tag">*</span>
           </label>
           <div class="input-container">
-            <span class="input-icon">👤</span>
+            <span class="input-icon">
+              <img src="assets/icons/user.svg" alt="Nombre" class="form-input-icon" />
+            </span>
             <input id="customer-name" type="text" class="customer-input" placeholder="Ej: Lucas Smith"
               [value]="customerName()" (input)="onNameChange($any($event.target).value)" (blur)="onBlur('name')"
               autocomplete="name" />
-            <span class="valid-indicator" *ngIf="isNameValid()" title="Válido">✓</span>
+            <span class="valid-indicator" *ngIf="isNameValid()" title="Válido">
+              <img src="assets/icons/check.svg" alt="Válido" class="valid-check-icon" />
+            </span>
           </div>
           <span class="field-error" *ngIf="nameTouched() && !isNameValid()">
             Ingresa tu nombre
@@ -193,11 +202,15 @@
             <span class="required-tag">*</span>
           </label>
           <div class="input-container">
-            <span class="input-icon">📱</span>
+            <span class="input-icon">
+              <img src="assets/icons/smartphone.svg" alt="Celular" class="form-input-icon" />
+            </span>
             <input id="customer-phone" type="tel" class="customer-input" placeholder="Ej: 314 488 2666"
               [value]="customerPhone()" (input)="onPhoneChange($any($event.target).value)" (blur)="onBlur('phone')"
               autocomplete="tel" />
-            <span class="valid-indicator" *ngIf="isPhoneValid()" title="Válido">✓</span>
+            <span class="valid-indicator" *ngIf="isPhoneValid()" title="Válido">
+              <img src="assets/icons/check.svg" alt="Válido" class="valid-check-icon" />
+            </span>
           </div>
           <span class="field-error" *ngIf="phoneTouched() && !isPhoneValid()">
             Ingresa un celular válido
@@ -212,11 +225,15 @@
             <span class="required-tag">*</span>
           </label>
           <div class="input-container">
-            <span class="input-icon">📍</span>
+            <span class="input-icon">
+              <img src="assets/icons/location.svg" alt="Dirección" class="form-input-icon" />
+            </span>
             <input id="customer-address" type="text" class="customer-input" placeholder="Ej: Calle 123 #45-67, Apto 201"
               [value]="customerAddress()" (input)="onAddressChange($any($event.target).value)"
               (blur)="onBlur('address')" autocomplete="street-address" />
-            <span class="valid-indicator" *ngIf="isAddressValid()" title="Válido">✓</span>
+            <span class="valid-indicator" *ngIf="isAddressValid()" title="Válido">
+              <img src="assets/icons/check.svg" alt="Válido" class="valid-check-icon" />
+            </span>
           </div>
           <span class="field-error" *ngIf="addressTouched() && !isAddressValid()">
             Ingresa tu dirección completa de entrega

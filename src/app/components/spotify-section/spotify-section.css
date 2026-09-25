@@ -87,6 +87,14 @@
 .spotify-chip-icon {
   font-size: 0.95rem;
   line-height: 1;
+  display: inline-flex;
+  align-items: center;
+}
+
+.spotify-chip-icon img {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
 }
 
 :host-context(.dark-mode) .spotify-chip {

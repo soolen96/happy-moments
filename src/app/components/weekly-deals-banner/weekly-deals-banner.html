@@ -4,7 +4,9 @@
     <div class="banner-content">
       <div class="banner-badge">
         <span class="pulse-dot" *ngIf="promotionService.activePromotions().length > 0"></span>
-        <span>{{ promotionService.activePromotions().length > 0 ? '🔥 PROMO ACTIVA' : '✨ DÍAS DE DESCUENTO' }}</span>
+        <img [src]="promotionService.activePromotions().length > 0 ? 'assets/icons/fire.svg' : 'assets/icons/sparkles.svg'"
+             alt="Promo" class="inline-icon banner-badge-icon" />
+        <span>{{ promotionService.activePromotions().length > 0 ? 'PROMO ACTIVA' : 'DÍAS DE DESCUENTO' }}</span>
       </div>
 
       <div class="banner-message" *ngIf="promotionService.activePromotions().length > 0; else noActivePromo">

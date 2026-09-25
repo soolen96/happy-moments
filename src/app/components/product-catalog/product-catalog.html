@@ -17,7 +17,7 @@
         <img [src]="product.image" [alt]="product.name" loading="lazy" />
         <span class="card-tag" *ngIf="product.badge">{{ product.badge }}</span>
         <span class="card-tag discount-tag" *ngIf="getDiscountInfo(product).hasDiscount">
-          🔥 {{ getDiscountInfo(product).badge }}
+          <img src="assets/icons/fire.svg" alt="Descuento" class="inline-icon card-discount-icon" /> {{ getDiscountInfo(product).badge }}
         </span>
       </div>
 

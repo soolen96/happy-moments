@@ -56,6 +56,12 @@
   box-shadow: 0 3px 10px rgba(232, 59, 135, 0.35);
 }
 
+.banner-badge-icon {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+}
+
 .pulse-dot {
   width: 7px;
   height: 7px;

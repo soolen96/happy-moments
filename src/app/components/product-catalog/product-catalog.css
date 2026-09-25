@@ -101,6 +101,15 @@
   letter-spacing: 0.5px;
   text-transform: uppercase;
   max-width: calc(50% - 0.75rem);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.card-discount-icon {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
 }
 
 .card-img-container:has(.discount-tag) .card-tag:not(.discount-tag) {
