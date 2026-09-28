@@ -194,16 +194,16 @@
           </span>
         </div>
 
-        <!-- Celular -->
+        <!-- WhatsApp -->
         <div class="form-field" [class.field-invalid]="phoneTouched() && !isPhoneValid()"
           [class.field-valid]="isPhoneValid()">
           <label for="customer-phone" class="field-label">
-            <span>Celular</span>
+            <span>WhatsApp</span>
             <span class="required-tag">*</span>
           </label>
           <div class="input-container">
             <span class="input-icon">
-              <img src="assets/icons/smartphone.svg" alt="Celular" class="form-input-icon" />
+              <img src="assets/icons/smartphone.svg" alt="WhatsApp" class="form-input-icon" />
             </span>
             <input id="customer-phone" type="tel" class="customer-input" placeholder="Ej: 314 488 2666"
               [value]="customerPhone()" (input)="onPhoneChange($any($event.target).value)" (blur)="onBlur('phone')"
@@ -213,7 +213,7 @@
             </span>
           </div>
           <span class="field-error" *ngIf="phoneTouched() && !isPhoneValid()">
-            Ingresa un celular válido
+            Ingresa un whatsapp válido
           </span>
         </div>
 
