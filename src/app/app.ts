@@ -1,10 +1,11 @@
 import { Component, signal, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ProductService } from './services/product.service';
+import { PwaInstallComponent } from './components/pwa-install/pwa-install';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, PwaInstallComponent],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

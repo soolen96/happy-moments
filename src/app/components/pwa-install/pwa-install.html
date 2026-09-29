@@ -1,0 +1,154 @@
+<!-- PWA Mobile Install Floating Banner -->
+@if (pwaService.showInstallBanner() && !pwaService.isInstalled()) {
+  <aside class="pwa-banner" aria-label="Instalar aplicación Happy Moments">
+    <div class="pwa-banner-card">
+      <div class="pwa-banner-left">
+        <div class="pwa-banner-icon-wrap">
+          <img src="assets/icons/icon-192x192.png" alt="Happy Moments App" class="pwa-banner-icon" />
+        </div>
+        <div class="pwa-banner-info">
+          <div class="pwa-banner-title">
+            <span>Happy Moments</span>
+            <span class="pwa-tag">APP</span>
+          </div>
+          <p class="pwa-banner-desc">Agrégala a tu pantalla de inicio</p>
+        </div>
+      </div>
+
+      <div class="pwa-banner-actions">
+        <button type="button" class="pwa-install-btn" (click)="onInstallClick()" aria-label="Agregar a la pantalla de inicio">
+          <svg class="pwa-btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+          <span>Instalar</span>
+        </button>
+        <button type="button" class="pwa-dismiss-btn" (click)="onDismissClick()" aria-label="Cerrar aviso de instalación">
+          &times;
+        </button>
+      </div>
+    </div>
+  </aside>
+}
+
+<!-- PWA Instruction Modal (Optimized for iOS Safari and other browsers) -->
+@if (pwaService.showInstallModal()) {
+  <div class="pwa-modal-overlay" (click)="onCloseModal()">
+    <div class="pwa-modal-container" (click)="$event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="pwa-modal-title">
+      <button class="pwa-modal-close" (click)="onCloseModal()" aria-label="Cerrar diálogo">&times;</button>
+      
+      <div class="pwa-modal-header">
+        <div class="pwa-modal-mascot-wrap">
+          <img src="assets/mascot-eating-gummy.webp" alt="Mascota Happy Moments" class="pwa-modal-mascot" />
+        </div>
+        <h2 id="pwa-modal-title" class="pwa-modal-title">Instala Happy Moments</h2>
+        <p class="pwa-modal-subtitle">
+          Disfruta una navegación más rápida, fluida y con acceso directo desde tu pantalla de inicio sin usar almacenamiento extra.
+        </p>
+      </div>
+
+      <div class="pwa-modal-body">
+        @if (pwaService.isIos()) {
+          <!-- iOS Safari Instructions -->
+          <div class="pwa-ios-instructions">
+            <div class="pwa-step-item">
+              <div class="pwa-step-number">1</div>
+              <div class="pwa-step-content">
+                <p class="pwa-step-text">
+                  En la barra inferior de <strong>Safari</strong>, pulsa el botón <strong>Compartir</strong>:
+                </p>
+                <div class="pwa-step-badge">
+                  <svg class="pwa-inline-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                    <polyline points="16 6 12 2 8 6"></polyline>
+                    <line x1="12" y1="2" x2="12" y2="15"></line>
+                  </svg>
+                  <span>Botón Compartir</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pwa-step-item">
+              <div class="pwa-step-number">2</div>
+              <div class="pwa-step-content">
+                <p class="pwa-step-text">
+                  Baja en las opciones y selecciona <strong>"Agregar al inicio"</strong>:
+                </p>
+                <div class="pwa-step-badge">
+                  <svg class="pwa-inline-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                  </svg>
+                  <span>Agregar al inicio</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pwa-step-item">
+              <div class="pwa-step-number">3</div>
+              <div class="pwa-step-content">
+                <p class="pwa-step-text">
+                  Pulsa <strong>"Agregar"</strong> en la esquina superior derecha y ¡listo!
+                </p>
+              </div>
+            </div>
+          </div>
+        } @else {
+          <!-- Android / Chrome / Edge Instructions -->
+          <div class="pwa-general-instructions">
+            @if (pwaService.canInstall()) {
+              <div class="pwa-direct-install-box">
+                <p>Pulsa el botón para añadir la aplicación inmediatamente:</p>
+                <button type="button" class="pwa-modal-install-btn" (click)="onInstallClick()">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <span>Agregar a Pantalla de Inicio</span>
+                </button>
+              </div>
+            } @else {
+              <div class="pwa-fallback-steps">
+                <div class="pwa-step-item">
+                  <div class="pwa-step-number">1</div>
+                  <div class="pwa-step-content">
+                    <p class="pwa-step-text">
+                      Abre el menú de tu navegador pulsando en los tres puntos <strong>(⋮)</strong> arriba a la derecha.
+                    </p>
+                  </div>
+                </div>
+                <div class="pwa-step-item">
+                  <div class="pwa-step-number">2</div>
+                  <div class="pwa-step-content">
+                    <p class="pwa-step-text">
+                      Selecciona la opción <strong>"Agregar a la pantalla principal"</strong> o <strong>"Instalar aplicación"</strong>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="pwa-modal-footer">
+        <button type="button" class="pwa-modal-dismiss-btn" (click)="onCloseModal()">
+          Entendido
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- PWA Installed Success Toast -->
+@if (pwaService.installedSuccess()) {
+  <div class="pwa-toast-success" role="status" aria-live="polite">
+    <div class="pwa-toast-icon">✓</div>
+    <div class="pwa-toast-text">
+      <strong>¡Genial!</strong> Happy Moments se ha agregado a tu pantalla de inicio.
+    </div>
+  </div>
+}

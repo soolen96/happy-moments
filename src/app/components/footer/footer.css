@@ -78,6 +78,39 @@
   gap: 0.4rem;
 }
 
+.footer-app-install {
+  margin-top: 1.25rem;
+  display: flex;
+  justify-content: center;
+}
+
+.footer-install-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(232, 59, 135, 0.15);
+  border: 1px solid rgba(232, 59, 135, 0.4);
+  color: #ffffff;
+  padding: 0.55rem 1.15rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.footer-install-btn:hover {
+  background: var(--magenta-gradient);
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(232, 59, 135, 0.4);
+}
+
+.footer-install-icon {
+  filter: brightness(0) invert(1);
+}
+
 .ig-icon {
   width: 20px;
   height: 20px;

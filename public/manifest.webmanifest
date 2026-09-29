@@ -1,0 +1,82 @@
+{
+  "name": "Happy Moments - Edibles Ancestrales",
+  "short_name": "Happy Moments",
+  "description": "Comida artesanal para acompañar tus mejores momentos",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#12030f",
+  "theme_color": "#e83b87",
+  "lang": "es",
+  "dir": "ltr",
+  "categories": [
+    "food",
+    "shopping",
+    "lifestyle"
+  ],
+  "icons": [
+    {
+      "src": "assets/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-maskable-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/icons/icon-maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Catálogo de Productos",
+      "short_name": "Catálogo",
+      "description": "Explora todos los productos de Happy Moments",
+      "url": "/#catalogo",
+      "icons": [
+        {
+          "src": "assets/icons/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Combos Especiales",
+      "short_name": "Combos",
+      "description": "Mira las mejores promociones y combos",
+      "url": "/#combos",
+      "icons": [
+        {
+          "src": "assets/icons/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Carrito de Compras",
+      "short_name": "Carrito",
+      "description": "Revisa tus productos y pide por WhatsApp",
+      "url": "/#carrito",
+      "icons": [
+        {
+          "src": "assets/icons/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}

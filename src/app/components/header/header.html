@@ -29,6 +29,11 @@
   </nav>
 
   <div class="header-right">
+    <button *ngIf="!pwaService.isInstalled() && (pwaService.canInstall() || pwaService.isIos())"
+      class="header-install-btn" (click)="pwaService.promptInstall()" id="btn-header-install" aria-label="Instalar Aplicación">
+      <img src="assets/icons/download.svg" alt="Instalar" class="menu-icon" />
+      <span class="install-text">Instalar App</span>
+    </button>
     <button class="cart-btn" (click)="toggleCart()" id="btn-cart" aria-label="Ver Carrito de Compras">
       <span class="cart-icon"><img src="assets/icons/cart.svg" alt="Carrito" class="menu-icon" /></span>
       <span class="cart-text">Carrito</span>
@@ -65,6 +70,18 @@
         <img src="assets/icons/phone.svg" alt="Contacto" class="menu-icon" />
         Contacto
       </a>
+
+      <!-- Install App Button inside Drawer -->
+      <button type="button" (click)="installApp()" class="drawer-link drawer-install-btn" *ngIf="!pwaService.isInstalled()" id="btn-drawer-install">
+        <img src="assets/icons/download.svg" alt="Instalar" class="menu-icon" />
+        <span>Agregar a Inicio</span>
+        <span class="drawer-pwa-badge">APP</span>
+      </button>
+
+      <div class="drawer-installed-indicator" *ngIf="pwaService.isInstalled()">
+        <img src="assets/icons/check.svg" alt="Instalada" class="menu-icon" />
+        <span>App Instalada</span>
+      </div>
 
       <!-- Theme Toggle inside Menu -->
       <div class="theme-switch-item" (click)="toggleTheme()">

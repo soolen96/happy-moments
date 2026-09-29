@@ -2,6 +2,7 @@ import { Component, input, output, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContactInfo } from '../../models';
 import { CartService } from '../../services/cart.service';
+import { PwaService } from '../../services/pwa.service';
 
 @Component({
   selector: 'app-header',
@@ -12,6 +13,7 @@ import { CartService } from '../../services/cart.service';
 })
 export class HeaderComponent {
   cartService = inject(CartService);
+  pwaService = inject(PwaService);
 
   contactInfo = input<ContactInfo | null>(null);
   isDarkMode = input<boolean>(false);
@@ -40,5 +42,10 @@ export class HeaderComponent {
 
   toggleCart(): void {
     this.cartService.toggleCart();
+  }
+
+  installApp(): void {
+    this.closeMenu();
+    this.pwaService.promptInstall();
   }
 }

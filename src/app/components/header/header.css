@@ -194,6 +194,65 @@
   border-radius: var(--radius-full);
 }
 
+/* PWA Header & Drawer Install Elements */
+.header-install-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--magenta-gradient);
+  color: #ffffff;
+  border: none;
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(232, 59, 135, 0.3);
+  transition: all 0.25s ease;
+}
+
+.header-install-btn:hover {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 6px 18px rgba(232, 59, 135, 0.45);
+}
+
+.header-install-btn .menu-icon {
+  filter: brightness(0) invert(1);
+}
+
+.drawer-install-btn {
+  background: rgba(232, 59, 135, 0.08) !important;
+  border: 1px dashed rgba(232, 59, 135, 0.4) !important;
+  color: var(--color-magenta) !important;
+  justify-content: space-between;
+}
+
+.drawer-install-btn:hover {
+  background: rgba(232, 59, 135, 0.16) !important;
+  color: var(--color-magenta) !important;
+}
+
+.drawer-pwa-badge {
+  background: var(--magenta-gradient);
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.5px;
+}
+
+.drawer-installed-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.6rem;
+  color: var(--color-green);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
 /* Menu Drawer */
 .menu-overlay {
   position: fixed;
@@ -424,6 +483,10 @@ button.drawer-link {
   }
 
   .header-nav-desktop {
+    display: none;
+  }
+
+  .header-install-btn {
     display: none;
   }
 }

@@ -2,6 +2,7 @@ import { Component, input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContactInfo } from '../../models';
 import { CartService } from '../../services/cart.service';
+import { PwaService } from '../../services/pwa.service';
 
 @Component({
   selector: 'app-footer',
@@ -12,6 +13,7 @@ import { CartService } from '../../services/cart.service';
 })
 export class FooterComponent {
   cartService = inject(CartService);
+  pwaService = inject(PwaService);
 
   contactInfo = input<ContactInfo | null>(null);
   footerDescription = input<string>('');

@@ -13,21 +13,25 @@
       </div>
       <p class="footer-desc">
         {{ footerDescription() }}
-      </p>
-      <ng-template #defaultSocial>
-        <div class="social-links">
-          <a href="https://www.instagram.com/happy.moments.bog" target="_blank" rel="noopener noreferrer"
-            class="social-icon" title="Instagram">
-            <img src="assets/instagram-icon.webp" alt="Instagram" class="ig-icon" />
-            @happy.moments.bog
-          </a>
-          <a [href]="cartService.getWhatsAppUrl(contactInfo())" target="_blank" rel="noopener noreferrer"
-            class="social-icon" title="WhatsApp">
-            <img src="assets/icons/whatsapp.svg" alt="WhatsApp" class="inline-icon" />
-            +57 314 4882666
-          </a>
-        </div>
-      </ng-template>
+      <div class="social-links">
+        <a href="https://www.instagram.com/happy.moments.bog" target="_blank" rel="noopener noreferrer"
+          class="social-icon" title="Instagram">
+          <img src="assets/instagram-icon.webp" alt="Instagram" class="ig-icon" />
+          @happy.moments.bog
+        </a>
+        <a [href]="cartService.getWhatsAppUrl(contactInfo())" target="_blank" rel="noopener noreferrer"
+          class="social-icon" title="WhatsApp">
+          <img src="assets/icons/whatsapp.svg" alt="WhatsApp" class="inline-icon" />
+          +57 314 4882666
+        </a>
+      </div>
+
+      <div class="footer-app-install" *ngIf="!pwaService.isInstalled()">
+        <button type="button" class="footer-install-btn" (click)="pwaService.promptInstall()" id="btn-footer-install">
+          <img src="assets/icons/download.svg" alt="Instalar" class="inline-icon footer-install-icon" />
+          <span>Instalar App Móvil</span>
+        </button>
+      </div>
     </div>
 
     <!-- Contact Info -->
