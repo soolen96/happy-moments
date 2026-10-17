@@ -162,9 +162,9 @@ export class CartService {
     if (product.unitTitle || product.comboTitle) {
       return isUnit
         ? `🍬 ${product.unitTitle || 'Unidad'} ${product.unitMeta || ''}`.trim()
-        : `🎁 ${product.comboTitle || 'Combo'} ${product.comboMeta || '(' + (product.weight || 'Pack') + ')'}`.trim();
+        : `🎁 ${product.comboTitle || 'Combo'} ${product.comboMeta || '(Pack)'}`.trim();
     }
-    return isUnit ? '🍬 1 Unidad' : `🎁 Combo (${product.weight || 'Pack'})`;
+    return isUnit ? '🍬 1 Unidad' : '🎁 Combo (Pack)';
   }
 
   getWhatsAppUrl(
@@ -189,7 +189,7 @@ export class CartService {
             : ' [Grande (140g - 10 porciones)]'
           : item.selectedPresentation === 'unit'
             ? ` [${item.product.unitTitle || 'Unidad'}]`
-            : ` [${item.product.comboTitle || 'Combo'} (${item.product.weight || 'Pack'})]`
+            : ` [${item.product.comboTitle || 'Combo'}${item.product.comboMeta ? ' ' + item.product.comboMeta : ' (Pack)'}]`
         : '';
       const basePrice = this.getItemBasePrice(item);
       const discount = this.promotionService.getDiscountForProduct(item.product, basePrice);

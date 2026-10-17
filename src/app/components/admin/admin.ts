@@ -100,8 +100,6 @@ export class AdminComponent {
       description: 'Descripción del nuevo producto artesanal.',
       badge: 'Nuevo 🌟',
       image: 'assets/products/chocolates-mix.webp',
-      isPopular: true,
-      weight: '150g',
     });
 
     this.showToast(`✨ Producto "${newProd.name}" agregado con éxito`);

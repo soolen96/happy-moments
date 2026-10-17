@@ -15,7 +15,6 @@ describe('CartService - Flavor Selection & Discounts', () => {
     category: ProductCategory.Brownies,
     price: 26000,
     unitPrice: 15000,
-    weight: '2 unidades',
     description: 'Brownie artesanal de chocolate con galleta Oreo',
     flavors: ['Chocolate', 'Arequipe', 'Mixto'],
   });
@@ -177,7 +176,6 @@ describe('CartService - Flavor Selection & Discounts', () => {
       category: ProductCategory.Gomitas,
       price: 20000,
       unitPrice: 6000,
-      weight: '4 unidades',
       description: 'Gomitas frutales suaves de efecto ligero',
     });
 

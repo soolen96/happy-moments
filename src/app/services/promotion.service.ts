@@ -247,7 +247,6 @@ export class PromotionService {
 
     // Robust fallback by product characteristics if IDs were changed or copied
     const lowerName = product.name.toLowerCase();
-    const lowerWeight = (product.weight || '').toLowerCase();
     const lowerBadge = (product.badge || '').toLowerCase();
 
     for (const pid of promo.productIds) {

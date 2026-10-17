@@ -8,9 +8,7 @@
       "unitPrice": 15000,
       "description": "Brownie artesanal de chocolate con galleta Oreo",
       "badge": "Híbrida",
-      "image": "assets/products/brownies-fusion.webp",
-      "isPopular": true,
-      "weight": "2 unidades"
+      "image": "assets/products/brownies-fusion.webp"
     },
     {
       "id": "p1",
@@ -20,9 +18,7 @@
       "unitPrice": 6000,
       "description": "Gomitas frutales suaves de efecto ligero",
       "badge": "Indica",
-      "image": "assets/products/gomitas-lite.webp",
-      "isPopular": false,
-      "weight": "4 unidades"
+      "image": "assets/products/gomitas-lite.webp"
     },
     {
       "id": "p7",
@@ -32,9 +28,7 @@
       "unitPrice": 8000,
       "description": "Gomitas concentradas para una experiencia potente",
       "badge": "Sativa",
-      "image": "assets/products/gomitas-power.webp",
-      "isPopular": false,
-      "weight": "4 unidades"
+      "image": "assets/products/gomitas-power.webp"
     },
     {
       "id": "p_1789597934000",
@@ -44,31 +38,25 @@
       "unitPrice": 7000,
       "description": "Gomitas concentradas para una experiencia potente",
       "badge": "Híbrida",
-      "image": "assets/products/gomitas-fusion.webp",
-      "isPopular": false,
-      "weight": "4 unidades"
+      "image": "assets/products/gomitas-fusion.webp"
     },
     {
       "id": "p353353",
       "name": "Gomitas Mix",
       "category": "Gomitas",
       "price": 24000,
-      "description": "Este paquete contiene: 2 gomitas Lite, 2 gomitas Power",
+      "description": "2 gomitas Lite <br> 2 gomitas Power",
       "badge": "Sativa - Indica",
-      "image": "assets/products/gomitas-mix.webp",
-      "isPopular": true,
-      "weight": "4 unidades"
+      "image": "assets/products/gomitas-mix.webp"
     },
     {
       "id": "p3",
       "name": "Gomitas Súper Mix",
       "category": "Gomitas",
       "price": 30000,
-      "description": "Este paquete contiene: 2 gomitas Lite, 2 gomitas Power y 2 gomitas fusión.",
+      "description": "2 gomitas Lite <br> 2 gomitas Power <br> 2 gomitas fusión.",
       "badge": "Sativa - Indica - Híbrida",
-      "image": "assets/products/gomitas-super-mix.webp",
-      "isPopular": true,
-      "weight": "6 unidades"
+      "image": "assets/products/gomitas-super-mix.webp"
     },
     {
       "id": "p_1787523810273",
@@ -78,9 +66,7 @@
       "unitPrice": 6000,
       "description": "Chocolates suaves ideales para relajarte",
       "badge": "Indica",
-      "image": "assets/products/chocolates-lite.webp",
-      "isPopular": false,
-      "weight": "4 unidades"
+      "image": "assets/products/chocolates-lite.webp"
     },
     {
       "id": "p_1787526476972",
@@ -90,9 +76,7 @@
       "unitPrice": 8000,
       "description": "Chocolates intensos con extracto ancestral",
       "badge": "Sativa",
-      "image": "assets/products/chocolates-power.webp",
-      "isPopular": true,
-      "weight": "4 unidades"
+      "image": "assets/products/chocolates-power.webp"
     },
     {
       "id": "p_1787526607439",
@@ -101,29 +85,25 @@
       "price": 24000,
       "description": "Delicioso mix de chocolates artesanales",
       "badge": "Sativa - Indica",
-      "image": "assets/products/chocolates-mix.webp",
-      "isPopular": false,
-      "weight": "4 unidades"
+      "image": "assets/products/chocolates-mix.webp"
     },
     {
       "id": "p_1787526107002",
       "name": "Arequipe Fusión",
       "category": "Arequipe",
       "price": 50000,
-      "description": "Toppings a elección, nuez de Brasil, coco caramelizado, 150 gramos rinde 10 porciones",
+      "description": "Toppings a elección, nuez de Brasil <br> coco caramelizado <br> 150 gramos / rinde 10 porciones",
       "badge": "Híbrida",
-      "image": "assets/products/arequipe-fusion.webp",
-      "isPopular": false
+      "image": "assets/products/arequipe-fusion.webp"
     },
     {
       "id": "p_1787526107003",
       "name": "Arequitipo Power",
       "category": "Arequipe",
       "price": 15000,
-      "description": "Toppings a elección, nuez de Brasil, coco caramelizado, 30 gramos rinde 1 porción",
+      "description": "Toppings a elección, nuez de Brasil <br> coco caramelizado <br> 30 gramos / rinde 1 porción",
       "badge": "Sativa",
-      "image": "assets/products/arequipe-power.webp",
-      "isPopular": false
+      "image": "assets/products/arequipe-power.webp"
     },
     {
       "id": "p_1787799317901",
@@ -133,8 +113,6 @@
       "description": "Delicioso yogurt griego con toppings a elección",
       "badge": "Indica",
       "image": "assets/products/happy-greek.webp",
-      "isPopular": false,
-      "weight": "1 unidad",
       "flavors": [
         "Frutos Amarillos",
         "Frutos Rojos"
@@ -148,8 +126,6 @@
       "description": "Helado de vainilla con toppings de sabores",
       "badge": "Indica",
       "image": "assets/products/sundae-lite.webp",
-      "isPopular": false,
-      "weight": "1 unidad",
       "flavors": [
         "Frutos Amarillos",
         "Frutos Rojos",
@@ -164,8 +140,6 @@
       "description": "Helado de vainilla con toppings de sabores",
       "badge": "Sativa",
       "image": "assets/products/sundae-power.webp",
-      "isPopular": false,
-      "weight": "1 unidad",
       "flavors": [
         "Frutos Amarillos",
         "Frutos Rojos",

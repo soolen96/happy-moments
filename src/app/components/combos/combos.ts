@@ -25,8 +25,7 @@ export class CombosComponent {
       description: combo.description,
       badge: combo.badge || 'Combo Especial',
       image: combo.image,
-      weight: combo.itemsCount || 'Combo Pack',
-      isPopular: true,
+      comboMeta: combo.itemsCount ? `(${combo.itemsCount})` : '(Combo Pack)',
     });
 
     this.cartService.addToCart(comboProduct);

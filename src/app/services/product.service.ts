@@ -137,8 +137,6 @@ export class ProductService {
       description: newProduct.description || 'Descripción del producto artesanal.',
       badge: newProduct.badge || 'Nuevo 🌟',
       image: newProduct.image || 'assets/products/chocolates-mix.webp',
-      isPopular: newProduct.isPopular ?? true,
-      weight: newProduct.weight || '150g',
       flavors: newProduct.flavors,
     });
 

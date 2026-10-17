@@ -27,7 +27,7 @@
         </div>
 
         <h3 class="card-title">{{ product.name }}</h3>
-        <p class="card-desc">{{ product.description }}</p>
+        <div class="card-desc" [innerHTML]="product.description"></div>
 
         <!-- Presentation Selector (Unidad vs Combo / Personal vs Grande) -->
         <div class="card-presentation-selector" *ngIf="product.unitPrice">

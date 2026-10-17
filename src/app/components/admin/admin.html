@@ -153,12 +153,6 @@
                     (change)="updateProductField(p.id, 'badge', $any($event.target).value)"
                     placeholder="Ej: Más Vendido" />
                 </div>
-
-                <div class="field-group flex-1">
-                  <label>Cantidad / Peso Combo:</label>
-                  <input type="text" [value]="p.weight || ''"
-                    (change)="updateProductField(p.id, 'weight', $any($event.target).value)" placeholder="Ej: 4 unidades" />
-                </div>
               </div>
 
               <div class="field-group">
@@ -173,14 +167,6 @@
                 <input type="text" [value]="getFlavorsString(p.flavors)"
                   (change)="updateProductFlavors(p.id, $any($event.target).value)"
                   placeholder="Ej: Chocolate, Arequipe, Mixto" />
-              </div>
-
-              <div class="checkbox-row">
-                <label class="checkbox-label">
-                  <input type="checkbox" [checked]="p.isPopular"
-                    (change)="updateProductField(p.id, 'isPopular', $any($event.target).checked)" />
-                  <span><img src="assets/icons/fire.svg" alt="Popular" class="inline-icon" /> Destacado en Carrusel Popular</span>
-                </label>
               </div>
             </div>
           </div>
@@ -437,7 +423,6 @@
                   <img [src]="prod.image" [alt]="prod.name" class="pick-img" />
                   <div class="pick-info">
                     <strong class="pick-name">{{ prod.name }}</strong>
-                    <span class="pick-weight" *ngIf="prod.weight">{{ prod.weight }}</span>
                     <div class="pick-prices">
                       <span class="pick-price-orig">{{ formatCOP(prod.price) }}</span>
                       <span class="pick-price-calc">➜ {{ formatCOP(prod.price * (1 - formPromoDiscount() / 100)) }}</span>

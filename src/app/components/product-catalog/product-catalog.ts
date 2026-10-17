@@ -73,16 +73,7 @@ export class ProductCatalogComponent {
   getComboMeta(product: Product): string {
     if (product.comboMeta) return product.comboMeta;
     if (product.name.toLowerCase().includes('arequipe')) return '(140g - 10 porciones)';
-    return `(${product.weight || 'Pack'})`;
-  }
-
-  getWeightTag(product: Product): string {
-    if (this.getSelectedPresentation(product) === 'unit') {
-      if (product.unitMeta) return product.unitMeta.replace(/[()]/g, '');
-      if (product.name.toLowerCase().includes('arequipe')) return '20g - 1 porción';
-      return '1 unidad';
-    }
-    return product.weight || 'Combo';
+    return '(Pack)';
   }
 
   getCurrentPrice(product: Product): number {

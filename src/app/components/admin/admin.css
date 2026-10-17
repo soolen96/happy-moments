@@ -1062,11 +1062,6 @@
   font-size: 0.82rem;
 }
 
-.pick-weight {
-  color: var(--text-muted);
-  font-size: 0.72rem;
-}
-
 .pick-prices {
   display: flex;
   gap: 0.4rem;

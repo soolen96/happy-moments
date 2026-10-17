@@ -13,7 +13,6 @@ describe('PromotionService - Day-based Discounts', () => {
     category: ProductCategory.Gomitas,
     price: 26000,
     badge: 'Power',
-    weight: '4 unidades',
   });
 
   const chocolatesLite = new Product({
@@ -22,7 +21,6 @@ describe('PromotionService - Day-based Discounts', () => {
     category: ProductCategory.Chocolates,
     price: 20000,
     badge: 'Lite',
-    weight: '4 unidades',
   });
 
   const browniesFusionX2 = new Product({
@@ -31,7 +29,6 @@ describe('PromotionService - Day-based Discounts', () => {
     category: ProductCategory.Brownies,
     price: 26000,
     badge: 'Fusión',
-    weight: '2 unidades',
   });
 
   const browniesFusionX1 = new Product({
@@ -40,7 +37,6 @@ describe('PromotionService - Day-based Discounts', () => {
     category: ProductCategory.Brownies,
     price: 15000,
     badge: 'Fusión',
-    weight: '1 unidad',
   });
 
   const gomitasLite = new Product({
@@ -49,7 +45,6 @@ describe('PromotionService - Day-based Discounts', () => {
     category: ProductCategory.Gomitas,
     price: 20000,
     badge: 'Lite',
-    weight: '4 unidades',
   });
 
   const chocolatesPower = new Product({
@@ -58,7 +53,6 @@ describe('PromotionService - Day-based Discounts', () => {
     category: ProductCategory.Chocolates,
     price: 26000,
     badge: 'Power',
-    weight: '4 unidades',
   });
 
   const gomitasMix = new Product({
@@ -67,7 +61,6 @@ describe('PromotionService - Day-based Discounts', () => {
     category: ProductCategory.Gomitas,
     price: 24000,
     badge: 'Mix',
-    weight: '4 unidades',
   });
 
   const otherProduct = new Product({

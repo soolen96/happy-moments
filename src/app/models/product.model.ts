@@ -8,8 +8,6 @@ export class Product {
   description: string;
   badge?: string;
   image: string;
-  isPopular?: boolean;
-  weight?: string;
   flavors?: string[];
   unitPrice?: number;
   unitTitle?: string;
@@ -25,8 +23,6 @@ export class Product {
     this.description = init?.description ?? '';
     this.badge = init?.badge;
     this.image = init?.image ?? '';
-    this.isPopular = init?.isPopular;
-    this.weight = init?.weight;
     this.flavors = init?.flavors ? [...init.flavors] : undefined;
     this.unitPrice = init?.unitPrice;
     this.unitTitle = init?.unitTitle;

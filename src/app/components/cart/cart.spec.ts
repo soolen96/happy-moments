@@ -14,7 +14,6 @@ describe('CartComponent', () => {
     category: ProductCategory.Brownies,
     price: 25000,
     unitPrice: 15000,
-    weight: '1 unidad',
     description: 'Delicioso brownie con topping',
   });
 
