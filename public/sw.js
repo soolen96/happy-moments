@@ -8,6 +8,8 @@ const PRECACHE_ASSETS = [
   '/assets/configuration.json',
   '/assets/logo-candy-jar.webp',
   '/assets/logo-candy-jar-dark.webp',
+  '/assets/splash-logo.webp',
+  '/assets/splash-logo-dark.webp',
   '/assets/mascot-eating-gummy.webp',
   '/assets/mascot-cart.webp',
   '/assets/icons/icon-192x192.png',

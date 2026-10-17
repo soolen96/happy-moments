@@ -35,13 +35,14 @@
   gap: 18px;
 }
 
+.splash-logo,
 .splash-mascot {
   width: 220px;
   max-width: 65vw;
   max-height: 45vh;
   height: auto;
   object-fit: contain;
-  animation: mascotPulseFloat 2.4s ease-in-out infinite;
+  animation: logoPulseFloat 2.4s ease-in-out infinite;
 }
 
 .splash-loader-dots {
@@ -70,6 +71,15 @@
 .splash-loader-dots span:nth-child(3) {
   background-color: #f5b729;
   animation-delay: 0s;
+}
+
+@keyframes logoPulseFloat {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.02);
+  }
 }
 
 @keyframes mascotPulseFloat {

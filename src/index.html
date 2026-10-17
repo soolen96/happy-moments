@@ -71,13 +71,32 @@
       gap: 18px;
     }
 
+    .initial-splash-logo,
     .initial-splash-mascot {
       width: 220px;
       max-width: 65vw;
       max-height: 45vh;
       height: auto;
       object-fit: contain;
-      animation: mascotPulseFloat 2.4s ease-in-out infinite;
+      animation: logoPulseFloat 2.4s ease-in-out infinite;
+    }
+
+    .splash-logo-light {
+      display: block;
+    }
+
+    .splash-logo-dark {
+      display: none;
+    }
+
+    html.dark-mode .splash-logo-light,
+    body.dark-mode .splash-logo-light {
+      display: none;
+    }
+
+    html.dark-mode .splash-logo-dark,
+    body.dark-mode .splash-logo-dark {
+      display: block;
     }
 
     .initial-splash-dots {
@@ -107,6 +126,18 @@
     .initial-splash-dots span:nth-child(3) {
       background-color: #f5b729;
       animation-delay: 0s;
+    }
+
+    @keyframes logoPulseFloat {
+
+      0%,
+      100% {
+        transform: translateY(0px) scale(1);
+      }
+
+      50% {
+        transform: translateY(-8px) scale(1.02);
+      }
     }
 
     @keyframes mascotPulseFloat {
@@ -142,7 +173,8 @@
   <app-root>
     <div class="initial-splash-container">
       <div class="initial-splash-content">
-        <img src="assets/mascot-eating-gummy.webp" alt="Happy Moments" class="initial-splash-mascot" />
+        <img src="assets/splash-logo.webp" alt="Happy Moments" class="initial-splash-logo splash-logo-light" />
+        <img src="assets/splash-logo-dark.webp" alt="Happy Moments" class="initial-splash-logo splash-logo-dark" />
         <div class="initial-splash-dots">
           <span></span>
           <span></span>

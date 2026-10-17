@@ -20,4 +20,23 @@ describe('App', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('router-outlet')).toBeTruthy();
   });
+
+  it('should render splash logo for light mode by default', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const splashImg = compiled.querySelector('.splash-logo') as HTMLImageElement;
+    expect(splashImg).toBeTruthy();
+    expect(splashImg.getAttribute('src')).toBe('assets/splash-logo.webp');
+  });
+
+  it('should render splash logo for dark mode when isDarkMode is true', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.componentInstance.isDarkMode.set(true);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const splashImg = compiled.querySelector('.splash-logo') as HTMLImageElement;
+    expect(splashImg).toBeTruthy();
+    expect(splashImg.getAttribute('src')).toBe('assets/splash-logo-dark.webp');
+  });
 });

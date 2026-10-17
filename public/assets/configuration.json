@@ -49,14 +49,24 @@
       "weight": "4 unidades"
     },
     {
+      "id": "p353353",
+      "name": "Gomitas Mix",
+      "category": "Gomitas",
+      "price": 24000,
+      "description": "Este paquete contiene: 2 gomitas Lite, 2 gomitas Power",
+      "badge": "Sativa - Indica",
+      "image": "assets/products/gomitas-mix.webp",
+      "isPopular": true,
+      "weight": "4 unidades"
+    },
+    {
       "id": "p3",
       "name": "Gomitas Súper Mix",
       "category": "Gomitas",
       "price": 30000,
-      "unitPrice": 6000,
       "description": "Este paquete contiene: 2 gomitas Lite, 2 gomitas Power y 2 gomitas fusión.",
       "badge": "Sativa - Indica - Híbrida",
-      "image": "assets/products/gomitas-mix.webp",
+      "image": "assets/products/gomitas-super-mix.webp",
       "isPopular": true,
       "weight": "6 unidades"
     },
@@ -89,7 +99,6 @@
       "name": "Chocolates Mix",
       "category": "Chocolates",
       "price": 24000,
-      "unitPrice": 6000,
       "description": "Delicioso mix de chocolates artesanales",
       "badge": "Sativa - Indica",
       "image": "assets/products/chocolates-mix.webp",
@@ -99,18 +108,22 @@
     {
       "id": "p_1787526107002",
       "name": "Arequipe Fusión",
-      "category": "Otros",
+      "category": "Arequipe",
       "price": 50000,
-      "unitPrice": 15000,
-      "unitTitle": "Personal",
-      "unitMeta": "(20g - 1 porción)",
-      "comboTitle": "Grande",
-      "comboMeta": "(140g - 10 porciones)",
-      "description": "Dulce a base de leche",
+      "description": "Toppings a elección, nuez de Brasil, coco caramelizado, 150 gramos rinde 10 porciones",
       "badge": "Híbrida",
+      "image": "assets/products/arequipe-fusion.webp",
+      "isPopular": false
+    },
+    {
+      "id": "p_1787526107003",
+      "name": "Arequitipo Power",
+      "category": "Arequipe",
+      "price": 15000,
+      "description": "Toppings a elección, nuez de Brasil, coco caramelizado, 30 gramos rinde 1 porción",
+      "badge": "Sativa",
       "image": "assets/products/arequipe-power.webp",
-      "isPopular": false,
-      "weight": "140g - 10 Porciones"
+      "isPopular": false
     },
     {
       "id": "p_1787799317901",
@@ -165,7 +178,7 @@
       "id": "c1",
       "name": "Combo Personal",
       "price": 14000,
-      "description": "1 Chocolate Lite - 1 Gomita Power",
+      "description": "1 Chocolate Power - 1 Gomita Lite",
       "badge": "Sativa - Indica",
       "image": "assets/combos/combo-personal.webp",
       "itemsCount": "2 productos"
@@ -174,7 +187,7 @@
       "id": "c6",
       "name": "Combo Lite",
       "price": 20000,
-      "description": "2 Chocolates Lite - 2 Gomitas Lite",
+      "description": "2 Gomitas Lite - 2 Chocolates Lite",
       "badge": "Indica",
       "image": "assets/combos/combo-lite.webp",
       "itemsCount": "4 productos"
@@ -195,7 +208,7 @@
       "description": "2 gomitas Power - 2 Chocolates Power",
       "badge": "Sativa",
       "image": "assets/combos/combo-power.webp",
-      "itemsCount": "2 productos"
+      "itemsCount": "4 productos"
     },
     {
       "id": "c_1789352616664",
@@ -228,7 +241,7 @@
       "id": "c5",
       "name": "Combo Grande",
       "price": 65000,
-      "description": "2 Gomitas Lite - 2 Gomitas Power - 2 Chocolates Power - 2 Chocolates Lite - 2 Gomitas Power - 2 Brownies Fusión",
+      "description": "2 Gomitas Lite - 2 Gomitas Power - 2 Chocolates Power - 2 Brownies Fusión - 2 Gomitas Fusión - 2 Chocolates Lite",
       "badge": "Sativa - Híbrida - Indica",
       "image": "assets/combos/combo-grande.webp",
       "itemsCount": "12 productos"

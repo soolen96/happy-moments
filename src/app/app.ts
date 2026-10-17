@@ -15,6 +15,9 @@ export class App implements OnInit {
 
   isLoading = signal<boolean>(true);
   isFadingOut = signal<boolean>(false);
+  isDarkMode = signal<boolean>(
+    typeof localStorage !== 'undefined' && localStorage.getItem('happy_moments_theme') === 'dark'
+  );
 
   ngOnInit() {
     if (typeof localStorage !== 'undefined') {
