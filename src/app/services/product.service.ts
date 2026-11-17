@@ -134,6 +134,7 @@ export class ProductService {
       category: newProduct.category || ProductCategory.Brownies,
       price: newProduct.price || 10000,
       unitPrice: newProduct.unitPrice,
+      packQuantity: newProduct.packQuantity,
       description: newProduct.description || 'Descripción del producto artesanal.',
       badge: newProduct.badge || 'Nuevo 🌟',
       image: newProduct.image || 'assets/products/chocolates-mix.webp',

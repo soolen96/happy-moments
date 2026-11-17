@@ -159,12 +159,13 @@ export class CartService {
     if (product.name.toLowerCase().includes('arequipe')) {
       return isUnit ? '🍯 Personal (20g - 1 porción)' : '🍯 Grande (140g - 10 porciones)';
     }
+    const defaultComboMeta = product.packQuantity ? `(Pack ${product.packQuantity} ud)` : '(Pack)';
     if (product.unitTitle || product.comboTitle) {
       return isUnit
         ? `🍬 ${product.unitTitle || 'Unidad'} ${product.unitMeta || ''}`.trim()
-        : `🎁 ${product.comboTitle || 'Combo'} ${product.comboMeta || '(Pack)'}`.trim();
+        : `🎁 ${product.comboTitle || 'Combo'} ${product.comboMeta || defaultComboMeta}`.trim();
     }
-    return isUnit ? '🍬 1 Unidad' : '🎁 Combo (Pack)';
+    return isUnit ? '🍬 1 Unidad' : `🎁 Combo ${defaultComboMeta}`;
   }
 
   getWhatsAppUrl(
@@ -182,6 +183,7 @@ export class CartService {
     let message = '¡Hola! Quisiera realizar el siguiente pedido en Happy Moments:\n\n';
     items.forEach((item) => {
       const flavorTag = item.selectedFlavor ? ` (Sabor: ${item.selectedFlavor})` : '';
+      const defaultComboMeta = item.product.packQuantity ? `(Pack ${item.product.packQuantity} ud)` : '(Pack)';
       const presTag = item.product.unitPrice
         ? item.product.name.toLowerCase().includes('arequipe')
           ? item.selectedPresentation === 'unit'
@@ -189,7 +191,7 @@ export class CartService {
             : ' [Grande (140g - 10 porciones)]'
           : item.selectedPresentation === 'unit'
             ? ` [${item.product.unitTitle || 'Unidad'}]`
-            : ` [${item.product.comboTitle || 'Combo'}${item.product.comboMeta ? ' ' + item.product.comboMeta : ' (Pack)'}]`
+            : ` [${item.product.comboTitle || 'Combo'}${item.product.comboMeta ? ' ' + item.product.comboMeta : ' ' + defaultComboMeta}]`
         : '';
       const basePrice = this.getItemBasePrice(item);
       const discount = this.promotionService.getDiscountForProduct(item.product, basePrice);

@@ -73,6 +73,7 @@ export class ProductCatalogComponent {
   getComboMeta(product: Product): string {
     if (product.comboMeta) return product.comboMeta;
     if (product.name.toLowerCase().includes('arequipe')) return '(140g - 10 porciones)';
+    if (product.packQuantity) return `(Pack ${product.packQuantity} ud)`;
     return '(Pack)';
   }
 

@@ -148,6 +148,13 @@
                 </div>
 
                 <div class="field-group flex-1">
+                  <label>Unidades del Pack (opcional):</label>
+                  <input type="number" [value]="p.packQuantity || ''"
+                    (change)="updateProductPackQuantity(p.id, $any($event.target).value)"
+                    placeholder="Ej: 4" />
+                </div>
+
+                <div class="field-group flex-1">
                   <label>Insignia / Badge:</label>
                   <input type="text" [value]="p.badge || ''"
                     (change)="updateProductField(p.id, 'badge', $any($event.target).value)"

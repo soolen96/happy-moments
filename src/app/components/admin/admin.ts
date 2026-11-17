@@ -115,6 +115,11 @@ export class AdminComponent {
     this.updateProductField(id, 'unitPrice', parsed && !isNaN(parsed) ? parsed : undefined);
   }
 
+  updateProductPackQuantity(id: string, value: string) {
+    const parsed = value ? parseInt(value, 10) : undefined;
+    this.updateProductField(id, 'packQuantity', parsed && !isNaN(parsed) ? parsed : undefined);
+  }
+
   getFlavorsString(flavors?: string[]): string {
     return flavors ? flavors.join(', ') : '';
   }

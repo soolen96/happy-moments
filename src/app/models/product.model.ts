@@ -10,6 +10,7 @@ export class Product {
   image: string;
   flavors?: string[];
   unitPrice?: number;
+  packQuantity?: number;
   unitTitle?: string;
   unitMeta?: string;
   comboTitle?: string;
@@ -25,6 +26,7 @@ export class Product {
     this.image = init?.image ?? '';
     this.flavors = init?.flavors ? [...init.flavors] : undefined;
     this.unitPrice = init?.unitPrice;
+    this.packQuantity = init?.packQuantity;
     this.unitTitle = init?.unitTitle;
     this.unitMeta = init?.unitMeta;
     this.comboTitle = init?.comboTitle;

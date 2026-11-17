@@ -6,6 +6,7 @@
       "category": "Brownies",
       "price": 26000,
       "unitPrice": 15000,
+      "packQuantity": 2,
       "description": "Brownie artesanal de chocolate con galleta Oreo",
       "badge": "Híbrida",
       "image": "assets/products/brownies-fusion.webp"
@@ -16,6 +17,7 @@
       "category": "Gomitas",
       "price": 20000,
       "unitPrice": 6000,
+      "packQuantity": 4,
       "description": "Gomitas frutales suaves de efecto ligero",
       "badge": "Indica",
       "image": "assets/products/gomitas-lite.webp"
@@ -26,6 +28,7 @@
       "category": "Gomitas",
       "price": 26000,
       "unitPrice": 8000,
+      "packQuantity": 4,
       "description": "Gomitas concentradas para una experiencia potente",
       "badge": "Sativa",
       "image": "assets/products/gomitas-power.webp"
@@ -36,6 +39,7 @@
       "category": "Gomitas",
       "price": 24000,
       "unitPrice": 7000,
+      "packQuantity": 4,
       "description": "Gomitas concentradas para una experiencia potente",
       "badge": "Híbrida",
       "image": "assets/products/gomitas-fusion.webp"
@@ -45,6 +49,7 @@
       "name": "Gomitas Mix",
       "category": "Gomitas",
       "price": 24000,
+      "packQuantity": 4,
       "description": "2 gomitas Lite <br> 2 gomitas Power",
       "badge": "Sativa - Indica",
       "image": "assets/products/gomitas-mix.webp"
@@ -54,6 +59,7 @@
       "name": "Gomitas Súper Mix",
       "category": "Gomitas",
       "price": 30000,
+      "packQuantity": 6,
       "description": "2 gomitas Lite <br> 2 gomitas Power <br> 2 gomitas fusión.",
       "badge": "Sativa - Indica - Híbrida",
       "image": "assets/products/gomitas-super-mix.webp"
@@ -64,6 +70,7 @@
       "category": "Chocolates",
       "price": 20000,
       "unitPrice": 6000,
+      "packQuantity": 4,
       "description": "Chocolates suaves ideales para relajarte",
       "badge": "Indica",
       "image": "assets/products/chocolates-lite.webp"
@@ -74,6 +81,7 @@
       "category": "Chocolates",
       "price": 28000,
       "unitPrice": 8000,
+      "packQuantity": 4,
       "description": "Chocolates intensos con extracto ancestral",
       "badge": "Sativa",
       "image": "assets/products/chocolates-power.webp"
@@ -83,6 +91,7 @@
       "name": "Chocolates Mix",
       "category": "Chocolates",
       "price": 24000,
+      "packQuantity": 4,
       "description": "Delicioso mix de chocolates artesanales",
       "badge": "Sativa - Indica",
       "image": "assets/products/chocolates-mix.webp"
